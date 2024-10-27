@@ -30,7 +30,11 @@ SRC = ./ft_isalpha.c ./ft_isdigit.c ./ft_isalnum.c \
 ./ft_lstnew.c ./ft_lstadd_front.c ./ft_lstsize.c \
 ./ft_lstlast.c ./ft_lstadd_back.c ./ft_lstdelone.c \
 ./ft_lstclear.c ./ft_lstiter.c ./ft_lstmap.c \
-./get_next_line.c
+./get_next_line.c	\
+./ft_printf.c	\
+./print_c.c 		./print_s.c		./print_p.c \
+./print_id.c		./print_u.c		./print_x.c \
+./print_percent.c	./ft_putnbr_base.c
 
 OBJ_DIR = obj
 OBJECTS = $(SRC:%.c=$(OBJ_DIR)/%.o)

@@ -16,7 +16,8 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC =	./cub3d.c
+SRC =	./cub3d.c \
+		./data/init_data.c	./data/init_mlx.c	./data/init_hooks.c	\
 
 OBJ_DIR = obj
 OBJECTS = $(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -40,14 +41,14 @@ $(MLX):
 	$(MAKE) -C $(MLX_DIR) all
 
 $(OBJ_DIR)/%.o: %.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/data
 	$(CC) $(CFLAGS) -I $(LIBFT_DIR) -I $(MLX_DIR) -c $< -o $@
 
 clean:
 	rm -f $(OBJECTS)
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(MLX_DIR) clean
-	rmdir $(OBJ_DIR) $(OBJ_DIR) 2>/dev/null || true
+	rmdir $(OBJ_DIR) $(OBJ_DIR)/data 2>/dev/null || true
 
 fclean : clean
 	rm -f $(NAME)

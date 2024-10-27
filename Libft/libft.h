@@ -16,6 +16,7 @@
 # include "unistd.h"
 # include "stdlib.h"
 # include "stddef.h"
+# include "stdarg.h"
 
 # define BUFFER_SIZE 42
 
@@ -70,6 +71,16 @@ char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
 char	*get_next_line(int fd);
+
+int		ft_printf(const char *str, ...);
+int		print_c(char c);
+int		print_s(char *str);
+int		print_p(void *ptr);
+int		print_id(int n);
+int		print_u(unsigned int n);
+int		print_x(unsigned int n, char *base);
+int		print_percent(void);
+void	ft_putnbr_base(unsigned long nbr, char *base);
 
 
 #endif
