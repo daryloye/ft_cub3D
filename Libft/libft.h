@@ -69,6 +69,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char	**ft_realloc(char **arr, int lines);
 
 char	*get_next_line(int fd);
 
@@ -81,6 +82,5 @@ int		print_u(unsigned int n);
 int		print_x(unsigned int n, char *base);
 int		print_percent(void);
 void	ft_putnbr_base(unsigned long nbr, char *base);
-
 
 #endif

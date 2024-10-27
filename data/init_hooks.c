@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:10:42 by daong             #+#    #+#             */
-/*   Updated: 2024/10/27 12:17:29 by daong            ###   ########.fr       */
+/*   Updated: 2024/10/27 14:38:48 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	handle_resize(t_data *data)
 {
 	if (data)
 		return (0);
-	//render(data);
+	render(data);
 	return (1);
 }
 

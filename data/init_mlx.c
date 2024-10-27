@@ -6,14 +6,14 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:39:23 by daong             #+#    #+#             */
-/*   Updated: 2024/10/27 12:17:01 by daong            ###   ########.fr       */
+/*   Updated: 2024/10/27 19:28:21 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 /**
- * @brief Init mlx struct
+ * @brief init mlx struct
  * 
  * @return t_mlx* 
  */
@@ -27,13 +27,17 @@ t_mlx	*init_mlx(void)
 	mlx->mlx_ptr = mlx_init();
 	if (!mlx->mlx_ptr)
 		return (NULL);
-	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, DISPLAY_X, DISPLAY_Y, "./cub3D");
+	mlx_get_screen_size(mlx->mlx_ptr, &(mlx->display_size_x),
+		&(mlx->display_size_y));
+	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, mlx->display_size_x,
+			mlx->display_size_y, "cub3D");
 	if (!mlx->win_ptr)
 		return (NULL);
 	return (mlx);
-}	
+}
+
 /**
- * @brief Clean mlx struct
+ * @brief clean mlx struct
  * 
  * @param mlx 
  */
