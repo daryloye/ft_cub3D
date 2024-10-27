@@ -1,0 +1,56 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: daong <daong@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/27 09:24:53 by daong             #+#    #+#              #
+#    Updated: 2024/10/27 09:24:53 by daong            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = cub3d
+
+CC = cc
+
+CFLAGS = -Wall -Wextra -Werror
+
+SRC =	./cub3d.c
+
+OBJ_DIR = obj
+OBJECTS = $(SRC:%.c=$(OBJ_DIR)/%.o)
+
+LIBFT_DIR = Libft
+LIBFT = $(LIBFT_DIR)/libft.a
+
+MLX_DIR = minilibx-linux
+MLX = $(MLX_DIR)/libmlx.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11
+
+all: $(LIBFT) $(MLX) $(NAME)
+
+$(NAME): $(OBJECTS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR) all
+
+$(MLX):
+	$(MAKE) -C $(MLX_DIR) all
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -I $(LIBFT_DIR) -I $(MLX_DIR) -c $< -o $@
+
+clean:
+	rm -f $(OBJECTS)
+	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(MLX_DIR) clean
+	rmdir $(OBJ_DIR) $(OBJ_DIR) 2>/dev/null || true
+
+fclean : clean
+	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
+
+re: fclean all
