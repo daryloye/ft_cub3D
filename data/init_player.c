@@ -1,24 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 14:32:33 by daong             #+#    #+#             */
-/*   Updated: 2024/10/31 16:33:33 by daong            ###   ########.fr       */
+/*   Created: 2024/10/31 14:18:21 by daong             #+#    #+#             */
+/*   Updated: 2024/10/31 15:54:43 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 /**
- * @brief render images
+ * @brief init player struct
  * 
+ * @return int t_player*
  */
-void	render(t_data *data)
+t_player	*init_player(void)
 {
-	render_background(data);
-	ft_printf("x = %d, y = %d, rot_deg = %d\n", data->player->x, data->player->y, data->player->rot_deg);
+	t_player *player;
+
+	player = ft_calloc(sizeof(t_player), 1);
+	if (!player)
+		return (NULL);
+	player->x = 0;
+	player->y = 0;
+	player->rot_deg = 0;
+	player->fov_deg = 0;
+	return (player);
+}
+
+/**
+ * @brief clean player struct
+ * 
+ * @param player 
+ */
+void	clean_player(t_player *player)
+{
+	if (player)
+		free(player);
 	return ;
 }

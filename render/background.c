@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:48:49 by daong             #+#    #+#             */
-/*   Updated: 2024/10/27 19:25:57 by daong            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:15:36 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	create_ceiling(t_data *data, char *img_addr,
 	int		x;
 
 	y = -1;
-	while (++y < data->horizon_height)
+	while (++y < data->mlx->horizon_height)
 	{
 		x = -1;
 		while (++x < data->mlx->display_size_x)
@@ -39,7 +39,7 @@ static void	create_floor(t_data *data, char *img_addr,
 	int		y;
 	int		x;
 
-	y = data->horizon_height;
+	y = data->mlx->horizon_height;
 	while (++y < data->mlx->display_size_y)
 	{
 		x = -1;

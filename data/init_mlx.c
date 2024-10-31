@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:39:23 by daong             #+#    #+#             */
-/*   Updated: 2024/10/27 19:28:21 by daong            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:16:43 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_mlx	*init_mlx(void)
 			mlx->display_size_y, "cub3D");
 	if (!mlx->win_ptr)
 		return (NULL);
+	mlx->horizon_height = mlx->display_size_y / 2;
 	return (mlx);
 }
 

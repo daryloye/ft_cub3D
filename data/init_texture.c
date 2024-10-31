@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 13:43:41 by daong             #+#    #+#             */
-/*   Updated: 2024/10/27 19:27:34 by daong            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:29:23 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	clean_texture(t_texture *texture)
 		free(texture->south_texture);
 	if (texture->west_texture)
 		free(texture->west_texture);
-	if (texture->floor_color)
+	if (texture->east_texture)
 		free(texture->east_texture);
 	if (texture)
 		free(texture);

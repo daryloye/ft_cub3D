@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/10/27 19:23:49 by daong            ###   ########.fr       */
+/*   Updated: 2024/10/31 16:18:32 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "stdio.h"
 # include "errno.h"
 # include "string.h"
+# include "math.h"
 
 typedef struct s_mlx
 {
@@ -26,6 +27,7 @@ typedef struct s_mlx
 	void	*win_ptr;
 	int		display_size_x;
 	int		display_size_y;
+	int		horizon_height;
 }	t_mlx;
 
 typedef struct s_texture
@@ -38,12 +40,21 @@ typedef struct s_texture
 	int		ceiling_color;
 }	t_texture;
 
+typedef struct s_player
+{
+	int	x;
+	int	y;
+	int	rot_deg;
+	int	fov_deg;
+}	t_player;
+
 typedef struct s_data
 {
 	t_mlx		*mlx;
 	t_texture	*texture;
+	t_player	*player;
 	char		*map;
-	int			horizon_height;
+	int			keys[6];	// w a s d left right
 }	t_data;
 
 /* data/init_data */
@@ -58,6 +69,10 @@ void		clean_mlx(t_mlx *mlx);
 t_texture	*init_texture(void);
 void		clean_texture(t_texture *texture);
 
+/* data/init_player */
+t_player	*init_player(void);
+void		clean_player(t_player *player);
+
 /* data/init_hooks */
 void		init_hooks(t_data *data);
 
@@ -67,6 +82,10 @@ void		render(t_data *data);
 /* render/background */
 void		render_background(t_data *data);
 
+/* process_map/read_file */
 int			read_file(char *path, t_data *data);
+
+/* movements */
+int		do_movements(t_data *data);
 
 #endif

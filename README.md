@@ -9,6 +9,10 @@
 - can render background
 - error check for .cub and valid fd
 
+## v3 - 31/10/2024
+- handle key press and key release
+- movements WIP -> need to use math library
+
 
 
 ## To-Do
@@ -19,3 +23,10 @@
 - render walls
 
 - handle movements
+
+
+## Idea
+-> convert to x * 100
+	eg. player at x = 100, y = 100
+	movement steps in 10
+	

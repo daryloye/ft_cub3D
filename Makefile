@@ -17,9 +17,10 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRC =	./cub3d.c	\
-		./data/init_data.c	./data/init_mlx.c	./data/init_texture.c	./data/init_hooks.c	\
+		./data/init_data.c	./data/init_mlx.c	./data/init_texture.c	./data/init_player.c	./data/init_hooks.c	\
 		./render/render.c	./render/background.c	\
 		./process_map/read_file.c	\
+		./movements.c	\
 
 OBJ_DIR = obj
 OBJECTS = $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(SRC)))
