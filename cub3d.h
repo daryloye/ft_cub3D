@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/02 18:57:18 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/03 01:38:07 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@
 # include "errno.h"
 # include "string.h"
 # include "math.h"
+
+typedef enum
+{
+	W,
+	A,
+	S,
+	D,
+	LEFT_ARROW,
+	RIGHT_ARROW,
+	KEY_COUNT
+}	key_index;
 
 typedef struct s_mlx
 {
@@ -42,10 +53,10 @@ typedef struct s_texture
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
-	int	rot_deg;
-	int	fov_deg;
+	double	x;
+	double	y;
+	double	rot_deg;
+	double	fov_deg;
 }	t_player;
 
 typedef struct s_data
@@ -53,8 +64,8 @@ typedef struct s_data
 	t_mlx		*mlx;
 	t_texture	*texture;
 	t_player	*player;
-	char		*map;
-	int			keys[6];	// w a s d left right
+	char		**map;
+	int			keys[KEY_COUNT];
 }	t_data;
 
 /* data/init_data */

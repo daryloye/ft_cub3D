@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:32:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/02 16:04:18 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/03 01:25:49 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **av)
 	if (!data)
 		return (ft_printf("Error\n%s\n", strerror(errno)),
 			clean_data(data), EXIT_FAILURE);
-	if (read_file(av[1], data) == EXIT_FAILURE)
+	if (read_file(av[1], data) == 1)
 		return (clean_data(data), EXIT_FAILURE);
 	init_hooks(data);
 	mlx_loop_hook(data->mlx->mlx_ptr, do_movements, data);

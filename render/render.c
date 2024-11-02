@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:32:33 by daong             #+#    #+#             */
-/*   Updated: 2024/11/02 19:15:49 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/03 01:39:29 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void	render(t_data *data)
 		render_error(data);
 	if (render_minimap(data) == 1)
 		render_error(data);
-	//ft_printf("x = %d, y = %d, rot_deg = %d\n", data->player->x, data->player->y, data->player->rot_deg);
+	ft_printf("x = %d, y = %d, rot_deg = %d\n", data->player->x, data->player->y, data->player->rot_deg);
 	return ;
 }

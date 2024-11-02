@@ -32,10 +32,12 @@ MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11
 
+MATH_FLAGS = -lm
+
 all: $(LIBFT) $(MLX) $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX_FLAGS) $(MATH_FLAGS) -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR) all

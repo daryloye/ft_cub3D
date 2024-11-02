@@ -13,6 +13,15 @@
 - handle key press and key release
 - movements WIP -> need to use math library
 
+## v4 - 3/11/2024
+- movements.c -> need to convert from deg to rad
+- created minimap.c
+
+
+## Resources
+https://lodev.org/cgtutor/raycasting.html
+https://www.youtube.com/watch?v=RGB-wlatStc&t=1s
+https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)
 
 
 ## To-Do

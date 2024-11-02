@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:10:42 by daong             #+#    #+#             */
-/*   Updated: 2024/10/31 16:32:57 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/03 01:16:43 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ static int	key_press(int key, t_data *data)
 	if (key == 65307)
 		mlx_loop_end(data->mlx->mlx_ptr);
 	if (key == 'w')
-		data->keys[0] = 1;
+		data->keys[W] = 1;
 	if (key == 'a')
-		data->keys[1] = 1;
+		data->keys[A] = 1;
 	if (key == 's')
-		data->keys[2] = 1;
+		data->keys[S] = 1;
 	if (key == 'd')
-		data->keys[3] = 1;
+		data->keys[D] = 1;
 	if (key == 65361)
-		data->keys[4] = 1;
+		data->keys[LEFT_ARROW] = 1;
 	if (key == 65363)
-		data->keys[5] = 1;
+		data->keys[RIGHT_ARROW] = 1;
 	return (1);
 }
 
@@ -36,24 +36,22 @@ static int	key_release(int key, t_data *data)
 {
 	printf("Key released: %d\n", key);
 	if (key == 'w')
-		data->keys[0] = 0;
+		data->keys[W] = 0;
 	if (key == 'a')
-		data->keys[1] = 0;
+		data->keys[A] = 0;
 	if (key == 's')
-		data->keys[2] = 0;
+		data->keys[S] = 0;
 	if (key == 'd')
-		data->keys[3] = 0;
+		data->keys[D] = 0;
 	if (key == 65361)
-		data->keys[4] = 0;
+		data->keys[LEFT_ARROW] = 0;
 	if (key == 65363)
-		data->keys[5] = 0;
+		data->keys[RIGHT_ARROW] = 0;
 	return (1);
 }
 
 static int	handle_resize(t_data *data)
 {
-	if (data)
-		return (0);
 	render(data);
 	return (1);
 }
