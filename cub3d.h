@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/10/31 16:18:32 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/02 18:57:18 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ void		init_hooks(t_data *data);
 void		render(t_data *data);
 
 /* render/background */
-void		render_background(t_data *data);
+int			render_background(t_data *data);
+
+/* render/minimap */
+int			render_minimap(t_data *data);
 
 /* process_map/read_file */
 int			read_file(char *path, t_data *data);

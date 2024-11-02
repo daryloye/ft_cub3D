@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:41:25 by daong             #+#    #+#             */
-/*   Updated: 2024/10/31 16:18:55 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/02 20:13:16 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,14 @@
  */
 int	do_movements(t_data *data)
 {
+	/*
+	if (data->keys[0])
+		
+	if (data->keys[1])
+	if (data->keys[2])
+	if (data->keys[3])
 	if (data->keys[4])
+	*/
 		data->player->rot_deg = (data->player->rot_deg + 350) % 360;
 	if (data->keys[5])
 		data->player->rot_deg = (data->player->rot_deg + 10) % 360;

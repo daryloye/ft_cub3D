@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:48:49 by daong             #+#    #+#             */
-/*   Updated: 2024/10/31 14:15:36 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/02 18:57:00 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	create_floor(t_data *data, char *img_addr,
  * 
  * @param data 
  */
-void	render_background(t_data *data)
+int	render_background(t_data *data)
 {
 	void	*img_ptr;
 	char	*img_addr;
@@ -67,11 +67,15 @@ void	render_background(t_data *data)
 
 	img_ptr = mlx_new_image(data->mlx->mlx_ptr, data->mlx->display_size_x,
 			data->mlx->display_size_y);
+	if (!img_ptr)
+		return (1);
 	img_addr = mlx_get_data_addr(img_ptr, &bits_per_pixel, &size_line, &endian);
+	if (!img_addr)
+		return (1);
 	create_ceiling(data, img_addr, size_line, bits_per_pixel);
 	create_floor(data, img_addr, size_line, bits_per_pixel);
 	mlx_put_image_to_window(data->mlx->mlx_ptr,
 		data->mlx->win_ptr, img_ptr, 0, 0);
 	mlx_destroy_image(data->mlx->mlx_ptr, img_ptr);
-	return ;
+	return (0);
 }

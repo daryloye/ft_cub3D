@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:21:26 by daong             #+#    #+#             */
-/*   Updated: 2024/10/29 18:58:19 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/02 18:19:36 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	check_file_name(char *path, char *suffix)
 }
 
 /**
- * @brief open file, check for errors, store in data
+ * @brief open file, check for errors, store infor in data struct
  * 
  * @param path 
  * @param data 

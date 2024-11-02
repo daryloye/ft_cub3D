@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:32:26 by daong             #+#    #+#             */
-/*   Updated: 2024/10/31 16:20:08 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/02 16:04:18 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	main(int ac, char **av)
 	t_data	*data;
 
 	if (ac != 2)
-		return (ft_printf("Error\nPls run program as \
-				'./cub3D maps/map#.cub'\n"), EXIT_FAILURE);
+		return (ft_printf("Error\nPls run program as './cub3D maps/map#.cub'\n"), EXIT_FAILURE);
 	data = init_data();
 	if (!data)
 		return (ft_printf("Error\n%s\n", strerror(errno)),
