@@ -108,6 +108,12 @@ int	read_file(char *path, t_data *data)
 		ft_printf("%s\n", text[i]);
 		i++;
 	}
+	if (check_identifiers(text) != 0)
+	{
+		free_array(text);
+		close(fd);
+		return (1);
+	}
 	if (!get_textures(data, text))
 	{
 		free_array(text);

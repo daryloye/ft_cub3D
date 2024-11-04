@@ -20,6 +20,7 @@
 ## v5 - 4/11/2024
 - read_file.c -> (wip) functions for the creation and error handling of elements
 - created read_texture.c
+- created read_identifier.c
 
 
 ## Resources

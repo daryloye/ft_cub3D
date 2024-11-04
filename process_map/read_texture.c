@@ -99,7 +99,7 @@ static int read_texture_line(char *line, t_texture *texture)
 
 	identifier = texture_identifier(line);
 	if (identifier == -1)
-		return (-1);
+		return (0);
 	path = find_path(line);
 	if (!path)
 		return (-1);

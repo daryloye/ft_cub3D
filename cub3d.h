@@ -99,8 +99,11 @@ int			render_minimap(t_data *data);
 /* process_map/read_file */
 int			read_file(char *path, t_data *data);
 
-/* process_map/read_textire */
+/* process_map/read_texture */
 int			get_textures(t_data *data, char **text);
+
+/* process_map/read_identifier */
+int			check_identifiers(char **text);
 
 /* movements */
 int		do_movements(t_data *data);

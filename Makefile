@@ -20,6 +20,7 @@ SRC =	./cub3d.c	\
 		./data/init_data.c	./data/init_mlx.c	./data/init_texture.c	./data/init_player.c	./data/init_hooks.c	\
 		./render/render.c	./render/background.c	./render/minimap.c \
 		./process_map/read_file.c	./process_map/read_texture.c \
+		./process_map/read_identifier.c \
 		./movements.c	\
 
 OBJ_DIR = obj
