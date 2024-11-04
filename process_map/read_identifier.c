@@ -53,8 +53,8 @@ int	check_identifiers(char **text)
 			ft_printf("Error: Missing identifier: %s\n", identifiers[j]);
 			return (1);
 		}
-		j++; // Increment j to check the next identifier
+		j++;
 	}
-	return (0); // All identifiers found exactly once
+	return (0);
 }
 
