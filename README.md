@@ -19,6 +19,7 @@
 
 ## v5 - 4/11/2024
 - read_file.c -> (wip) functions for the creation and error handling of elements
+- completed error check for valid identifier and texture
 - created read_texture.c
 - created read_identifier.c
 
@@ -31,7 +32,6 @@ https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)
 
 ## To-Do
 - process text from map file
-	- error check for valid identifiers and textures
 	- error check for valid map
 
 - render walls
