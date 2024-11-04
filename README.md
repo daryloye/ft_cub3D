@@ -17,6 +17,9 @@
 - movements.c -> need to convert from deg to rad
 - created minimap.c
 
+## v5 - 4/11/2024
+- read_file.c -> (wip) functions for the creation and error handling of elements
+
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html

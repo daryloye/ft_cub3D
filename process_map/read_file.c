@@ -63,6 +63,26 @@ static int	check_file_name(char *path, char *suffix)
 }
 
 /**
+ * @brief Function to free an array of strings
+ * 
+ * @param array
+ */
+static void	free_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	if (array == NULL)
+		return ;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+/**
  * @brief open file, check for errors, store infor in data struct
  * 
  * @param path 
@@ -81,20 +101,33 @@ int	read_file(char *path, t_data *data)
 	if (fd < 0)
 		return (ft_printf("Error\n%s\n", strerror(errno)), 1);
 	text = convert_to_array(fd);
-	
-	for (int i = 0; text[i]; i++)
-	{
-		ft_printf("%s", text[i]);
-	}
-	// get_texture
-	// get_color
-	// get_map
-	if (!data)
-		return (1);
 	i = 0;
 	while (text[i])
-		free(text[i++]);
-	free(text);
+	{
+		ft_printf("%s\n", text[i]);
+		i++;
+	}
+	if (!get_textures(data, text))
+	{
+		free_array(text);
+		close(fd);
+		return (1);
+	}
+	if (!get_color(data, text))
+	{
+		free_array(text);
+		close(fd);
+		return (1);
+	}
+	if (!get_map(data, text))
+	{
+		free_array(text);
+		close(fd);
+		return (1);
+	}
+	if (!data)
+		return (1);
+	free_array(text);
 	close(fd);
 	return (0);
 }
