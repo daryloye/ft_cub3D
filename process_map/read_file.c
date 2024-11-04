@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:21:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/02 18:19:36 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/04 20:05:52 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static char	**convert_to_array(int fd)
  * @brief check file is .cub
  * 
  * @param path 
+ * @param suffix 
  * @return int 
  */
 static int	check_file_name(char *path, char *suffix)
@@ -113,18 +114,18 @@ int	read_file(char *path, t_data *data)
 		close(fd);
 		return (1);
 	}
-	if (!get_color(data, text))
-	{
-		free_array(text);
-		close(fd);
-		return (1);
-	}
-	if (!get_map(data, text))
-	{
-		free_array(text);
-		close(fd);
-		return (1);
-	}
+//	if (!get_color(data, text))
+//	{
+//		free_array(text);
+//		close(fd);
+//		return (1);
+//	}
+//	if (!get_map(data, text))
+//	{
+//		free_array(text);
+//		close(fd);
+//		return (1);
+//	}
 	if (!data)
 		return (1);
 	free_array(text);

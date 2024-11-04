@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/03 01:38:07 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/04 20:05:16 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ int			render_minimap(t_data *data);
 
 /* process_map/read_file */
 int			read_file(char *path, t_data *data);
+
+/* process_map/read_textire */
+int			get_textures(t_data *data, char **text);
 
 /* movements */
 int		do_movements(t_data *data);
