@@ -28,12 +28,12 @@ static char *find_path(char *line)
 
 	i = 3;
 	j = 0;
-	while (line[i] == ' ')
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	start = i;
 	while (line[i] != '\0' && line[i] != ' ')
 		i++;
-    path = calloc(i - start + 1, sizeof(char));
+	path = calloc(i - start + 1, sizeof(char));
 	while (j < (i - start))
 	{
 		path[j] = line[start + j];
@@ -51,13 +51,13 @@ static char *find_path(char *line)
  */
 static int  texture_identifier(const char *line)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0)
+	if ((ft_strncmp(line, "NO ", 3) == 0) || (ft_strncmp(line, "NO\t", 3) == 0))
 		return (0);
-	if (ft_strncmp(line, "SO ", 3) == 0)
+	if ((ft_strncmp(line, "SO ", 3) == 0) || (ft_strncmp(line, "SO\t", 3) == 0))
 		return (1);
-	if (ft_strncmp(line, "WE ", 3) == 0)
+	if ((ft_strncmp(line, "WE ", 3) == 0) || (ft_strncmp(line, "WE\t", 3) == 0))
 		return (2);
-	if (ft_strncmp(line, "EA ", 3) == 0)
+	if ((ft_strncmp(line, "EA ", 3) == 0) || (ft_strncmp(line, "EA\t", 3) == 0))
 		return (3);
 	return (-1);
 }
@@ -97,6 +97,7 @@ static int read_texture_line(char *line, t_texture *texture)
 		&texture->east_texture
 	};
 
+	line = skip_whitespaces(line);
 	identifier = texture_identifier(line);
 	if (identifier == -1)
 		return (0);

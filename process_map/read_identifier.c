@@ -51,7 +51,7 @@ static int	check_id(const char *line, int *found)
 		len = ft_strlen(id[i]);
 		// Check if line starts with a valid identifier and is followed by whitespace or end
 		if (ft_strncmp(line, id[i], len) == 0 && 
-			((line[len] >= 9 && line[len] <= 13) || line[len] == 20 || line[len] == '\0'))
+			((line[len] == ' ' || line[len] == '\t' || line[len] == '\0')))
 		{
 			if (found[i]) 
 			{
@@ -64,19 +64,6 @@ static int	check_id(const char *line, int *found)
 		i++;
 	}
 	return (0);
-}
-
-/**
- * @brief skip leading white spaces 
- * 
- * @param line
- * @return char
- */
-static const char	*skip_whitespaces(const char *line) 
-{
-	while ((*line >= 9 && *line <= 13) || *line == 20) 
-		line++;
-	return (line);
 }
 
 /**
@@ -114,6 +101,19 @@ static bool	check_id_and_one(const char *line, int *found, bool all_id_found)
 	return (true);
 }
 
+static bool is_empty_line(char *line)
+{
+	if (line == NULL || *line == '\0')
+			return (true);
+	while (*line)
+	{
+		if (*line != ' ' && *line != '\t' && *line != '\n')
+			return (false);
+		line++;
+	}
+	return (true);
+}
+
 /**
  * @brief skip leading whitspaces, skip empty lines, check for id and '1'
  * @param line
@@ -121,11 +121,11 @@ static bool	check_id_and_one(const char *line, int *found, bool all_id_found)
  * @param all_id_found 
  * @return bool 
  */
-static bool	is_line_valid(const char *line, int *found, bool all_id_found)
+static bool	is_line_valid(char *line, int *found, bool all_id_found)
 {
-	line = skip_whitespaces(line);
-	if (*line == '\0')
+	if (is_empty_line(line))
         	return (true);
+	line = skip_whitespaces(line);
 	return (check_id_and_one(line, found, all_id_found));
 }
 

@@ -106,6 +106,9 @@ int			get_textures(t_data *data, char **text);
 /* process_map/read_identifier */
 int			check_identifiers(char **text);
 
+/* process_map/read_utils */
+char	*skip_whitespaces(char *line);
+
 /* movements */
 int		do_movements(t_data *data);
 
