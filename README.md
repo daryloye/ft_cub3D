@@ -29,6 +29,10 @@
 - updated read_texture.c
 - created read_utils.c
 
+## v7 - 5/11/2024
+- plugged invalid free in read_texture.c
+- movements done. Created moving box in display
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s

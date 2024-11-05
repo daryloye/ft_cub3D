@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 18:35:10 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/04 20:05:52 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/11/06 02:01:32 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,7 @@ int	get_textures(t_data *data, char **text)
 	while (text[i])
 	{
 		if (read_texture_line(text[i], data->texture) != 0)
-		{
-			clean_texture(data->texture);
 			return (ft_printf("Error\nInvalid texture line: %s\n", text[i]), 1);
-		}
 		i++;
 	}
 	return (0);

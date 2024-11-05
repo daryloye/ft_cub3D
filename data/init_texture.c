@@ -6,22 +6,11 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 13:43:41 by daong             #+#    #+#             */
-/*   Updated: 2024/11/03 01:24:40 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/06 01:58:40 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-/**
- * @brief Create a rgb object from int_array[3]
- * 
- * @param rgb 
- * @return int 
- */
-static int	create_rgb(int *rgb)
-{
-	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);	// check this!
-}
 
 /**
  * @brief init texture struct
@@ -41,11 +30,8 @@ t_texture	*init_texture(void)
 	texture->west_texture = ft_strdup("");
 	texture->east_texture = ft_strdup("");
 	
-	int f_color[3] = {255, 0, 0};
-	texture->floor_color = create_rgb(f_color);
-
-	int	c_color[3] = {0, 255, 255};
-	texture->ceiling_color = create_rgb(c_color);
+	texture->floor_color = create_trgb(0, 255, 0, 0);
+	texture->ceiling_color = create_trgb(0, 0, 0, 255);
 	
 	return (texture);
 }

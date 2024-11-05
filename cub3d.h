@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/04 20:05:16 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/11/06 01:49:20 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ typedef struct s_mlx
 	void	*win_ptr;
 	int		display_size_x;
 	int		display_size_y;
-	int		horizon_height;
+	int		horizontal_center;
+	int		vertical_center;
 }	t_mlx;
 
 typedef struct s_texture
@@ -69,6 +70,15 @@ typedef struct s_data
 	int			keys[KEY_COUNT];
 }	t_data;
 
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
+
 /* data/init_data */
 t_data		*init_data(void);
 void		clean_data(t_data *data);
@@ -90,6 +100,8 @@ void		init_hooks(t_data *data);
 
 /* render/render */
 void		render(t_data *data);
+void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+int			create_trgb(int t, int r, int g, int b);
 
 /* render/background */
 int			render_background(t_data *data);
