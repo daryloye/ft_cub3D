@@ -20,6 +20,7 @@
 # include "errno.h"
 # include "string.h"
 # include "math.h"
+# include "stdbool.h"
 
 typedef enum
 {
