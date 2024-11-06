@@ -40,12 +40,12 @@ int	main(int ac, char **av)
 		return (clean_data(data), EXIT_FAILURE);
 
 	printf("---------- TEST MAP ----------\n");	
-	import_test_map(data);
-	for (int i = 0; data->map[i]; i++)
-		printf("%s\n", data->map[i]);
-
-	init_hooks(data);
-	mlx_loop_hook(data->mlx->mlx_ptr, do_movements, data);
-	mlx_loop(data->mlx->mlx_ptr);
+//	import_test_map(data);
+//	for (int i = 0; data->map[i]; i++)
+//		printf("%s\n", data->map[i]);
+//
+//	init_hooks(data);
+//	mlx_loop_hook(data->mlx->mlx_ptr, do_movements, data);
+//	mlx_loop(data->mlx->mlx_ptr);
 	return (clean_data(data), EXIT_SUCCESS);
 }

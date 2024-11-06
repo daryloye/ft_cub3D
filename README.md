@@ -37,6 +37,9 @@
 - minimap created from test map
 - WIP: DDA algorithm to draw rays on minimap
 
+## v9 - 6/11/2024
+- completed error check for texture
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s

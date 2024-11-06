@@ -114,19 +114,19 @@ int	read_file(char *path, t_data *data)
 		close(fd);
 		return (1);
 	}
-	if (!get_textures(data, text))
+	if (get_textures(data, text) != 0)
 	{
 		free_array(text);
 		close(fd);
 		return (1);
 	}
-//	if (!get_color(data, text))
+//	if (get_color(data, text) != 0)
 //	{
 //		free_array(text);
 //		close(fd);
 //		return (1);
 //	}
-//	if (!get_map(data, text))
+//	if (!get_map(data, text) != 0)
 //	{
 //		free_array(text);
 //		close(fd);

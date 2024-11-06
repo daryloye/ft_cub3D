@@ -73,6 +73,16 @@ static int	check_file_name(char *path, char *suffix)
 {
 	int	pos;
 
+	pos = 0;
+	while (path[pos])
+	{
+		if (path[pos] == ' ' || path[pos] == '\t')
+			return (1);
+		pos++;
+	}
+	pos = ft_strlen(path) - 1;
+	while (pos >= 0 && (path[pos] == ' ' || path[pos] == '\n' || path[pos] == '\t'))
+		path[pos--] = '\0';
 	pos = ft_strlen(path) - 4;
 	if (pos < 0 || ft_strncmp(path + pos, suffix, ft_strlen(suffix)) != 0)
 		return (1);
