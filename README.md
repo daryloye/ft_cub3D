@@ -41,6 +41,10 @@
 - completed error check for texture
 - (WIP) error check for color
 
+## v10 - 6/11/2024
+- DDA done
+- WIP: check if movement is valid, raycasting for fov
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s
@@ -52,12 +56,4 @@ https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)
 	- error check for valid map
 
 - render walls
-
-- handle movements
-
-
-## Idea
--> convert to x * 100
-	eg. player at x = 100, y = 100
-	movement steps in 10
 	

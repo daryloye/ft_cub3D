@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:53:09 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 11:35:40 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/06 16:31:42 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,28 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
+	return ;
+}
+
+void	dda(t_data *data, float start[2], float end[2], int color)
+{
+	float	Xinc;
+	float	Yinc;
+	int		steps;
+	int		i;
+  
+	if (abs((int)(end[0] - start[0])) > abs((int)(end[1] - start[1])))
+		steps = abs((int)(end[0] - start[0]));
+	else
+		steps = abs((int)(end[1] - start[1]));
+    Xinc = (end[0] - start[0]) / (float)steps; 
+    Yinc = (end[1] - start[1]) / (float)steps; 
+	i = -1;
+    while (++i < steps)
+	{ 
+        mlx_pixel_put(data->mlx->mlx_ptr, data->mlx->win_ptr, round(start[0]), round(start[1]), color);
+        start[0] += Xinc;
+		start[1] += Yinc;
+	}
 	return ;
 }

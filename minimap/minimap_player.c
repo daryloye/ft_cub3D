@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:19:38 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 11:31:52 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/06 23:47:17 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ static void	*create_player_image(t_data *data, int length)
 	return (img.img_ptr);
 }
 
+static void	create_fov(t_data *data, float x_coord, float y_coord)
+{
+	float	start[2];
+	float	end[2];
+
+	start[0] = x_coord;
+	start[1] = y_coord;
+		
+	end[0] = 100;
+	end[1] = 100;
+	dda(data, start, end, create_trgb(0, 0, 255, 0));
+}
+
 /**
  * @brief render player in minimap
  * 
@@ -48,5 +61,6 @@ int	minimap_player(t_data *data)
 		data->mlx->minimap_player_img = create_player_image(data, length);
 	mlx_put_image_to_window(data->mlx->mlx_ptr,
 		data->mlx->win_ptr, data->mlx->minimap_player_img, x_coord, y_coord);
+	create_fov(data, x_coord, y_coord);
 	return (0);
 }

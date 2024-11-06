@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 11:26:35 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/06 16:29:29 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int			render_background(t_data *data);
 t_img		init_blank_image(t_data *data, int x, int y);
 void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			create_trgb(int t, int r, int g, int b);
+void		dda(t_data *data, float start[2], float end[2], int color);
 
 /* minimap/minimap */
 int			render_minimap(t_data *data);
