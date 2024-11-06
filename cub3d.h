@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 16:29:29 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/07 03:35:25 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum
 	D,
 	LEFT_ARROW,
 	RIGHT_ARROW,
+	M,
 	KEY_COUNT
 }	key_index;
 
@@ -59,7 +60,9 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
+	double	move_speed;
 	double	rot_deg;
+	double	rot_speed;
 	double	fov_deg;
 }	t_player;
 
@@ -69,6 +72,8 @@ typedef struct s_data
 	t_texture	*texture;
 	t_player	*player;
 	char		**map;
+	int			map_size_x;		// no. of columns
+	int			map_size_y;		// no. of rows
 	int			keys[KEY_COUNT];
 }	t_data;
 
@@ -118,10 +123,10 @@ int			render_minimap(t_data *data);
 void		clean_minimap(t_mlx *mlx);
 
 /* minimap/minimap_background */
-int			minimap_background(t_data *data);
+int			minimap_background(t_data *data, int wall_length);
 
 /* minimap/minimap_player */
-int			minimap_player(t_data *data);
+int			minimap_player(t_data *data, int wall_length);
 
 /* process_map/read_file */
 int			read_file(char *path, t_data *data);

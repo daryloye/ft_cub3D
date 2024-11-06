@@ -42,7 +42,10 @@
 - (WIP) error check for color
 
 ## v10 - 6/11/2024
+- New keyhook: Press M to toggle minimap
 - DDA done
+- minimap scales to display size
+- added player movement and rotation speed
 - WIP: check if movement is valid, raycasting for fov
 
 ## Resources

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:32:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 22:54:32 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/07 03:25:32 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ void	import_test_map(t_data *data)
 	map[3] = ft_strdup("10001");
 	map[4] = ft_strdup("11111");
 	data->map = map;
+	data->map_size_x = 5;
+	data->map_size_y = 5;
+	data->texture->floor_color = create_trgb(0, 255, 0, 0);
+	data->texture->ceiling_color = create_trgb(0, 0, 0, 255);
+	data->player->x = 2.0;
+	data->player->y = 2.0;
+	data->player->rot_deg = 0.0;
 }
 
 int	main(int ac, char **av)
@@ -43,8 +50,6 @@ int	main(int ac, char **av)
 	if (!av[1])
 		return (1);
 	import_test_map(data);
-	for (int i = 0; data->map[i]; i++)
-		printf("%s\n", data->map[i]);
 
 	init_hooks(data);
 	mlx_loop_hook(data->mlx->mlx_ptr, do_movements, data);

@@ -6,25 +6,27 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:19:38 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 23:47:17 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/07 03:28:43 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	*create_player_image(t_data *data, int length)
+static void	*create_player_image(t_data *data, int player_size)
 {
 	int		x;
 	int		y;
+	int		color;
 	t_img	img;
 
-	img = init_blank_image(data, length, length);
+	color = create_trgb(0, 0, 0, 0);
+	img = init_blank_image(data, player_size, player_size);
 	x = -1;
-	while (++x < length)
+	while (++x < player_size)
 	{
 		y = -1;
-		while (++y < length)
-			ft_mlx_pixel_put(&img, x, y, create_trgb(0, 0, 0, 0));
+		while (++y < player_size)
+			ft_mlx_pixel_put(&img, x, y, color);
 	}
 	return (img.img_ptr);
 }
@@ -48,17 +50,17 @@ static void	create_fov(t_data *data, float x_coord, float y_coord)
  * @param data 
  * @return int 
  */
-int	minimap_player(t_data *data)
+int	minimap_player(t_data *data, int wall_length)
 {
-	int		length;
+	int		player_size;
 	float	x_coord;
 	float	y_coord;
 
-	x_coord = data->mlx->display_size_x / 2 + data->player->x;
-	y_coord = data->mlx->display_size_y / 2 + data->player->y;
-	length = 10;
+	player_size = 10;
+	x_coord = (data->player->x * wall_length) + (wall_length / 2) - (player_size / 2);
+	y_coord = (data->player->y * wall_length) + (wall_length / 2) - (player_size / 2);
 	if (!data->mlx->minimap_player_img)
-		data->mlx->minimap_player_img = create_player_image(data, length);
+		data->mlx->minimap_player_img = create_player_image(data, player_size);
 	mlx_put_image_to_window(data->mlx->mlx_ptr,
 		data->mlx->win_ptr, data->mlx->minimap_player_img, x_coord, y_coord);
 	create_fov(data, x_coord, y_coord);

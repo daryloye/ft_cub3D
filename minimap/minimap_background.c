@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:21:05 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 11:24:05 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/07 03:18:29 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,24 @@ static void	*create_wall_image(t_data *data, int length)
 {
 	int		x;
 	int		y;
+	int		color;
+	int		border_color;
 	t_img	img;
 
+	color = create_trgb(0, 128, 128, 128);
+	border_color = create_trgb(0, 0, 0, 0);
 	img = init_blank_image(data, length, length);
 	x = -1;
 	while (++x < length)
 	{
 		y = -1;
 		while (++y < length)
-			ft_mlx_pixel_put(&img, x, y, create_trgb(0, 128, 128, 128));
+		{
+			if (x == 0 || x == length - 1 || y == 0 || y == length - 1)
+				ft_mlx_pixel_put(&img, x, y, border_color);
+			else
+				ft_mlx_pixel_put(&img, x, y, color);
+		}
 	}
 	return (img.img_ptr);
 }
@@ -33,15 +42,24 @@ static void	*create_floor_image(t_data *data, int length)
 {
 	int		x;
 	int		y;
+	int		color;
+	int		border_color;
 	t_img	img;
 
+	color = create_trgb(0, 255, 255, 255);
+	border_color = create_trgb(0, 0, 0, 0);
 	img = init_blank_image(data, length, length);
 	x = -1;
 	while (++x < length)
 	{
 		y = -1;
 		while (++y < length)
-			ft_mlx_pixel_put(&img, x, y, create_trgb(0, 255, 255, 255));
+		{
+			if (x == 0 || x == length - 1 || y == 0 || y == length - 1)
+				ft_mlx_pixel_put(&img, x, y, border_color);
+			else
+				ft_mlx_pixel_put(&img, x, y, color);
+		}
 	}
 	return (img.img_ptr);
 }
@@ -52,13 +70,11 @@ static void	*create_floor_image(t_data *data, int length)
  * @param data 
  * @return int 
  */
-int	minimap_background(t_data *data)
+int	minimap_background(t_data *data, int length)
 {
-	int	length;
 	int	x;
 	int	y;
 
-	length = 50;	// need to find appropriate length based on map size
 	if (!data->mlx->minimap_wall_img)
 		data->mlx->minimap_wall_img = create_wall_image(data, length);
 	if (!data->mlx->minimap_floor_img)
