@@ -39,6 +39,7 @@
 
 ## v9 - 6/11/2024
 - completed error check for texture
+- (WIP) error check for color
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
