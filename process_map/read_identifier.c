@@ -70,6 +70,7 @@ static int	check_id(const char *line, int *found)
  * @brief check for main 6 identifier  
  * "if (result == 0) and if (all_id_found)": this condition means '1' can only appear 
  * after 6 identifiers is found.
+ *
  * @param line
  * @param found
  * @param all_id_found 
@@ -101,6 +102,12 @@ static bool	check_id_and_one(const char *line, int *found, bool all_id_found)
 	return (true);
 }
 
+/**
+ * @brief check for empty line
+ *
+ * @param line
+ * @return bool 
+ */
 static bool is_empty_line(char *line)
 {
 	if (line == NULL || *line == '\0')
@@ -116,6 +123,7 @@ static bool is_empty_line(char *line)
 
 /**
  * @brief skip leading whitspaces, skip empty lines, check for id and '1'
+ *
  * @param line
  * @param found
  * @param all_id_found 
