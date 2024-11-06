@@ -33,6 +33,10 @@
 - plugged invalid free in read_texture.c
 - movements done. Created moving box in display
 
+## v8 - 6/11/2024
+- minimap created from test map
+- WIP: DDA algorithm to draw rays on minimap
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s

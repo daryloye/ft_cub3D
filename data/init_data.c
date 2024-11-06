@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:05:57 by daong             #+#    #+#             */
-/*   Updated: 2024/11/03 01:22:03 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/06 10:00:20 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_data	*init_data(void)
 	data->player = init_player();
 	if (!data->player)
 		return (NULL);
-	data->map = ft_calloc(sizeof(char *), 1);
-	if (!data->map)
-		return (NULL);
+	// data->map = ft_calloc(sizeof(char *), 1);
+	// if (!data->map)
+	// 	return (NULL);
 	ft_memset(data->keys, 0, sizeof(data->keys));
 	return (data);
 }

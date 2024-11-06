@@ -18,7 +18,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRC =	./cub3d.c	\
 		./data/init_data.c	./data/init_mlx.c	./data/init_texture.c	./data/init_player.c	./data/init_hooks.c	\
-		./render/render.c	./render/background.c	./render/minimap.c \
+		./render/render.c	./render/background.c	./render/render_utils.c	\
+		./minimap/minimap.c	./minimap/minimap_background.c	./minimap/minimap_player.c	\
 		./process_map/read_file.c	./process_map/read_texture.c \
 		./process_map/read_identifier.c	./process_map/read_utils.c \
 		./movements.c	\

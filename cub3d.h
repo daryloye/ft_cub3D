@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 01:49:20 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/06 11:26:35 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ typedef struct s_mlx
 	void	*win_ptr;
 	int		display_size_x;
 	int		display_size_y;
-	int		horizontal_center;
-	int		vertical_center;
+	void	*background_img;
+	void	*minimap_wall_img;
+	void	*minimap_floor_img;
+	void	*minimap_player_img;
 }	t_mlx;
 
 typedef struct s_texture
@@ -100,14 +102,25 @@ void		init_hooks(t_data *data);
 
 /* render/render */
 void		render(t_data *data);
-void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
-int			create_trgb(int t, int r, int g, int b);
+void		clean_images(t_mlx *mlx);
 
 /* render/background */
 int			render_background(t_data *data);
 
-/* render/minimap */
+/* render/render_utils */
+t_img		init_blank_image(t_data *data, int x, int y);
+void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+int			create_trgb(int t, int r, int g, int b);
+
+/* minimap/minimap */
 int			render_minimap(t_data *data);
+void		clean_minimap(t_mlx *mlx);
+
+/* minimap/minimap_background */
+int			minimap_background(t_data *data);
+
+/* minimap/minimap_player */
+int			minimap_player(t_data *data);
 
 /* process_map/read_file */
 int			read_file(char *path, t_data *data);
@@ -119,9 +132,9 @@ int			get_textures(t_data *data, char **text);
 int			check_identifiers(char **text);
 
 /* process_map/read_utils */
-char	*skip_whitespaces(char *line);
+char		*skip_whitespaces(char *line);
 
 /* movements */
-int		do_movements(t_data *data);
+int			do_movements(t_data *data);
 
 #endif

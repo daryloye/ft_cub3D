@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 13:43:41 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 01:58:40 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/06 11:35:19 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,12 @@ t_texture	*init_texture(void)
 	texture = ft_calloc(sizeof(t_texture), 1);
 	if (!texture)
 		return (NULL);
-
 	texture->north_texture = ft_strdup("");
 	texture->south_texture = ft_strdup("");
 	texture->west_texture = ft_strdup("");
 	texture->east_texture = ft_strdup("");
-	
 	texture->floor_color = create_trgb(0, 255, 0, 0);
 	texture->ceiling_color = create_trgb(0, 0, 0, 255);
-	
 	return (texture);
 }
 
