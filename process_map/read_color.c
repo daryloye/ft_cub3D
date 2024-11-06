@@ -13,10 +13,49 @@
 #include "../cub3d.h"
 
 /**
+ * @brief Parse RGB values, store them in an array with transparency set to 0.
+ * 
+ * @param line
+ * @param trgb
+ * @return int 0 if successful, -1 on error
+ */
+ /*
+int	parse_trgb_values(const char *line, int trgb[4])
+{
+	int	pos;
+	int	comma_count;
+	int	i;
+
+	pos = 0;
+	comma_count = 0;
+	i = 1;
+	if (check_for_spaces(line) != 0)
+		return (-1);
+	trgb[0] = 0;
+	skip_identifier(line, &pos);
+	// Parse each RGB value and check comma separation
+	while (i <= 3)
+	{
+		trgb[i] = parse_single_value(line, &pos);
+		if (trgb[i] == -1)
+			return (-1);
+		i++;
+		// Check for comma if not the last value
+		if (i <= 3)
+		{
+			if (parse_comma_separator(line, &pos) != 0)
+				return (-1);
+			comma_count++;
+		}
+	}
+	return (validate_end_of_line(line, pos, comma_count));
+}
+*/
+/**
  * @brief get color identifier
  * 
  * @param line
- * @return int 
+ * @return int return 0 or 1  if successful, -1 on error
  */
 static int	color_identifier(const char *line)
 {
@@ -32,7 +71,7 @@ static int	color_identifier(const char *line)
  * 
  * @param line
  * @param texture
- * @return int 
+ * @return int return 0 if successful, -1 on error
  */
 static int read_texture_line(char *line, t_texture *texture)
 {
