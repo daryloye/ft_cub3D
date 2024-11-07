@@ -50,6 +50,7 @@
 
 ## v11 - 7/11/2024
 - completed error check for color
+- WIP: to change to flood fill algo for validating map
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html

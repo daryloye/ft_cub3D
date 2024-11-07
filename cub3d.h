@@ -137,12 +137,16 @@ int			get_textures(t_data *data, char **text);
 /* process_map/read_color */
 int			get_color(t_data *data, char **text);
 
+/* process_map/read_map */
+int			get_map(t_data *data, char **text);
+
 /* process_map/read_identifier */
 int			check_identifiers(char **text);
 
 /* process_map/read_utils */
 char		*skip_whitespaces(char *line);
 void		remove_trailing_whitespace(char *line);
+bool		is_empty_line(char *line);
 
 /* movements */
 int			do_movements(t_data *data);

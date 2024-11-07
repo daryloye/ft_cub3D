@@ -103,25 +103,6 @@ static bool	check_id_and_one(const char *line, int *found, bool all_id_found)
 }
 
 /**
- * @brief check for empty line
- *
- * @param line
- * @return bool 
- */
-static bool is_empty_line(char *line)
-{
-	if (line == NULL || *line == '\0')
-			return (true);
-	while (*line)
-	{
-		if (*line != ' ' && *line != '\t' && *line != '\n')
-			return (false);
-		line++;
-	}
-	return (true);
-}
-
-/**
  * @brief skip leading whitspaces, skip empty lines, check for id and '1'
  *
  * @param line

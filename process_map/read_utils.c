@@ -25,6 +25,12 @@ char	*skip_whitespaces(char *line)
 	return (line);
 }
 
+/**
+ * @brief remove trailing white spaces 
+ * 
+ * @param line
+ * @return char
+ */
 void	remove_trailing_whitespace(char *line)
 {
 	int	len;
@@ -33,3 +39,23 @@ void	remove_trailing_whitespace(char *line)
 	while (len >= 0 && (line[len] == ' ' || line[len] == '\n' || line[len] == '\t'))
 		line[len--] = '\0';
 }
+
+/**
+ * @brief check for empty line
+ *
+ * @param line
+ * @return bool 
+ */
+bool	is_empty_line(char *line)
+{
+	if (line == NULL || *line == '\0')
+			return (true);
+	while (*line)
+	{
+		if (*line != ' ' && *line != '\t' && *line != '\n')
+			return (false);
+		line++;
+	}
+	return (true);
+}
+
