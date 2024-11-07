@@ -22,6 +22,7 @@ SRC =	./cub3d.c	\
 		./minimap/minimap.c	./minimap/minimap_background.c	./minimap/minimap_player.c	\
 		./process_map/read_file.c	./process_map/read_texture.c \
 		./process_map/read_identifier.c	./process_map/read_utils.c \
+		./process_map/read_color.c \
 		./movements.c	\
 
 OBJ_DIR = obj

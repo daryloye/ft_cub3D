@@ -43,8 +43,8 @@ int	main(int ac, char **av)
 	if (!data)
 		return (ft_printf("Error\n%s\n", strerror(errno)),
 			clean_data(data), EXIT_FAILURE);
-	// if (read_file(av[1], data) == 1)
-	// 	return (clean_data(data), EXIT_FAILURE);
+	if (read_file(av[1], data) == 1)
+	 	return (clean_data(data), EXIT_FAILURE);
 
 	printf("---------- TEST MAP ----------\n");	
 	if (!av[1])

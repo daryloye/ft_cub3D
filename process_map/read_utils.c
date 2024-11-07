@@ -24,3 +24,12 @@ char	*skip_whitespaces(char *line)
 		line++;
 	return (line);
 }
+
+void	remove_trailing_whitespace(char *line)
+{
+	int	len;
+
+	len = ft_strlen(line) - 1;
+	while (len >= 0 && (line[len] == ' ' || line[len] == '\n' || line[len] == '\t'))
+		line[len--] = '\0';
+}

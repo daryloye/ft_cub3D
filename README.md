@@ -48,6 +48,9 @@
 - added player movement and rotation speed
 - WIP: check if movement is valid, raycasting for fov
 
+## v11 - 7/11/2024
+- completed error check for color
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s

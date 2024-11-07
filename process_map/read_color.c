@@ -13,51 +13,140 @@
 #include "../cub3d.h"
 
 /**
- * @brief Parse RGB values, store them in an array with transparency set to 0.
+ * @brief Parse the RGB input .cub aka x,x,x. return error if there is a space
  * 
  * @param line
+ * @return int 0 if successful, -1 on error
+ */
+int	check_for_spaces(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == ' ' || line[i] == '\t')
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+/**
+ * @brief Parse the RGB input .cub aka x,x,x. return error if there is a space
+ * digi_count can happen when you encounter a comma immediately or other non num
+ * @param line
+ * @param start
+ * @return int value if successful, -1 on error
+ */
+static int parse_value(char *line, int *start)
+{
+	int	value;
+	int	digit_count;
+
+	value = 0;
+	digit_count = 0;
+	while (line[*start] >= '0' && line[*start] <= '9')
+	{
+		value = value * 10 + (line[*start] - '0');
+		(*start)++;
+		digit_count++;
+	}
+	if (digit_count == 0 || value < 0 || value > 255)
+		return (-1);
+	return (value);
+}
+
+/**
+ * @brief Parse the comma in x,x,x and check whether the comma is present 
+ *
+ * @param line
+ * @param start
+ * @return int 0 if successful, -1 on error
+ */
+static int	parse_comma(char *line, int *start, int comma_count)
+{
+	if (line[*start] != ',' && comma_count < 2)
+		return (-1);
+	(*start)++;
+	return (0);
+}
+
+/**
+ * @brief skip_initial_whitespace
+ *
+ * @param line
+ * @param start
+ * @return int start if successful
+ */
+static int	skip_initial_whitespace(char *line, int start)
+{
+	while (line[start] == ' ' || line[start] == '\t')
+		start++;
+	return (start);
+}
+
+/**
+ * @brief Parse RGB values, check for rgb value and comma separation in the while loop
+ *
+ * @param line
+ * @param start
  * @param trgb
  * @return int 0 if successful, -1 on error
  */
- /*
-int	parse_trgb_values(const char *line, int trgb[4])
+static int	parse_rgb_values(char *line, int *start, int trgb[4])
 {
-	int	pos;
 	int	comma_count;
-	int	i;
+	int	j;
 
-	pos = 0;
 	comma_count = 0;
-	i = 1;
-	if (check_for_spaces(line) != 0)
-		return (-1);
-	trgb[0] = 0;
-	skip_identifier(line, &pos);
-	// Parse each RGB value and check comma separation
-	while (i <= 3)
+	j = 1;
+	while (j <= 3)
 	{
-		trgb[i] = parse_single_value(line, &pos);
-		if (trgb[i] == -1)
+		trgb[j] = parse_value(line, start);
+		if (trgb[j] == -1)
 			return (-1);
-		i++;
-		// Check for comma if not the last value
-		if (i <= 3)
+		j++;
+		if (j <= 3)
 		{
-			if (parse_comma_separator(line, &pos) != 0)
+			if (parse_comma(line, start, comma_count) != 0)
 				return (-1);
 			comma_count++;
 		}
 	}
-	return (validate_end_of_line(line, pos, comma_count));
+	return (0);
 }
-*/
+
+/**
+ * @brief Parse tRGB values, store them in an array with transparency set to 0.
+ *
+ * @param line
+ * @param trgb
+ * @return int 0 if successful, -1 on error
+ */
+static int	parse_trgb_values(char *line, int trgb[4])
+{
+	int	start;
+
+	remove_trailing_whitespace(line);
+	start = skip_initial_whitespace(line, 2);	
+	if (check_for_spaces(&line[start]) != 0)
+		return (-1);
+	trgb[0] = 0;
+	if (parse_rgb_values(line, &start, trgb) != 0)
+		return (-1);
+	if (line[start] != '\0')
+		return (-1);
+	return (0);
+}
+
 /**
  * @brief get color identifier
  * 
  * @param line
  * @return int return 0 or 1  if successful, -1 on error
  */
-static int	color_identifier(const char *line)
+static int	color_identifier(char *line)
 {
 	if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "F\t", 2) == 0))
 		return (0);
@@ -73,7 +162,7 @@ static int	color_identifier(const char *line)
  * @param texture
  * @return int return 0 if successful, -1 on error
  */
-static int read_texture_line(char *line, t_texture *texture)
+static int read_color_line(char *line, t_texture *texture)
 {
 	int	identifier;
 	int	trgb[4] = {0, 0, 0, 0};
@@ -81,8 +170,8 @@ static int read_texture_line(char *line, t_texture *texture)
 	line = skip_whitespaces(line);
 	identifier = color_identifier(line);
 	if (identifier == -1)
-		return (-1;
-	if (parse_trgb_values(line, trgb, identifier) != 0)
+		return (0);
+	if (parse_trgb_values(line, trgb) != 0)
 		return (-1);
 	if (identifier == 0)
 		texture->floor_color = create_trgb(trgb[0], trgb[1], trgb[2], trgb[3]);
