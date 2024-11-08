@@ -13,6 +13,115 @@
 #include "../cub3d.h"
 
 /**
+ * @brief flood fill operation
+ *
+ * @param data
+ * @param x
+ * @param y
+ * @return int 1 if floodfill success, 0 if floodfill fail
+ */
+static int	floodfill(t_data *data, int x, int y)
+{
+	int	i;
+
+	i = 0;
+	if (x < 0 || x >= data->map_size_x || y < 0 || y >= data->map_size_y || data->map[y][x] == WALL)
+		return (0);
+	while (i < 4)
+	{
+		if (data->map[y][x] == DIRECTION[i])
+		{
+			data->directions_found[i] = 1;
+			return (1);
+		}
+		i++;
+	}
+	if (data->map[y][x] == FLOOR)
+	{
+		data->map[y][x] = WALL;
+		if (floodfill(data, x - 1, y) == 0 ||
+			floodfill(data, x + 1, y) == 0 ||
+			floodfill(data, x, y - 1) == 0 ||
+			floodfill(data, x, y + 1) == 0)
+			return (0);
+	}
+	return (1);
+}
+
+/**
+ * @brief check the map if enclosed using flood fill
+ * y is row, x is col [x1,x2,x3],[x4,x5,x6] -> y1 is [x1,x2,x3] and y2 is [x4,x5,x6]  
+ *
+ * @param data
+ * @return bool true if the map is enclosed and only 1 direction found, false otherwise.
+ */
+static bool	check_map(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < data->map_size_y)
+	{
+		x = 0;
+		while (x < data->map_size_x)
+		{
+			if (data->map[y][x] == FLOOR)
+			{
+				if (floodfill(data, x, y) == 0)
+					return (false);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (true);
+}
+
+/**
+ * @brief check if only 1 direction found 
+ * 
+ * @param directions_found[4]
+ * @return bool true if only single direction found, false otherwise.
+ */
+static bool	check_single_direction(int directions_found[4])
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (directions_found[i] == 0)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+/**
+ * @brief main function to check if maps is enclosed and only 1 direction found 
+ * 
+ * @param data
+ * @return bool true if the map is enclosed and only 1 direction found, false otherwise.
+ */
+static bool	is_map_enclosed(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		data->directions_found[i] = 0;
+		i++;
+	}
+	if (check_map(data) == false)
+		return (false);
+	if (check_single_direction(data->directions_found) == false)
+		return (false);
+	return (true);
+}
+
+/**
  * @brief get map identifier
  * 
  * @param line
@@ -25,86 +134,73 @@ static int	map_identifier(char *line)
 	return (-1);
 }
 
-static bool	is_valid_border_line(char *line)
+/**
+ * @brief get map size and assign to data
+ *
+ * @param data
+ * @return int  0 if success
+ */
+int	get_map_size(t_data *data, char **text, int i)
 {
-	int	i;
+	int	map_size_x;
+	int	map_size_y;
+	int	row_len;
+	int	j;
 
-	i = 0;
-	while (line[i] != '\0')
+	map_size_x = 0;
+	map_size_y = 0;
+	j = i;
+	while (text[i + map_size_y])
+		map_size_y++;
+	while (j < (i + map_size_y))
 	{
-		if (line[i] != '1')
-			return (false);
-		i++;
+		row_len = ft_strlen(text[j]);
+		if (row_len > map_size_x)
+			map_size_x = row_len;
+		j++;
 	}
-	return (true);
-}
-
-static bool	is_valid_middle_line(char *line)
-{
-	int	len;
-	int	i;
-
-	len = ft_strlen(line);
-	i = 1;
-	if (line[0] != '1' || line[len - 1] != '1')
-		return (false);
-	while (i < (len - 1))
-	{
-		if (line[i] != '0' && line[i] != '1' && line[i] != 'N' &&
-			line[i] != 'S' && line[i] != 'E' && line[i] != 'W')
-			return (false);
-		i++;
-	}
-	return (true);
+	data->map_size_x = map_size_x;
+	data->map_size_y = map_size_y;
+	return (0);
 }
 
 /**
  * @brief read each map line and assign to map array if valid
- * only the first and last map line is all 1s
- *the rest of the lines, the first and last char must be 1
- *in between, it can contain 0, 1, N, S, E, W
+ *
  * @param line
- * @param texture
- * @return int 
+ * @param data
+ * @param text
+ * @param i
+ * @return int 0 if success, -1 if fail 
  */
-static int	read_map_line(char *line, char **map, char **line_array, int i)
+static int	read_map_line(char *line, t_data *data, char **text, int i)
 {
 	int	identifier;
+	int	j;
 
-	line = skip_whitespaces(line);
-	if (is_empty_line(line))
-	{
-		ft_printf("IM HERE1\n", 1);
-		return (-1);
-	}
 	identifier = map_identifier(line);
 	if (identifier == -1)
 		return (0);
-	if (i == 0)
+	if (identifier == 0)
 	{	
-		if (!is_valid_border_line(line))
+		if (!data->map)
 		{
-			ft_printf("IM HERE2\n", 1);
-			return (-1);
+			get_map_size(data, text, i);
+			data->map = ft_calloc(sizeof(char *), data->map_size_y + 1);
+			if (!is_map_enclosed(data))
+			{
+				ft_printf("Error: Map is not enclosed by '1's\n");
+				//free data->map, 
+				return (-1);
+			}
 		}
 	}
-	else if (line_array[i + 1] == NULL)
-	{	
-		if (!is_valid_border_line(line))
-		{
-			ft_printf("IM HERE3\n", 1);
-			return (-1);
-		}
-	}
-	else
+	j = i;
+	while (text[j])
 	{
-		if (!is_valid_middle_line(line))
-		{
-			ft_printf("IM HERE4\n", 1);
-			return (-1);
-		}
-	}
-	*map++ = ft_strdup(line);
+		data->map[j - i] = ft_strdup(text[j]);
+		j++;
+        }
 	return (0);
 }
 
@@ -123,9 +219,12 @@ int	get_map(t_data *data, char **text)
 	i = 0;
 	while (text[i])
 	{
-		if (read_map_line(text[i], data->map, text, i) != 0)
+		if (read_map_line(text[i], data, text, i) != 0)
 			return (ft_printf("Error\nInvalid map: %s\n", text[i]), 1);
+		if (data->map[i] != NULL)
+			break;
 		i++;
 	}
 	return (0);
 }
+

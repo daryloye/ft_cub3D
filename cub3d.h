@@ -22,6 +22,10 @@
 # include "math.h"
 # include "stdbool.h"
 
+# define WALL		1
+# define FLOOR		0
+# define DIRECTION	"NESW"
+
 typedef enum
 {
 	W,
@@ -74,6 +78,7 @@ typedef struct s_data
 	char		**map;
 	int			map_size_x;		// no. of columns
 	int			map_size_y;		// no. of rows
+	int			directions_found[4];
 	int			keys[KEY_COUNT];
 }	t_data;
 
