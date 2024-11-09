@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:39:23 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 10:57:52 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/09 14:47:58 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ t_mlx	*init_mlx(void)
  */
 void	clean_mlx(t_mlx *mlx)
 {
-	clean_minimap(mlx);
-	clean_images(mlx);
 	if (mlx->mlx_ptr && mlx->win_ptr)
 		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
 	if (mlx->mlx_ptr)

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:05:57 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 10:00:20 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/09 16:30:32 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,12 @@ t_data	*init_data(void)
 	data->player = init_player();
 	if (!data->player)
 		return (NULL);
-	// data->map = ft_calloc(sizeof(char *), 1);
-	// if (!data->map)
-	// 	return (NULL);
+	data->display = init_display();
+	if (!data->display)
+		return (NULL);
+	data->minimap = init_minimap();
+	if (!data->minimap)
+		return (NULL);
 	ft_memset(data->keys, 0, sizeof(data->keys));
 	return (data);
 }
@@ -49,12 +52,14 @@ void	clean_data(t_data *data)
 {
 	int	i;
 
-	if (data->mlx)
-		clean_mlx(data->mlx);
 	if (data->texture)
 		clean_texture(data->texture);
 	if (data->player)
 		clean_player(data->player);
+	if (data->display)
+		clean_display(data->display, data->mlx);
+	if (data->minimap)
+		clean_minimap(data->minimap, data->mlx);
 	if (data->map)
 	{
 		i = -1;
@@ -62,6 +67,8 @@ void	clean_data(t_data *data)
 			free(data->map[i]);
 		free(data->map);
 	}
+	if (data->mlx)
+		clean_mlx(data->mlx);
 	if (data)
 		free(data);
 	return ;

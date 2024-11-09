@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/07 03:35:25 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/09 16:31:16 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,6 @@ typedef struct s_mlx
 	void	*win_ptr;
 	int		display_size_x;
 	int		display_size_y;
-	void	*background_img;
-	void	*minimap_wall_img;
-	void	*minimap_floor_img;
-	void	*minimap_player_img;
 }	t_mlx;
 
 typedef struct s_texture
@@ -62,19 +58,36 @@ typedef struct s_texture
 
 typedef struct s_player
 {
-	double	x;
-	double	y;
+	double	x_pos;
+	double	y_pos;
 	double	move_speed;
 	double	rot_deg;
 	double	rot_speed;
 	double	fov_deg;
 }	t_player;
 
+typedef struct s_display
+{
+	void	*background_img;
+}	t_display;
+
+typedef struct s_minimap
+{
+	int		wall_length;
+	int		player_length;
+	int		display_scale;
+	void	*minimap_wall_img;
+	void	*minimap_floor_img;
+	void	*minimap_player_img;
+}	t_minimap;
+
 typedef struct s_data
 {
 	t_mlx		*mlx;
 	t_texture	*texture;
 	t_player	*player;
+	t_display	*display;
+	t_minimap	*minimap;
 	char		**map;
 	int			map_size_x;		// no. of columns
 	int			map_size_y;		// no. of rows
@@ -107,12 +120,19 @@ void		clean_texture(t_texture *texture);
 t_player	*init_player(void);
 void		clean_player(t_player *player);
 
+/* data/init_display */
+t_display	*init_display(void);
+void		clean_display(t_display *display, t_mlx *mlx);
+
+/* data/init_minimap */
+t_minimap	*init_minimap(void);
+void		clean_minimap(t_minimap *minimap, t_mlx *mlx);
+
 /* data/init_hooks */
 void		init_hooks(t_data *data);
 
 /* render/render */
 void		render(t_data *data);
-void		clean_images(t_mlx *mlx);
 
 /* render/background */
 int			render_background(t_data *data);
@@ -125,13 +145,12 @@ void		dda(t_data *data, float start[2], float end[2], int color);
 
 /* minimap/minimap */
 int			render_minimap(t_data *data);
-void		clean_minimap(t_mlx *mlx);
 
 /* minimap/minimap_background */
-int			minimap_background(t_data *data, int wall_length);
+int			minimap_background(t_data *data);
 
 /* minimap/minimap_player */
-int			minimap_player(t_data *data, int wall_length);
+int			minimap_player(t_data *data);
 
 /* process_map/read_file */
 int			read_file(char *path, t_data *data);

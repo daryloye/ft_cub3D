@@ -56,6 +56,9 @@
 - completed error check for color
 - WIP: flood fill algo for validating map first cut
 
+## v13 - 9/11/2024
+- created new structs for minimap and display
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s

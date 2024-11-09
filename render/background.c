@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:48:49 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 11:35:49 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/09 15:43:34 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static void	*create_background_image(t_data *data)
  */
 int	render_background(t_data *data)
 {
-	if (!data->mlx->background_img)
+	if (!data->display->background_img)
 	{
-		data->mlx->background_img = create_background_image(data);
-		if (!data->mlx->background_img)
+		data->display->background_img = create_background_image(data);
+		if (!data->display->background_img)
 			return (1);
 	}
 	mlx_put_image_to_window(data->mlx->mlx_ptr,
-		data->mlx->win_ptr, data->mlx->background_img, 0, 0);
+		data->mlx->win_ptr, data->display->background_img, 0, 0);
 	return (0);
 }

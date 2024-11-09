@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:32:33 by daong             #+#    #+#             */
-/*   Updated: 2024/11/07 03:37:48 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/09 15:42:05 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,6 @@ void	render(t_data *data)
 		if (render_minimap(data) == 1)
 			render_error(data);
 	printf("x = %.2f, y = %.2f, rot_deg = %.2f\n",
-		data->player->x, data->player->y, data->player->rot_deg);
-	return ;
-}
-
-/**
- * @brief destroy all images used in ./render folder
- * 
- * @param mlx 
- */
-void	clean_images(t_mlx *mlx)
-{
-	if (mlx->mlx_ptr && mlx->background_img)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->background_img);
+		data->player->x_pos, data->player->y_pos, data->player->rot_deg);
 	return ;
 }

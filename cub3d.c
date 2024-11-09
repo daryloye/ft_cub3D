@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:32:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/07 03:25:32 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/09 16:32:41 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	import_test_map(t_data *data)
 	data->map_size_y = 5;
 	data->texture->floor_color = create_trgb(0, 255, 0, 0);
 	data->texture->ceiling_color = create_trgb(0, 0, 0, 255);
-	data->player->x = 2.0;
-	data->player->y = 2.0;
+	data->player->x_pos = 2.0;
+	data->player->y_pos = 2.0;
 	data->player->rot_deg = 0.0;
 }
 
