@@ -38,5 +38,7 @@ void	render(t_data *data)
 			render_error(data);
 	printf("x = %.2f, y = %.2f, rot_deg = %.2f\n",
 		data->player->x_pos, data->player->y_pos, data->player->rot_deg);
+	printf("int x = %d, int y = %d\n",
+		(int)data->player->x_pos, (int)data->player->y_pos);
 	return ;
 }

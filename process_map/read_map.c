@@ -12,6 +12,26 @@
 
 #include "../cub3d.h"
 
+// Function to print the char** map
+static void print_map(t_data *data)
+{
+    int y = 0;
+
+    if (!data->map)
+    {
+        printf("Map is not initialized.\n");
+        return;
+    }
+    printf("PRINITNG MAP\n");
+    // Iterate over each row in the map
+    while (y < data->map_size_y)
+    {
+        printf("%s\n", data->map[y]);
+        y++;
+    }
+}
+
+
 /**
  * @brief flood fill operation
  *
@@ -24,13 +44,23 @@ static int	floodfill(t_data *data, int x, int y)
 {
 	int	i;
 
+	printf("Floodfill called at (x = %d, y = %d)\n", x, y);
 	i = 0;
 	if (x < 0 || x >= data->map_size_x || y < 0 || y >= data->map_size_y || data->map[y][x] == WALL)
+	{
+		printf("Out of bounds at (x = %d, y = %d)\n", x, y);
 		return (0);
+	}
+	if (data->map[y][x] == WALL)
+	{
+		printf("Hit WALL at (x = %d, y = %d)\n", x, y);
+		return (0);
+	}
 	while (i < 4)
 	{
 		if (data->map[y][x] == DIRECTION[i])
 		{
+			printf("Found direction '%c' at (x = %d, y = %d)\n", DIRECTION[i], x, y);
 			data->directions_found[i] = 1;
 			return (1);
 		}
@@ -38,13 +68,18 @@ static int	floodfill(t_data *data, int x, int y)
 	}
 	if (data->map[y][x] == FLOOR)
 	{
+		printf("Found FLOOR at (x = %d, y = %d), marking as WALL\n", x, y);
 		data->map[y][x] = WALL;
 		if (floodfill(data, x - 1, y) == 0 ||
 			floodfill(data, x + 1, y) == 0 ||
 			floodfill(data, x, y - 1) == 0 ||
 			floodfill(data, x, y + 1) == 0)
+		{
+			printf("Floodfill failed at (x = %d, y = %d)\n", x, y);	
 			return (0);
+		}
 	}
+	printf("Floodfill successful at (x = %d, y = %d)\n", x, y);
 	return (1);
 }
 
@@ -66,15 +101,24 @@ static bool	check_map(t_data *data)
 		x = 0;
 		while (x < data->map_size_x)
 		{
-			if (data->map[y][x] == FLOOR)
+//			printf("Checking position: y = %d, x = %d\n", y, x);
+			printf("Checking position: y = %d, x = %d, content = '%c'\n", y, x, data->map[y][x]);
+			if (data->map[y] && data->map[y][x] != '\0' && data->map[y][x] == FLOOR)
 			{
+				printf("Found FLOOR at y = %d, x = %d\n", y, x);
 				if (floodfill(data, x, y) == 0)
+				{
+					printf("Floodfill failed at y = %d, x = %d\n", y, x);
 					return (false);
+				}
 			}
 			x++;
 		}
+		if (x == data->map_size_x)
+			printf("End of row %d reached, moving to row %d\n", y, y + 1);
 		y++;
 	}
+	printf("Map check completed successfully.\n");
 	return (true);
 }
 
@@ -115,9 +159,15 @@ static bool	is_map_enclosed(t_data *data)
 		i++;
 	}
 	if (check_map(data) == false)
+	{
+		ft_printf("IM HERE 1\n");
 		return (false);
+	}
 	if (check_single_direction(data->directions_found) == false)
+	{
+		ft_printf("IM HERE 2\n");
 		return (false);
+	}
 	return (true);
 }
 
@@ -161,6 +211,8 @@ int	get_map_size(t_data *data, char **text, int i)
 	}
 	data->map_size_x = map_size_x;
 	data->map_size_y = map_size_y;
+	ft_printf("map size x: %d\n", data->map_size_x);
+	ft_printf("map size y: %d\n", data->map_size_y);
 	return (0);
 }
 
@@ -186,7 +238,15 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 		if (!data->map)
 		{
 			get_map_size(data, text, i);
-			data->map = ft_calloc(sizeof(char *), data->map_size_y + 1);
+			data->map = ft_calloc(data->map_size_y + 1, sizeof(char *));
+			j = i;
+			while (text[j])
+			{
+				data->map[j - i] = ft_strdup(text[j]);
+				j++;
+        		}
+        		print_map(data);
+//			data->map[j - i] = NULL;
 			if (!is_map_enclosed(data))
 			{
 				ft_printf("Error: Map is not enclosed by '1's\n");
@@ -195,12 +255,6 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 			}
 		}
 	}
-	j = i;
-	while (text[j])
-	{
-		data->map[j - i] = ft_strdup(text[j]);
-		j++;
-        }
 	return (0);
 }
 
@@ -221,7 +275,7 @@ int	get_map(t_data *data, char **text)
 	{
 		if (read_map_line(text[i], data, text, i) != 0)
 			return (ft_printf("Error\nInvalid map: %s\n", text[i]), 1);
-		if (data->map[i] != NULL)
+		if (data->map && data->map[i] != NULL)
 			break;
 		i++;
 	}
