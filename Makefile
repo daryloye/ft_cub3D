@@ -14,7 +14,7 @@ NAME = cub3D
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRC =	./cub3d.c	\
 		./data/init_data.c		./data/init_mlx.c		./data/init_texture.c	./data/init_player.c	\

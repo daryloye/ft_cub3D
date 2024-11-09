@@ -59,6 +59,9 @@
 ## v13 - 9/11/2024
 - created new structs for minimap and display
 
+## v14 - 9/11/2024
+- WIP: flood fill algo for validating map second cut
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s
