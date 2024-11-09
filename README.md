@@ -60,11 +60,11 @@
 - created new structs for minimap and display
 
 ## v14 - 9/11/2024
-<<<<<<< HEAD
 - wall collision done
-=======
+
+## v15 - 9/11/2024
 - WIP: flood fill algo for validating map second cut
->>>>>>> 34dd169e85f54a330901a9582d9f5c475def415f
+
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html

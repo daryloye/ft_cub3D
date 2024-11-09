@@ -46,16 +46,18 @@ static int	floodfill(t_data *data, int x, int y)
 
 	printf("Floodfill called at (x = %d, y = %d)\n", x, y);
 	i = 0;
-	if (x < 0 || x >= data->map_size_x || y < 0 || y >= data->map_size_y || data->map[y][x] == WALL)
+	if (x < 0 || x >= data->map_size_x || y < 0 || y >= data->map_size_y
+		|| data->map[y][x] == WALL)
 	{
 		printf("Out of bounds at (x = %d, y = %d)\n", x, y);
 		return (0);
 	}
-	if (data->map[y][x] == WALL)
+	if (data->visited[y][x] == 1)
 	{
-		printf("Hit WALL at (x = %d, y = %d)\n", x, y);
-		return (0);
+		printf("Already visited at (x = %d, y = %d)\n", x, y);
+		return (1);
 	}
+	data->visited[y][x] = 1;
 	while (i < 4)
 	{
 		if (data->map[y][x] == DIRECTION[i])
@@ -69,7 +71,7 @@ static int	floodfill(t_data *data, int x, int y)
 	if (data->map[y][x] == FLOOR)
 	{
 		printf("Found FLOOR at (x = %d, y = %d), marking as WALL\n", x, y);
-		data->map[y][x] = WALL;
+		data->map[y][x] = 'F';
 		if (floodfill(data, x - 1, y) == 0 ||
 			floodfill(data, x + 1, y) == 0 ||
 			floodfill(data, x, y - 1) == 0 ||
@@ -102,14 +104,17 @@ static bool	check_map(t_data *data)
 		while (x < data->map_size_x)
 		{
 //			printf("Checking position: y = %d, x = %d\n", y, x);
-			printf("Checking position: y = %d, x = %d, content = '%c'\n", y, x, data->map[y][x]);
-			if (data->map[y] && data->map[y][x] != '\0' && data->map[y][x] == FLOOR)
+			if (data->map[y] && x < (int)ft_strlen(data->map[y]) && data->map[y][x] != '\0')
 			{
-				printf("Found FLOOR at y = %d, x = %d\n", y, x);
-				if (floodfill(data, x, y) == 0)
+				printf("Checking position: y = %d, x = %d, content = '%c'\n", y, x, data->map[y][x]);
+				if (data->map[y][x] == FLOOR)
 				{
-					printf("Floodfill failed at y = %d, x = %d\n", y, x);
-					return (false);
+					printf("Found FLOOR at y = %d, x = %d\n", y, x);
+					if (floodfill(data, x, y) == 0)
+					{
+						printf("Floodfill failed at y = %d, x = %d\n", y, x);
+						return (false);
+					}
 				}
 			}
 			x++;
@@ -190,7 +195,7 @@ static int	map_identifier(char *line)
  * @param data
  * @return int  0 if success
  */
-int	get_map_size(t_data *data, char **text, int i)
+static int	get_map_size(t_data *data, char **text, int i)
 {
 	int	map_size_x;
 	int	map_size_y;
@@ -215,6 +220,20 @@ int	get_map_size(t_data *data, char **text, int i)
 	ft_printf("map size y: %d\n", data->map_size_y);
 	return (0);
 }
+
+static void	init_visited_map(t_data *data)
+{
+	int	y;
+
+	y = 0;
+	data->visited = (int **)ft_calloc(data->map_size_y, sizeof(int *));
+	while (y < data->map_size_y)
+	{
+		data->visited[y] = (int *)calloc(data->map_size_x, sizeof(int));
+		y++;
+	}
+}
+
 
 /**
  * @brief read each map line and assign to map array if valid
@@ -246,6 +265,8 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 				j++;
         		}
         		print_map(data);
+//        		init_visited_map(data);
+			create another temp map containing this map with a bother of 'F's surrounding it
 //			data->map[j - i] = NULL;
 			if (!is_map_enclosed(data))
 			{

@@ -22,8 +22,8 @@
 # include "math.h"
 # include "stdbool.h"
 
-# define WALL		1
-# define FLOOR		0
+# define WALL		'1'
+# define FLOOR		'0'
 # define DIRECTION	"NESW"
 
 typedef enum
@@ -89,6 +89,7 @@ typedef struct s_data
 	t_display	*display;
 	t_minimap	*minimap;
 	char		**map;
+	int			**visited;
 	int			map_size_x;		// no. of columns
 	int			map_size_y;		// no. of rows
 	int			directions_found[4];
