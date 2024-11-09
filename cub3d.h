@@ -89,6 +89,7 @@ typedef struct s_data
 	t_display	*display;
 	t_minimap	*minimap;
 	char		**map;
+	char		**temp_map; 
 	int			**visited;
 	int			map_size_x;		// no. of columns
 	int			map_size_y;		// no. of rows

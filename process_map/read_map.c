@@ -40,6 +40,7 @@ static void print_map(t_data *data)
  * @param y
  * @return int 1 if floodfill success, 0 if floodfill fail
  */
+ /*
 static int	floodfill(t_data *data, int x, int y)
 {
 	int	i;
@@ -84,7 +85,7 @@ static int	floodfill(t_data *data, int x, int y)
 	printf("Floodfill successful at (x = %d, y = %d)\n", x, y);
 	return (1);
 }
-
+*/
 /**
  * @brief check the map if enclosed using flood fill
  * y is row, x is col [x1,x2,x3],[x4,x5,x6] -> y1 is [x1,x2,x3] and y2 is [x4,x5,x6]  
@@ -92,6 +93,7 @@ static int	floodfill(t_data *data, int x, int y)
  * @param data
  * @return bool true if the map is enclosed and only 1 direction found, false otherwise.
  */
+ /*
 static bool	check_map(t_data *data)
 {
 	int	x;
@@ -126,13 +128,14 @@ static bool	check_map(t_data *data)
 	printf("Map check completed successfully.\n");
 	return (true);
 }
-
+*/
 /**
  * @brief check if only 1 direction found 
  * 
  * @param directions_found[4]
  * @return bool true if only single direction found, false otherwise.
  */
+ /*
 static bool	check_single_direction(int directions_found[4])
 {
 	int	i;
@@ -146,35 +149,19 @@ static bool	check_single_direction(int directions_found[4])
 	}
 	return (true);
 }
-
+*/
 /**
  * @brief main function to check if maps is enclosed and only 1 direction found 
  * 
  * @param data
  * @return bool true if the map is enclosed and only 1 direction found, false otherwise.
  */
+
 static bool	is_map_enclosed(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		data->directions_found[i] = 0;
-		i++;
-	}
-	if (check_map(data) == false)
-	{
-		ft_printf("IM HERE 1\n");
-		return (false);
-	}
-	if (check_single_direction(data->directions_found) == false)
-	{
-		ft_printf("IM HERE 2\n");
-		return (false);
-	}
-	return (true);
+	return (data);
 }
+
 
 /**
  * @brief get map identifier
@@ -234,6 +221,29 @@ static void	init_visited_map(t_data *data)
 	}
 }
 
+static void	create_temp_map_with_border(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	data->temp_map = (char **)ft_calloc(data->map_size_y + 2, sizeof(char *));
+	while (i < data->map_size_y + 2)
+	{
+		data->temp_map[i] = (char *)ft_calloc(data->map_size_x + 2, sizeof(char));
+		j = 0;
+		while (j < data->map_size_x + 2)
+		{
+			if (i == 0 || i == data->map_size_y + 1 || j == 0 || j == data->map_size_x + 1)
+				data->temp_map[i][j] = 'F';
+			else
+				data->temp_map[i][j] = data->map[i - 1][j - 1];
+			j++;
+		}
+		i++;
+	}
+}
 
 /**
  * @brief read each map line and assign to map array if valid
@@ -265,9 +275,8 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 				j++;
         		}
         		print_map(data);
-//        		init_visited_map(data);
-			create another temp map containing this map with a bother of 'F's surrounding it
-//			data->map[j - i] = NULL;
+        		init_visited_map(data);
+			create_temp_map_with_border(data);
 			if (!is_map_enclosed(data))
 			{
 				ft_printf("Error: Map is not enclosed by '1's\n");
