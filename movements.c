@@ -6,35 +6,30 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:41:25 by daong             #+#    #+#             */
-/*   Updated: 2024/11/09 15:59:52 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/09 17:46:31 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	wasd(t_data *data)
+/**
+ * @brief check if the new position is in a wall, else update the new position
+ * 
+ * @param data 
+ * @param x 
+ * @param y 
+ */
+static void	check_wall(t_data *data, float x, float y)
 {
-	if (data->keys[W])
-	{
-		data->player->x_pos += sin(data->player->rot_deg) / data->player->move_speed;
-		data->player->y_pos -= cos(data->player->rot_deg) / data->player->move_speed;
-	}
-	else if (data->keys[A])
-	{
-		data->player->x_pos -= cos(data->player->rot_deg) / data->player->move_speed;
-		data->player->y_pos -= sin(data->player->rot_deg) / data->player->move_speed;
-	}
-	else if (data->keys[S])
-	{
-		data->player->x_pos -= sin(data->player->rot_deg) / data->player->move_speed;
-		data->player->y_pos += cos(data->player->rot_deg) / data->player->move_speed;
-	}
-	else if (data->keys[D])
-	{
-		data->player->x_pos += cos(data->player->rot_deg) / data->player->move_speed;
-		data->player->y_pos += sin(data->player->rot_deg) / data->player->move_speed;
-	}
-	// if (data->player->x_pos) > 
+	float	new_x;
+	float	new_y;
+
+	new_x = data->player->x_pos + x;
+	new_y = data->player->y_pos + y;
+	if (data->map[(int)(new_y)][(int)(new_x)] == '1')
+		return ;
+	data->player->x_pos = new_x;
+	data->player->y_pos = new_y;
 	return ;
 }
 
@@ -45,12 +40,22 @@ static void	wasd(t_data *data)
  */
 int	do_movements(t_data *data)
 {
-	if (data->keys[W] || data->keys[A] || data->keys[S] || data->keys[D])
-		wasd(data);
-	if (data->keys[LEFT_ARROW])
+	if (data->keys[W])
+		check_wall(data, (sin(data->player->rot_deg) / data->player->move_speed),
+			-(cos(data->player->rot_deg) / data->player->move_speed));
+	else if (data->keys[A])
+		check_wall(data, -(cos(data->player->rot_deg) / data->player->move_speed),
+			-(sin(data->player->rot_deg) / data->player->move_speed));
+	else if (data->keys[S])
+		check_wall(data, -(sin(data->player->rot_deg) / data->player->move_speed),
+			(cos(data->player->rot_deg) / data->player->move_speed));
+	else if (data->keys[D])
+		check_wall(data, (cos(data->player->rot_deg) / data->player->move_speed),
+			(sin(data->player->rot_deg) / data->player->move_speed));
+	else if (data->keys[LEFT_ARROW])
 		data->player->rot_deg = fmod((data->player->rot_deg
 			- data->player->rot_speed + 6.28), 6.28);
-	if (data->keys[RIGHT_ARROW])
+	else if (data->keys[RIGHT_ARROW])
 		data->player->rot_deg = fmod((data->player->rot_deg
 			+ data->player->rot_speed), 6.28);
 	return (render(data), 1);
