@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/09 16:31:16 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/10 15:10:54 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_data
 	t_minimap	*minimap;
 	char		**map;
 	char		**temp_map; 
-	int			**visited;
+//	int			**visited;
 	int			map_size_x;		// no. of columns
 	int			map_size_y;		// no. of rows
 	int			directions_found[4];

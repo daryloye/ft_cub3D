@@ -65,6 +65,8 @@
 ## v15 - 9/11/2024
 - WIP: flood fill algo for validating map second cut
 
+## v16 - 10/11/2024
+- WIP: flood fill algo for validating map third cut. Chaneg to outside in
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
