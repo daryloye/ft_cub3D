@@ -72,6 +72,12 @@
 - combined minimap images into same t_img
 - Issue: cannot move in multiple directions at once
 
+## v18 - 11/11/2024
+- flood fill algo for validating map is working
+- Issue: leaks when esc from map (when flood fill successful)
+- WIP: check for repeated direction in map
+- WIP: check for empty line in map
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s
@@ -84,3 +90,4 @@ https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)
 
 - render walls
 	
+valgrind --leak-check=full --show-leak-kinds=all ./cub3D maps/error.cub

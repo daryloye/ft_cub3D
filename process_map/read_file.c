@@ -6,7 +6,7 @@
 /*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:21:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/10 15:21:06 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/11/11 00:40:52 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,12 @@ int	read_file(char *path, t_data *data)
 		close(fd);
 		return (1);
 	}
-//	if (get_map(data, text) != 0)
-//	{
-//		free_array(text);
-//		close(fd);
-//		return (1);
-//	}
+	if (get_map(data, text) != 0)
+	{
+		free_array(text);
+		close(fd);
+		return (1);
+	}
 	if (!data)
 		return (1);
 	free_array(text);

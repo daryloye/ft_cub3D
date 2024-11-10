@@ -3,14 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:05:57 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 00:14:28 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/11 03:49:28 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+/**
+ * @brief free map
+ * 
+ * @param data
+ */
+void	free_map(t_data *data)
+{
+	int	i;
+
+	if (data->map == NULL)
+		return;
+	i = 0;
+	while (i < data->map_size_y)
+	{
+		if (data->map[i] != NULL)
+			free(data->map[i]);
+		i++;
+	}
+	free(data->map);
+	data->map = NULL;
+}
+
+/**
+ * @brief free temp map
+ * 
+ * @param data
+ */
+void	free_temp_map(t_data *data)
+{
+	int	i;
+
+	if (data->temp_map == NULL)
+		return;
+	i = 0;
+	while (i < data->map_size_y + 2)
+	{
+		if (data->temp_map[i] != NULL)
+			free(data->temp_map[i]);
+		i++;
+	}
+	free(data->temp_map);
+	data->temp_map = NULL; 
+}
+
+/**
+ * @brief free visited map
+ * 
+ * @param data
+ */
+void	free_visited_map(t_data *data)
+{
+	int	i;
+
+	if (data->visited_map == NULL)
+		return;
+	i = 0;
+	while (i < data->map_size_y + 2)
+	{
+		if (data->visited_map[i] != NULL)	
+			free(data->visited_map[i]);
+		i++;
+	}
+	free(data->visited_map);
+	data->visited_map = NULL; 
+}
 
 /**
  * @brief init data struct
@@ -50,8 +116,6 @@ t_data	*init_data(void)
  */
 void	clean_data(t_data *data)
 {
-	int	i;
-
 	if (data->texture)
 		clean_texture(data->texture);
 	if (data->player)
@@ -61,12 +125,11 @@ void	clean_data(t_data *data)
 	if (data->minimap)
 		clean_minimap(data->minimap, data->mlx);
 	if (data->map)
-	{
-		i = -1;
-		while (data->map[++i])
-			free(data->map[i]);
-		free(data->map);
-	}
+		free_map(data);
+	if (data->temp_map)
+		free_temp_map(data);
+	if (data->visited_map)
+		free_visited_map(data);
 	if (data->mlx)
 		clean_mlx(data->mlx);
 	if (data)
