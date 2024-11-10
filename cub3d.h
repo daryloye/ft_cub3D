@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/10 23:55:59 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/11 01:04:00 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,16 @@ typedef struct s_minimap
 	int		wall_length;
 	int		player_length;
 	int		display_scale;
-	void	*minimap_wall_img;
-	void	*minimap_floor_img;
-	void	*minimap_player_img;
-
 	t_img	img;
 }	t_minimap;
 
 typedef struct s_data
 {
-	t_mlx		mlx;
-	t_texture	texture;
-	t_player	player;
-	t_display	display;
-	t_minimap	minimap;
+	t_mlx		*mlx;
+	t_texture	*texture;
+	t_player	*player;
+	t_display	*display;
+	t_minimap	*minimap;
 	char		**map;
 	char		**temp_map; 
 //	int			**visited;
@@ -143,18 +139,21 @@ int			render_background(t_data *data);
 
 /* render/render_utils */
 t_img		init_blank_image(t_data *data, int x, int y);
-void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+void		ft_mlx_pixel_put(t_img img, int x, int y, int color);
 int			create_trgb(int t, int r, int g, int b);
-void		dda(t_data *data, float start[2], float end[2], int color);
+void		dda(t_img img, float start[2], float end[2], int color);
 
 /* minimap/minimap */
 int			render_minimap(t_data *data);
 
 /* minimap/minimap_background */
-int			minimap_background(t_data *data, t_img *img);
+int			minimap_background(t_data *data);
 
 /* minimap/minimap_player */
 int			minimap_player(t_data *data);
+
+/* minimap/minimap_fov */
+void		minimap_fov(t_data *data);
 
 /* process_map/read_file */
 int			read_file(char *path, t_data *data);

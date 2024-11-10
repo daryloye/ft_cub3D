@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:53:09 by daong             #+#    #+#             */
-/*   Updated: 2024/11/06 16:31:42 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/11 01:01:42 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ t_img	init_blank_image(t_data *data, int x, int y)
  * @param y 
  * @param color 
  */
-void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	ft_mlx_pixel_put(t_img img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 	return ;
 }
 
-void	dda(t_data *data, float start[2], float end[2], int color)
+void	dda(t_img img, float start[2], float end[2], int color)
 {
 	float	Xinc;
 	float	Yinc;
@@ -76,7 +76,7 @@ void	dda(t_data *data, float start[2], float end[2], int color)
 	i = -1;
     while (++i < steps)
 	{ 
-        mlx_pixel_put(data->mlx->mlx_ptr, data->mlx->win_ptr, round(start[0]), round(start[1]), color);
+        ft_mlx_pixel_put(img, round(start[0]), round(start[1]), color);
         start[0] += Xinc;
 		start[1] += Yinc;
 	}

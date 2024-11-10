@@ -68,6 +68,10 @@
 ## v16 - 10/11/2024
 - WIP: flood fill algo for validating map third cut. Chaneg to outside in
 
+## v17 - 11/11/2024
+- combined minimap images into same t_img
+- Issue: cannot move in multiple directions at once
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s

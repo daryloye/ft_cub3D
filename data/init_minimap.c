@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 15:45:59 by daong             #+#    #+#             */
-/*   Updated: 2024/11/10 12:17:10 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/11 01:04:14 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,8 @@ t_minimap	*init_minimap(void)
  */
 void	clean_minimap(t_minimap *minimap, t_mlx *mlx)
 {
-	if (mlx->mlx_ptr && minimap->minimap_wall_img)
-		mlx_destroy_image(mlx->mlx_ptr, minimap->minimap_wall_img);
-	if (mlx->mlx_ptr && minimap->minimap_floor_img)
-		mlx_destroy_image(mlx->mlx_ptr, minimap->minimap_floor_img);
-	if (mlx->mlx_ptr && minimap->minimap_player_img)
-		mlx_destroy_image(mlx->mlx_ptr, minimap->minimap_player_img);
+	if (mlx->mlx_ptr && minimap->img.img_ptr)
+		mlx_destroy_image(mlx->mlx_ptr, minimap->img.img_ptr);
 	if (minimap)
 		free(minimap);
 	return ;
