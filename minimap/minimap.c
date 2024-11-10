@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:54:58 by daong             #+#    #+#             */
-/*   Updated: 2024/11/09 16:43:23 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/10 23:39:25 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,14 @@ static int	get_wall_length(t_data *data)
 int	render_minimap(t_data *data)
 {
 	data->minimap->wall_length = get_wall_length(data);
-	if (minimap_background(data) == 1)
-		return (1);
-	if (minimap_player(data) == 1)
-		return (1);
+	data->minimap->img = init_blank_image(data,
+			data->map_size_x * data->minimap->wall_length, 
+			data->map_size_y * data->minimap->wall_length);
+	minimap_background(data, &img);
+	//minimap_player(data, &img);
+	if (data->keys[M] == 1)
+		mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr, img.img_ptr, 0, 0);
+	//mlx_destroy_image(data->mlx->mlx_ptr, img.img_ptr);
 	return (0);
 }
+// create a blank img, pass ptr to background and player, then put_image_to_window, then destroy image

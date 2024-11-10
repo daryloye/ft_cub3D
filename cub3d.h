@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/09 16:31:16 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/10 23:43:42 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ typedef enum
 	M,
 	KEY_COUNT
 }	key_index;
+
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
 
 typedef struct s_mlx
 {
@@ -79,15 +88,17 @@ typedef struct s_minimap
 	void	*minimap_wall_img;
 	void	*minimap_floor_img;
 	void	*minimap_player_img;
+
+	t_img	img;
 }	t_minimap;
 
 typedef struct s_data
 {
-	t_mlx		*mlx;
-	t_texture	*texture;
-	t_player	*player;
-	t_display	*display;
-	t_minimap	*minimap;
+	t_mlx		mlx;
+	t_texture	texture;
+	t_player	player;
+	t_display	display;
+	t_minimap	minimap;
 	char		**map;
 	char		**temp_map; 
 	int			**visited;
@@ -96,15 +107,6 @@ typedef struct s_data
 	int			directions_found[4];
 	int			keys[KEY_COUNT];
 }	t_data;
-
-typedef struct s_img
-{
-	void	*img_ptr;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_img;
 
 /* data/init_data */
 t_data		*init_data(void);
@@ -149,7 +151,7 @@ void		dda(t_data *data, float start[2], float end[2], int color);
 int			render_minimap(t_data *data);
 
 /* minimap/minimap_background */
-int			minimap_background(t_data *data);
+int			minimap_background(t_data *data, t_img *img);
 
 /* minimap/minimap_player */
 int			minimap_player(t_data *data);

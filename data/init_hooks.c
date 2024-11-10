@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:10:42 by daong             #+#    #+#             */
-/*   Updated: 2024/11/07 03:37:14 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/10 11:43:48 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	key_press(int key, t_data *data)
 {
-	printf("Key pressed: %d\n", key);
 	if (key == 65307)
 		mlx_loop_end(data->mlx->mlx_ptr);
 	if (key == 'w')
@@ -36,7 +35,6 @@ static int	key_press(int key, t_data *data)
 
 static int	key_release(int key, t_data *data)
 {
-	printf("Key released: %d\n", key);
 	if (key == 'w')
 		data->keys[W] = 0;
 	if (key == 'a')
