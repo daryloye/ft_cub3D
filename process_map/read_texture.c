@@ -138,7 +138,7 @@ int	get_textures(t_data *data, char **text)
 	while (text[i])
 	{
 		if (read_texture_line(text[i], data->texture) != 0)
-			return (ft_printf("Error\nInvalid texture line: %s\n", text[i]), 1);
+			return (write(2, "Error\nInvalid texture\n", 22), 1);
 		i++;
 	}
 	return (0);

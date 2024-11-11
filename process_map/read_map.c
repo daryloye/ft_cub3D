@@ -15,35 +15,25 @@
 /*
 static void print_map(t_data *data)
 {
-    int y = 0;
+	 int	y;
 
-    if (!data->map)
-    {
-        printf("Map is not initialized.\n");
-        return;
-    }
-    printf("PRINITNG MAP\n");
-    // Iterate over each row in the map
-    while (y < data->map_size_y)
-    {
-        printf("%s\n", data->map[y]);
-        y++;
-    }
-}
-*/
-static void	create_visited_map(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	data->visited_map = (int **)ft_calloc(data->map_size_y + 2, sizeof(int *));
-	while (i < data->map_size_y + 2)
+	y = 0;
+	if (!data->map)
 	{
-		data->visited_map[i] = (int *)ft_calloc(data->map_size_x + 2, sizeof(int));
-		i++;
+		printf("Map is not initialized.\n");
+		return;
+	}
+	printf("PRINITNG MAP\n");
+	// Iterate over each row in the map
+	while (y < data->map_size_y)
+	{
+		printf("%s\n", data->map[y]);
+		y++;
 	}
 }
+*/
 
+/*
 static void	print_temp_map(char **temp_map, int map_size_x, int map_size_y)
 {
 	int	y;
@@ -64,7 +54,25 @@ static void	print_temp_map(char **temp_map, int map_size_x, int map_size_y)
 	}
 	printf("\n");
 }
+*/
 
+/**
+ * @brief create visited map
+ *
+ * @param data
+ */
+static void	create_visited_map(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->visited_map = (int **)ft_calloc(data->map_size_y + 2, sizeof(int *));
+	while (i < data->map_size_y + 2)
+	{
+		data->visited_map[i] = (int *)ft_calloc(data->map_size_x + 2, sizeof(int));
+		i++;
+	}
+}
 
 /**
  * @brief flood fill operation to check for leaks into the wall
@@ -74,7 +82,6 @@ static void	print_temp_map(char **temp_map, int map_size_x, int map_size_y)
  * @param y
  * @return bool true if floodfill hit wall or alr visited/success, false if out of bound/leak found
  */
-
 static bool	flood_fill(t_data *data, char **temp_map, int x, int y)
 {
 	char	cell;
@@ -84,39 +91,20 @@ static bool	flood_fill(t_data *data, char **temp_map, int x, int y)
 	bool	right;
 
 	if (x < 0 || x >= data->map_size_x + 2 || y < 0 || y >= data->map_size_y + 2)
-	{
-		printf("Out of bounds: (x=%d, y=%d)\n", x, y);
 		return (true);
-	}
-    cell = temp_map[y][x];
-	printf("Checking cell at (x=%d, y=%d): '%c'\n", x, y, cell);
-    if (data->visited_map[y][x] == 1 || cell == WALL)
-	{
-		printf("Cell is a wall at (x=%d, y=%d)\n", x, y);
+	cell = temp_map[y][x];
+	if (data->visited_map[y][x] == 1 || cell == WALL)
 		return (true);
-	}
 	if (cell == FLOOR || ft_strchr(DIRECTION, cell))
-	{
-		printf("Cell is floor or direction at (x=%d, y=%d)\n", x, y);
-        return (false);
-	}
+		return (false);
 	data->visited_map[y][x] = 1;
-    temp_map[y][x] = 'X';
-	printf("Filling cell at (x=%d, y=%d)\n", x, y);
-    up = flood_fill(data, temp_map, x, y - 1);
-    down = flood_fill(data, temp_map, x, y + 1);
-    left = flood_fill(data, temp_map, x - 1, y);
-    right = flood_fill(data, temp_map, x + 1, y);
-    return (up && down && left && right);
+	temp_map[y][x] = 'X';
+	up = flood_fill(data, temp_map, x, y - 1);
+	down = flood_fill(data, temp_map, x, y + 1);
+	left = flood_fill(data, temp_map, x - 1, y);
+	right = flood_fill(data, temp_map, x + 1, y);
+	return (up && down && left && right);
 }
-
-
-/**
- * @brief check if only 1 direction found 
- * 
- * @param directions_found[4]
- * @return bool true if only single direction found, false otherwise.
- */
 
 /**
  * @brief main function to check if maps is enclosed
@@ -129,8 +117,6 @@ static bool	is_map_enclosed(t_data *data)
 	create_visited_map(data);
 	if (flood_fill(data, data->temp_map, 0, 0) == false)
 	{
-		print_temp_map(data->temp_map, data->map_size_x, data->map_size_y);
-		ft_printf("Error: Map is not enclosed by walls!\n");
 		free_temp_map(data);
 		free_visited_map(data);
 		return (false);
@@ -171,6 +157,10 @@ static int	get_map_size(t_data *data, char **text, int i)
 	j = i;
 	while (text[i + map_size_y])
 		map_size_y++;
+	while (map_size_y > 0 && (text[i + map_size_y - 1] == NULL
+		|| text[i + map_size_y - 1][0] == '\0'
+		|| text[i + map_size_y - 1][0] == '\n'))
+		map_size_y--;
 	while (j < (i + map_size_y))
 	{
 		row_len = ft_strlen(text[j]);
@@ -180,43 +170,161 @@ static int	get_map_size(t_data *data, char **text, int i)
 	}
 	data->map_size_x = map_size_x;
 	data->map_size_y = map_size_y;
-	ft_printf("map size x: %d\n", data->map_size_x);
-	ft_printf("map size y: %d\n", data->map_size_y);
 	return (0);
 }
 
-static void create_temp_map_with_border(t_data *data)
+/**
+ * @brief Assign F to border (if), pad the remaining
+ *if the row is shorter than longest row with 'F' (else: it replaces \n wih 'F')
+ *
+ * @param data
+ */
+static void	create_temp_map_with_border(t_data *data)
 {
-    int i;
-    int j;
-    int row_len;
+	int	i;
+	int	j;
+	int	row_len;
 
-    i = 0;
-    data->temp_map = (char **)ft_calloc(data->map_size_y + 2, sizeof(char *));
-    while (i < data->map_size_y + 2)
-    {
-        data->temp_map[i] = (char *)ft_calloc(data->map_size_x + 2, sizeof(char));
-        j = 0;
-        while (j < data->map_size_x + 2)
-        {
-            // Fill the border with 'F'
-            if (i == 0 || i == data->map_size_y + 1 || j == 0 || j == data->map_size_x + 1)
-                data->temp_map[i][j] = 'F';
-            else
-            {
-                row_len = ft_strlen(data->map[i - 1]);
-                // Check if the character at (i-1, j-1) is not a newline and within bounds
-                if (j - 1 < row_len && data->map[i - 1][j - 1] != '\n')
-                    data->temp_map[i][j] = data->map[i - 1][j - 1];
-                else
-                    data->temp_map[i][j] = 'F';
-            }
-            j++;
-        }
-        i++;
-    }
+	i = 0;
+	data->temp_map = (char **)ft_calloc(data->map_size_y + 2, sizeof(char *));
+	while (i < data->map_size_y + 2)
+	{
+		data->temp_map[i] = (char *)ft_calloc(data->map_size_x + 2, sizeof(char));
+		j = 0;
+		while (j < data->map_size_x + 2)
+		{
+			if (i == 0 || i == data->map_size_y + 1 || j == 0 || j == data->map_size_x + 1)
+				data->temp_map[i][j] = 'F';
+			else
+			{
+				row_len = ft_strlen(data->map[i - 1]);
+				if (j - 1 < row_len && data->map[i - 1][j - 1] != '\n')
+					data->temp_map[i][j] = data->map[i - 1][j - 1];
+				else
+					data->temp_map[i][j] = 'F';
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
+/**
+ * @brief set player direction in radians
+ *
+ * @param c
+ * @param j
+ * @param i
+ * @param data
+ */
+static void	set_player_rotation(char c, t_data *data)
+{
+	if (c == 'N')
+		data->player->rot_deg = 0;
+	else if (c == 'E')
+		data->player->rot_deg = 1.57;
+	else if (c == 'S')
+		data->player->rot_deg = 3.14;
+	else if (c == 'W')
+		data->player->rot_deg = 4.71;
+}
+
+/**
+ * @brief set player pos and direction
+ *
+ * @param c
+ * @param j
+ * @param i
+ * @param data
+ */
+static void	process_player_position(char c, int j, int i, t_data *data)
+{
+	data->player->x_pos = j + 0.5;
+	data->player->y_pos = i + 0.5;
+	set_player_rotation(c, data);
+	return ;
+}
+
+/**
+ * @brief check map line for invalid chars, if player position found, validate it
+ * detact multiple players (invalid), if plater position valid, change the char NSEW to 0.
+ *
+ * @param line
+ * @param i
+ * @param player_found
+ * @param data
+ * @return int 0 if valid, -1 if not valid/invalid char encountered/multiple players detected 
+ */
+static int	check_map_line(char *line, int i, bool *player_found, t_data *data)
+{
+	int	j;
+	char	c;
+
+	j = 0;	
+	while (line[j] != '\0')
+	{
+		c = line[j];
+		if (c != WALL && c != FLOOR && !ft_strchr(DIRECTION, c) && c != ' ' && c != '\n')
+			return (-1);
+		if (ft_strchr(DIRECTION, c))
+		{
+			if (*player_found)
+				return (-1);
+			*player_found = true;
+			process_player_position(c, j, i, data);
+			line[j] = '0';
+		}
+		j++;
+	}
+	return (0);
+}
+
+/**
+ * @brief handle empty line, trailing empty line is acceptable
+ *empty line within map is invalid
+ *
+ * @param line
+ * @param line_index
+ * @param map_size_y
+ * @return int 0 if valid/trailing empty lines, -1 if not valid 
+ */
+static int	handle_empty_line(char *line, int line_index, int map_size_y)
+{
+	if (line == NULL || line[0] == '\0' || line[0] == '\n')
+	{
+		if (line_index == map_size_y - 1)
+			return (0);
+		return (-1);
+    }
+    return (0);
+}
+
+/**
+ * @brief check if map is valid, to handle empty line, and to handle invalid char,
+ *repeated players and to assign player position and direction
+ *
+ * @param data
+ * @return int 0 if valid, -1 if not valid 
+ */
+static int	check_map(t_data *data)
+{
+	int	i;
+	bool	player_found;
+
+	i = 0;
+	player_found = false;
+	while (i < data->map_size_y)
+	{
+		if (handle_empty_line(data->map[i], i, data->map_size_y) != 0)
+			return (-1);
+		if (check_map_line(data->map[i], i, &player_found, data) != 0)
+			return (-1);
+		i++;
+	}
+	if (!player_found)
+		return (-1);
+	return (0);
+}
 
 /**
  * @brief read each map line and assign to map array if valid
@@ -250,17 +358,11 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 				j++;
 			}
 			data->map[data->map_size_y] = NULL;
-//			print_map(data);
-//        	init_visited_map(data);
-			create_temp_map_with_border(data);
-			print_temp_map(data->temp_map, data->map_size_x, data->map_size_y);
-			if (!is_map_enclosed(data))
-			{
-//				print_visited_map(data);
-				ft_printf("Error: Map is not enclosed by '1's\n");
-				//free data->map, 
+			if (check_map(data) != 0)
 				return (-1);
-			}
+			create_temp_map_with_border(data);
+			if (!is_map_enclosed(data))
+				return (-1);
 		}
 	}
 	return (0);
@@ -282,7 +384,7 @@ int	get_map(t_data *data, char **text)
 	while (text[i])
 	{
 		if (read_map_line(text[i], data, text, i) != 0)
-			return (ft_printf("Error\nInvalid map: %s\n", text[i]), 1);
+			return (write(2, "Error\nInvalid map\n", 18), 1);
 		if (data->map && data->map[i] != NULL)
 			break;
 		i++;

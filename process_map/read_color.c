@@ -196,7 +196,7 @@ int	get_color(t_data *data, char **text)
 	while (text[i])
 	{
 		if (read_color_line(text[i], data->texture) != 0)
-			return (ft_printf("Error\nInvalid color line: %s\n", text[i]), 1);
+			return (write(2, "Error\nInvalid color line\n", 25), 1);
 		i++;
 	}
 	return (0);

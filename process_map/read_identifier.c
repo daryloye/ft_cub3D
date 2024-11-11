@@ -49,15 +49,11 @@ static int	check_id(const char *line, int *found)
 	while (i < 6)
 	{
 		len = ft_strlen(id[i]);
-		// Check if line starts with a valid identifier and is followed by whitespace or end
 		if (ft_strncmp(line, id[i], len) == 0 && 
 			((line[len] == ' ' || line[len] == '\t' || line[len] == '\0')))
 		{
-			if (found[i]) 
-			{
-				printf("Error: Duplicate identifier found: %s\n", id[i]);
-				return (-1);
-			}
+			if (found[i])
+				return (write(2, "Error\nDuplicate identifier found\n", 33), -1);
 			found[i] = 1;
 			return (1);
 		}
@@ -88,16 +84,10 @@ static bool	check_id_and_one(const char *line, int *found, bool all_id_found)
 		if (all_id_found)
 		{
 			if (line[0] != '1')
-			{
-				ft_printf("Error: Invalid identifier in line: %s\n", line);
-				return (false);
-			}
+				return (write(2, "Error\nInvalid identifier\n", 25), false);
 		}
 		else
-		{
-			ft_printf("Error: Misplaced '1' or unknown identifier in line: %s\n", line);
-			return (false);
-		}
+			return (write(2, "Error\nMisplaced '1' or unknown identifier\n", 42), false);
 	}
 	return (true);
 }
@@ -130,7 +120,6 @@ int	check_identifiers(char **text)
 	int	found[6] = {0};
 	int	i;
 	int	j;
-	const char	*id[6] = {"NO", "SO", "WE", "EA", "F", "C"};
 	bool	all_id_found;
 
 	i = 0;
@@ -148,10 +137,7 @@ int	check_identifiers(char **text)
 		while (j < 6)
 		{
 			if (!found[j])
-			{
-				ft_printf("Error: Missing identifier: %s\n", id[j]);
-				return (1);
-			}
+				return (write(2, "Error\nMissing identifier\n", 25), 1);
 			j++;
 		}
 	}

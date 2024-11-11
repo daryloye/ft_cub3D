@@ -82,6 +82,13 @@
 - solved leak issue when esc from map
 - solved moving multiple directions at once
 
+## v20 - 11/11/2024
+- Done check for repeated direction in map
+- Done check for empty line in map
+- Done assigning values to player struct
+- Done changing direction char to 0 in map
+- Changed out all the ft_printf in the read_x.c files(in process map folder) to write (to stderr) or perror because ft_printf doesnt print to stderr.
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s

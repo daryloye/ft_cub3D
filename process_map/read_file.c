@@ -97,10 +97,10 @@ int	read_file(char *path, t_data *data)
 	char	**text;
 
 	if (check_file_name(path, ".cub") != 0)
-		return (ft_printf("Error\nNot a .cub file\n"), 1);
+		return (write(2, "Error\nNot a .cub file\n", 22), 1);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (ft_printf("Error\n%s\n", strerror(errno)), 1);
+		return (perror("Error"), 1);
 	text = convert_to_array(fd);
 	i = 0;
 	while (text[i])
