@@ -74,9 +74,10 @@
 
 ## v18 - 11/11/2024
 - flood fill algo for validating map is working
-- Issue: leaks when esc from map (when flood fill successful)
+- Issue: leaks when esc from map (when flood fill successful) -- solved!
 - WIP: check for repeated direction in map
 - WIP: check for empty line in map
+
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html

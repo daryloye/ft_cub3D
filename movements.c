@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:41:25 by daong             #+#    #+#             */
-/*   Updated: 2024/11/09 17:46:31 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/11 10:13:27 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,19 @@ int	do_movements(t_data *data)
 	if (data->keys[W])
 		check_wall(data, (sin(data->player->rot_deg) / data->player->move_speed),
 			-(cos(data->player->rot_deg) / data->player->move_speed));
-	else if (data->keys[A])
+	if (data->keys[A])
 		check_wall(data, -(cos(data->player->rot_deg) / data->player->move_speed),
 			-(sin(data->player->rot_deg) / data->player->move_speed));
-	else if (data->keys[S])
+	if (data->keys[S])
 		check_wall(data, -(sin(data->player->rot_deg) / data->player->move_speed),
 			(cos(data->player->rot_deg) / data->player->move_speed));
-	else if (data->keys[D])
+	if (data->keys[D])
 		check_wall(data, (cos(data->player->rot_deg) / data->player->move_speed),
 			(sin(data->player->rot_deg) / data->player->move_speed));
-	else if (data->keys[LEFT_ARROW])
+	if (data->keys[LEFT_ARROW])
 		data->player->rot_deg = fmod((data->player->rot_deg
 			- data->player->rot_speed + 6.28), 6.28);
-	else if (data->keys[RIGHT_ARROW])
+	if (data->keys[RIGHT_ARROW])
 		data->player->rot_deg = fmod((data->player->rot_deg
 			+ data->player->rot_speed), 6.28);
 	return (render(data), 1);

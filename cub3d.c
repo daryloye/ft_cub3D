@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:32:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/09 16:32:41 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/11 10:24:04 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@
 void	import_test_map(t_data *data)
 {
 	char	**map;
+	int		i;
 
+	i = -1;
+	while (data->map[++i])
+		free(data->map[i]);
+	free(data->map);
 	map = ft_calloc(sizeof(char *), 6);
 	map[0] = ft_strdup("11111");
 	map[1] = ft_strdup("10001");
