@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:53:09 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 01:01:42 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/11 11:06:09 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void	ft_mlx_pixel_put(t_img img, int x, int y, int color)
 	return ;
 }
 
-void	dda(t_img img, float start[2], float end[2], int color)
+void	dda(t_img img, double start[2], double end[2], int color)
 {
-	float	Xinc;
-	float	Yinc;
+	double	Xinc;
+	double	Yinc;
 	int		steps;
 	int		i;
   
@@ -71,8 +71,8 @@ void	dda(t_img img, float start[2], float end[2], int color)
 		steps = abs((int)(end[0] - start[0]));
 	else
 		steps = abs((int)(end[1] - start[1]));
-    Xinc = (end[0] - start[0]) / (float)steps; 
-    Yinc = (end[1] - start[1]) / (float)steps; 
+    Xinc = (end[0] - start[0]) / (double)steps; 
+    Yinc = (end[1] - start[1]) / (double)steps; 
 	i = -1;
     while (++i < steps)
 	{ 

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:21:05 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 00:38:30 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/11 21:35:04 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,14 @@ int	minimap_background(t_data *data)
 	while (data->map[++y])
 	{
 		x = -1;
-		while (data->map[y][++x])
+		while (++x < data->map_size_x)
 		{
 			if (data->map[y][x] == '1')
 				create_wall(data, x * length, y * length);
 			else if (data->map[y][x] == '0')
 				create_floor(data, x * length, y * length);
+			//else
+				//create_wall(data, x * length, y * length);
 		}
 	}
 	return (0);

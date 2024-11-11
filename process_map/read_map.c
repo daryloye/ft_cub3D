@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:29:48 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/11 03:52:27 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/11/11 23:34:16 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,8 +213,6 @@ static void	create_temp_map_with_border(t_data *data)
  * @brief set player direction in radians
  *
  * @param c
- * @param j
- * @param i
  * @param data
  */
 static void	set_player_rotation(char c, t_data *data)
@@ -222,11 +220,11 @@ static void	set_player_rotation(char c, t_data *data)
 	if (c == 'N')
 		data->player->rot_deg = 0;
 	else if (c == 'E')
-		data->player->rot_deg = 1.57;
+		data->player->rot_deg = M_PI * 0.5;
 	else if (c == 'S')
-		data->player->rot_deg = 3.14;
+		data->player->rot_deg = M_PI;
 	else if (c == 'W')
-		data->player->rot_deg = 4.71;
+		data->player->rot_deg = M_PI * 1.5;
 }
 
 /**
@@ -370,7 +368,7 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 
 /**
  * @brief Iterate through the provided text array to find map
-
+ * remove /n character for each row in map
  * 
  * @param data
  * @param text
@@ -379,16 +377,24 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 int	get_map(t_data *data, char **text)
 {
 	int	i;
+	int	len;
 
-	i = 0;
-	while (text[i])
+	i = -1;
+	while (text[++i])
 	{
 		if (read_map_line(text[i], data, text, i) != 0)
 			return (write(2, "Error\nInvalid map\n", 18), 1);
 		if (data->map && data->map[i] != NULL)
 			break;
-		i++;
 	}
+	i = -1;
+	while (data->map && data->map[++i])
+	{
+		len = ft_strlen(data->map[i]);
+		if (data->map[i][len - 1] == '\n')
+			data->map[i][len - 1] = '\0';
+	}
+	data->map_size_x--;
 	return (0);
 }
 

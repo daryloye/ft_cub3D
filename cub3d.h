@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 03:48:22 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/11/11 23:32:38 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define WALL		'1'
 # define FLOOR		'0'
 # define DIRECTION	"NESW"
+# define M_PI 		3.14159265358979323846
 
 typedef enum
 {
@@ -144,7 +145,7 @@ int			render_background(t_data *data);
 t_img		init_blank_image(t_data *data, int x, int y);
 void		ft_mlx_pixel_put(t_img img, int x, int y, int color);
 int			create_trgb(int t, int r, int g, int b);
-void		dda(t_img img, float start[2], float end[2], int color);
+void		dda(t_img img, double start[2], double end[2], int color);
 
 /* minimap/minimap */
 int			render_minimap(t_data *data);

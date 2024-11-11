@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_identifier.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:32:40 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/04 20:32:43 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/11/11 21:05:19 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ static bool	is_line_valid(char *line, int *found, bool all_id_found)
 
 int	check_identifiers(char **text)
 {
-	int	found[6] = {0};
-	int	i;
-	int	j;
+	int		found[6] = {0};
+	int		i;
+	int		j;
 	bool	all_id_found;
 
 	i = 0;

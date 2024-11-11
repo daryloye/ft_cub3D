@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:21:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 00:40:52 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/11/11 21:07:55 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ static void	free_array(char **array)
  */
 int	read_file(char *path, t_data *data)
 {
-	int		i;
 	int		fd;
+	int		err;
 	char	**text;
 
 	if (check_file_name(path, ".cub") != 0)
@@ -102,39 +102,15 @@ int	read_file(char *path, t_data *data)
 	if (fd < 0)
 		return (perror("Error"), 1);
 	text = convert_to_array(fd);
-	i = 0;
-	while (text[i])
-	{
-		ft_printf("%s\n", text[i]);
-		i++;
-	}
-	if (check_identifiers(text) != 0)
-	{
-		free_array(text);
-		close(fd);
-		return (1);
-	}
-	if (get_textures(data, text) != 0)
-	{
-		free_array(text);
-		close(fd);
-		return (1);
-	}
-	if (get_color(data, text) != 0)
-	{
-		free_array(text);
-		close(fd);
-		return (1);
-	}
-	if (get_map(data, text) != 0)
-	{
-		free_array(text);
-		close(fd);
-		return (1);
-	}
-	if (!data)
-		return (1);
+	err = 0;
+	err |= check_identifiers(text);
+	err |= get_textures(data, text);
+	err |= get_color(data, text);
+	err |= get_map(data, text);
 	free_array(text);
 	close(fd);
-	return (0);
+	if (err != 0)
+		return (1);
+	else
+		return (0);
 }

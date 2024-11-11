@@ -89,6 +89,9 @@
 - Done changing direction char to 0 in map
 - Changed out all the ft_printf in the read_x.c files(in process map folder) to write (to stderr) or perror because ft_printf doesnt print to stderr.
 
+## v21 - 11/11/2024
+- WIP: raycasting algo
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s

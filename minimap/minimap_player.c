@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:19:38 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 00:57:51 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/11 11:06:14 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	minimap_player(t_data *data)
 {
 	int		wall_length;
 	int		player_length;
-	float	x_start;
-	float	y_start;
+	double	x_start;
+	double	y_start;
 
 	wall_length = data->minimap->wall_length;
 	player_length = data->minimap->player_length;
