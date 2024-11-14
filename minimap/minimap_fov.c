@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 00:57:11 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 23:39:41 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/14 22:42:38 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,7 @@ void	minimap_fov(t_data *data)
 {
 	double	start[2];
 	double	end[2];
-	double	dir_x;
-	double	dir_y;
-	
-	dir_x = cos(data->player->rot_deg);
-	dir_y = sin(data->player->rot_deg);
-	printf("dir_x = %.2f, dir_y = %.2f\n", dir_x, dir_y);
+
 	start[0] = (data->player->x_pos * data->minimap->wall_length);
 	start[1] = (data->player->y_pos * data->minimap->wall_length);
 

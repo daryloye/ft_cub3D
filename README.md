@@ -96,6 +96,7 @@
 - invalid read???
 - why does map_small not work??
 - WIP wall checks in raycasting.c
+- no leaks using test map in main
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
