@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_background.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:21:05 by daong             #+#    #+#             */
-/*   Updated: 2024/11/14 22:48:12 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/15 01:05:23 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ int	minimap_background(t_data *data)
 	while (data->map[++y])
 	{
 		x = -1;
-		while (++x < data->map_size_x)
+		while (data->map[y][++x])
 		{
-			if (data->map[y][x] && data->map[y][x] == '1')
+			if (data->map[y][x] == '1')
 				create_wall(data, x * length, y * length);
-			else if (data->map[y][x] && data->map[y][x] == '0')
+			else if (data->map[y][x] == '0')
 				create_floor(data, x * length, y * length);
 		}
 	}
