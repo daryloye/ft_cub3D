@@ -92,6 +92,11 @@
 ## v21 - 11/11/2024
 - WIP: raycasting algo
 
+## v22 - 14/11/2024
+- invalid read???
+- why does map_small not work??
+- WIP wall checks in raycasting.c
+
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s
