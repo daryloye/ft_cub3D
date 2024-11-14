@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:54:58 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 00:58:20 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/14 22:50:29 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,5 @@ int	render_minimap(t_data *data)
 	}
 	minimap_background(data);
 	minimap_player(data);
-	minimap_fov(data);
-	if (data->keys[M] == 1)
-		mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr, data->minimap->img.img_ptr, 0, 0);
 	return (0);
 }

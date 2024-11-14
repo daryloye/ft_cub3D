@@ -6,69 +6,42 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 00:57:11 by daong             #+#    #+#             */
-/*   Updated: 2024/11/14 18:25:40 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/15 00:47:36 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	check_NE(t_data *data, double ray_angle, double *start, int color)
+static void	get_horizontal_intercept(t_data *data, double ray_angle, int color)
 {
-	double	end[2];
-	double	corner_angle;
-	double	x;
-	double	y;
+	double	first_hit[2];
+	double	offset[2];
+	double	player[2];
 
-	x = start[0];
-	y = start[1];
-	corner_angle = atan((float)((int)x + 1) - x / y - (float)((int)y));
-	if (ray_angle <= corner_angle)	// check N
+	player[0] = data->player->x_pos;
+	player[1] = data->player->y_pos;
+	if (ray_angle > (M_PI * 1.5) || ray_angle < (M_PI * 0.5))		// looking up
 	{
-		end[0] = x;
-		end[1] = (int)y;
+		first_hit[1] = (int)player[1];
+		first_hit[0] = (player[1] - first_hit[1]) * tan(ray_angle) + player[0];
+		offset[1] = -1;
+		offset[0] = tan(ray_angle);
 	}
-	if (ray_angle >= corner_angle)		// check E
+	if (ray_angle > (M_PI * 0.5) && ray_angle < (M_PI * 1.5))		// looking down
 	{
-		end[0] = (int)x + 1;
-		end[1] = y;
+		first_hit[1] = (int)player[1] + 1;
+		first_hit[0] = (first_hit[1] - player[1]) * -tan(ray_angle) + player[0];
+		offset[1] = 1;
+		offset[0] = tan(ray_angle);
 	}
-	dda(data->minimap->img, start, end, color);
-	draw_ray(data, ray_angle, end, color);
-}
-
-/**
- * @brief draws ray recursively within a box from start[2] to side of box
- * 
- * @param data 
- * @param ray_angle 
- * @param start 
- */
-void	draw_ray(t_data *data, double ray_angle, double *start, int color)
-{
-	if (ray_angle >= 0 && ray_angle < M_PI * 0.5)	// check wall N and E	--> find end point
-		check_NE(data, ray_angle, start, color);
+	player[0] *= data->minimap->wall_length;
+	player[1] *= data->minimap->wall_length;
+	first_hit[0] *= data->minimap->wall_length;
+	first_hit[1] *= data->minimap->wall_length;
+	dda(data->minimap->img, player, first_hit, color);
+	dda(data->minimap->img, player, offset, color);
 	return ;
 }
-
-// /**
-//  * @brief initialise angles to corners
-//  * 0 = NE, 1 = SE, 2 = SW, 3 = NW
-//  * 
-//  * @param data 
-//  */
-// static void	init_corner_angles(t_data *data)
-// {
-// 	float	x;
-// 	float	y;
-
-// 	x = data->player->x_pos;
-// 	y = data->player->y_pos;
-// 	data->player->corner_angle[0] = atan((float)((int)x + 1) - x / y - (float)((int)y));
-// 	data->player->corner_angle[1] = atan((float)((int)y + 1) - y / (float)((int)x + 1) - x) + (M_PI * 0.5);
-// 	data->player->corner_angle[2] = atan(x - (float)((int)x) / (float)((int)y + 1) - y) + M_PI;
-// 	data->player->corner_angle[3] = atan(y - (float)((int)y) / x - (float)((int)x)) + (M_PI * 1.5);
-// 	return ;
-// }
 
 /**
  * @brief init fov data for player position and angles to walls
@@ -77,17 +50,13 @@ void	draw_ray(t_data *data, double ray_angle, double *start, int color)
  */
 int	render_fov(t_data *data)
 {
-	double	start[2];
 	double	ray_angle;
 	int		color;
 
 	color = create_trgb(0, 0, 255, 0);
-	// init_corner_angles(data);
-	start[0] = (data->player->x_pos * data->minimap->wall_length);
-	start[1] = (data->player->y_pos * data->minimap->wall_length);
 
-	ray_angle = data->player->rot_deg;				// need to repeat this for multiple rays in fov
+	ray_angle = data->player->rot_deg;
 
-	draw_ray(data, ray_angle, start, color);
+	get_horizontal_intercept(data, ray_angle, color);
 	return (0);
 }

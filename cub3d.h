@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 23:32:38 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/15 00:19:17 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,9 @@ void		render(t_data *data);
 /* render/background */
 int			render_background(t_data *data);
 
+/* render/raycasting */
+int			render_fov(t_data *data);
+
 /* render/render_utils */
 t_img		init_blank_image(t_data *data, int x, int y);
 void		ft_mlx_pixel_put(t_img img, int x, int y, int color);
@@ -155,9 +158,6 @@ int			minimap_background(t_data *data);
 
 /* minimap/minimap_player */
 int			minimap_player(t_data *data);
-
-/* minimap/minimap_fov */
-void		minimap_fov(t_data *data);
 
 /* process_map/read_file */
 int			read_file(char *path, t_data *data);
