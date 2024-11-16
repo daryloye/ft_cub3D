@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:53:09 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 11:06:09 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/16 14:50:19 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,32 @@ void	ft_mlx_pixel_put(t_img img, int x, int y, int color)
 	return ;
 }
 
-void	dda(t_img img, double start[2], double end[2], int color)
+/**
+ * @brief draws line from pos[start] to pos[end]
+ * 
+ * @param img 
+ * @param pos 
+ * @param color 
+ */
+void	dda(t_img img, double pos[POS_COUNT], int color)
 {
 	double	Xinc;
 	double	Yinc;
 	int		steps;
 	int		i;
-  
-	if (abs((int)(end[0] - start[0])) > abs((int)(end[1] - start[1])))
-		steps = abs((int)(end[0] - start[0]));
+
+	if (abs((int)(pos[END_X] - pos[START_X])) > abs((int)(pos[END_Y] - pos[START_Y])))
+		steps = abs((int)(pos[END_X] - pos[START_X]));
 	else
-		steps = abs((int)(end[1] - start[1]));
-    Xinc = (end[0] - start[0]) / (double)steps; 
-    Yinc = (end[1] - start[1]) / (double)steps; 
+		steps = abs((int)(pos[END_Y] - pos[START_Y]));
+    Xinc = (pos[END_X] - pos[START_X]) / (double)steps; 
+    Yinc = (pos[END_Y] - pos[START_Y]) / (double)steps; 
 	i = -1;
     while (++i < steps)
 	{ 
-        ft_mlx_pixel_put(img, round(start[0]), round(start[1]), color);
-        start[0] += Xinc;
-		start[1] += Yinc;
+        ft_mlx_pixel_put(img, round(pos[START_X]), round(pos[START_Y]), color);
+        pos[START_X] += Xinc;
+		pos[START_Y] += Yinc;
 	}
 	return ;
 }

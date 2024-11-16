@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/15 00:19:17 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/16 14:19:07 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ typedef enum
 	M,
 	KEY_COUNT
 }	key_index;
+
+typedef enum
+{
+	START_X,
+	START_Y,
+	END_X,
+	END_Y,
+	POS_COUNT
+}	dda_index;
 
 typedef struct s_img
 {
@@ -148,7 +157,7 @@ int			render_fov(t_data *data);
 t_img		init_blank_image(t_data *data, int x, int y);
 void		ft_mlx_pixel_put(t_img img, int x, int y, int color);
 int			create_trgb(int t, int r, int g, int b);
-void		dda(t_img img, double start[2], double end[2], int color);
+void		dda(t_img img, double pos[POS_COUNT], int color);
 
 /* minimap/minimap */
 int			render_minimap(t_data *data);

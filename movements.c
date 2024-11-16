@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:41:25 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 23:33:11 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/16 13:54:50 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ static void	check_wall(t_data *data, double x, double y)
 int	do_movements(t_data *data)
 {
 	if (data->keys[W])
-		check_wall(data, (sin(data->player->rot_deg) / data->player->move_speed),
-			-(cos(data->player->rot_deg) / data->player->move_speed));
+		check_wall(data, (sin(data->player->rot_deg) * data->player->move_speed),
+			-(cos(data->player->rot_deg) * data->player->move_speed));
 	if (data->keys[A])
-		check_wall(data, -(cos(data->player->rot_deg) / data->player->move_speed),
-			-(sin(data->player->rot_deg) / data->player->move_speed));
+		check_wall(data, -(cos(data->player->rot_deg) * data->player->move_speed),
+			-(sin(data->player->rot_deg) * data->player->move_speed));
 	if (data->keys[S])
-		check_wall(data, -(sin(data->player->rot_deg) / data->player->move_speed),
-			(cos(data->player->rot_deg) / data->player->move_speed));
+		check_wall(data, -(sin(data->player->rot_deg) * data->player->move_speed),
+			(cos(data->player->rot_deg) * data->player->move_speed));
 	if (data->keys[D])
-		check_wall(data, (cos(data->player->rot_deg) / data->player->move_speed),
-			(sin(data->player->rot_deg) / data->player->move_speed));
+		check_wall(data, (cos(data->player->rot_deg) * data->player->move_speed),
+			(sin(data->player->rot_deg) * data->player->move_speed));
 	if (data->keys[LEFT_ARROW])
 		data->player->rot_deg = fmod((data->player->rot_deg
 			- data->player->rot_speed + M_PI * 2), M_PI * 2);

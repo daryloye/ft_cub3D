@@ -101,6 +101,9 @@
 ## v23 - 15/11/2024
 - resolved invalid read
 
+## v24 - 16/11/2024
+- single raycasting done for horizontal
+
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
