@@ -6,26 +6,26 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 00:57:11 by daong             #+#    #+#             */
-/*   Updated: 2024/11/17 17:59:28 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/17 23:20:38 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static double	*horN(t_data *data, double ray_angle)
+static void	horN(t_data *data, double *ray, double ray_angle)
 {
 	double	new_x;
 	double	new_y;
-	double	ray[POS_COUNT];
 
+	ft_memset(ray, 0, POS_COUNT);
 	ray[START_X] = data->player->x_pos;
 	ray[START_Y] = data->player->y_pos;
 	if (ray_angle >= (M_PI * 0.5) - 0.001 && ray_angle <= (M_PI * 1.5) + 0.001)
-		return (NULL);
+		return ;
 	new_y = (int)ray[START_Y];
 	new_x = (ray[START_Y] - new_y) * tan(ray_angle) + ray[START_X];
 	if (new_x < 0 || new_x > data->map_size_x)
-		return (NULL);
+		return ;
 	ray[END_X] = new_x;
 	ray[END_Y] = new_y;
 	while (1)
@@ -38,23 +38,23 @@ static double	*horN(t_data *data, double ray_angle)
 		ray[END_X] = new_x;
 		ray[END_Y] = new_y;
 	}
-	return (ray);
+	return ;
 }
 
-static double	*horS(t_data *data, double ray_angle)
+static void	horS(t_data *data, double *ray, double ray_angle)
 {
 	double	new_x;
 	double	new_y;
-	double	ray[POS_COUNT];
 
+	ft_memset(ray, 0, POS_COUNT);
 	ray[START_X] = data->player->x_pos;
 	ray[START_Y] = data->player->y_pos;
 	if (ray_angle >= (M_PI * 1.5) - 0.001 || ray_angle <= (M_PI * 0.5) + 0.001)
-		return (NULL);
+		return ;
 	new_y = (int)ray[START_Y] + 1;
 	new_x = (ray[START_Y] - new_y) * tan(ray_angle) + ray[START_X];
 	if (new_x < 0 || new_x > data->map_size_x)
-		return (NULL);
+		return ;
 	ray[END_X] = new_x;
 	ray[END_Y] = new_y;
 	while (1)
@@ -67,23 +67,23 @@ static double	*horS(t_data *data, double ray_angle)
 		ray[END_X] = new_x;
 		ray[END_Y] = new_y;
 	}
-	return (ray);
+	return ;
 }
 
-static double	*verE(t_data *data, double ray_angle)
+static void	verE(t_data *data, double *ray, double ray_angle)
 {
 	double	new_x;
 	double	new_y;
-	double	ray[POS_COUNT];
 
+	ft_memset(ray, 0, POS_COUNT);
 	ray[START_X] = data->player->x_pos;
 	ray[START_Y] = data->player->y_pos;
 	if (ray_angle >= M_PI - 0.001 || ray_angle <= 0.001)
-		return (NULL);
+		return ;
 	new_x = (int)ray[START_X] + 1;
 	new_y = ray[START_Y] - (new_x - ray[START_X]) / tan(ray_angle);
 	if (new_y < 0 || new_y > data->map_size_y)
-		return (NULL);
+		return ;
 	ray[END_X] = new_x;
 	ray[END_Y] = new_y;
 	while (1)
@@ -96,23 +96,23 @@ static double	*verE(t_data *data, double ray_angle)
 		ray[END_X] = new_x;
 		ray[END_Y] = new_y;
 	}
-	return (ray);
+	return ;
 }
 
-static double	*verW(t_data *data, double ray_angle)
+static void	verW(t_data *data, double *ray, double ray_angle)
 {
 	double	new_x;
 	double	new_y;
-	double	ray[POS_COUNT];
 
+	ft_memset(ray, 0, POS_COUNT);
 	ray[START_X] = data->player->x_pos;
 	ray[START_Y] = data->player->y_pos;
 	if (ray_angle >= -0.001 && ray_angle <= M_PI + 0.001)
-		return (NULL);
+		return ;
 	new_x = (int)ray[START_X];
 	new_y = ray[START_Y] - (new_x - ray[START_X]) / tan(ray_angle);
 	if (new_y < 0 || new_y > data->map_size_y)
-		return (NULL);
+		return ;
 	ray[END_X] = new_x;
 	ray[END_Y] = new_y;
 	while (1)
@@ -125,7 +125,7 @@ static double	*verW(t_data *data, double ray_angle)
 		ray[END_X] = new_x;
 		ray[END_Y] = new_y;
 	}
-	return (ray);
+	return ;
 }
 
 static double	dist(double ray[POS_COUNT])
@@ -133,6 +133,8 @@ static double	dist(double ray[POS_COUNT])
 	double	x_sq;
 	double	y_sq;
 
+	if ((int)ray[END_X] == 0 || (int)ray[END_Y] == 0)
+		return (0);
 	x_sq = pow(ray[START_X] - ray[END_X], 2);
 	y_sq = pow(ray[START_Y] - ray[END_Y], 2);
 	return (sqrt(x_sq + y_sq));
@@ -147,28 +149,33 @@ static double	dist(double ray[POS_COUNT])
  */
 static void	create_single_ray(t_data *data, double ray_angle, int color)
 {
-	double	*ray_N;
-	double	*ray_S;
-	double	*ray_E;
-	double	*ray_W;
+	double	ray_N[POS_COUNT];
+	double	ray_S[POS_COUNT];
+	double	ray_E[POS_COUNT];
+	double	ray_W[POS_COUNT];
 
-	ray_N = horN(data, ray_angle);
-	ray_S = horS(data, ray_angle);
-	ray_E = verE(data, ray_angle);
-	ray_W = verW(data, ray_angle);
+	horN(data, ray_N, ray_angle);
+	horS(data, ray_S, ray_angle);
+	verE(data, ray_E, ray_angle);
+	verW(data, ray_W, ray_angle);
 
+	printf("NORTH: X = %.2f, Y = %.2f, dist = %.2f\n", ray_N[END_X], ray_N[END_Y], dist(ray_N));
+	printf("SOUTH: X = %.2f, Y = %.2f, dist = %.2f\n", ray_S[END_X], ray_S[END_Y], dist(ray_S));
+	printf("EAST: X = %.2f, Y = %.2f, dist = %.2f\n", ray_E[END_X], ray_E[END_Y], dist(ray_E));
+	printf("WEST: X = %.2f, Y = %.2f, dist = %.2f\n", ray_W[END_X], ray_W[END_Y], dist(ray_W));
+	printf("\n");
 	if (dist(ray_N) + dist(ray_S) <= dist(ray_E) + dist(ray_W))
 	{
-		if (ray_N)
+		if (ray_N[END_X] != 0)
 			dda_minimap(data, ray_N, color);
-		else if (ray_S)
+		else if (ray_S[END_X] != 0)
 			dda_minimap(data, ray_S, color);
 	}
 	else if (dist(ray_E) + dist(ray_W) <= dist(ray_N) + dist(ray_S))
 	{
-		if (ray_E)
+		if (ray_E[END_X] != 0)
 			dda_minimap(data, ray_E, color);
-		else if (ray_W)
+		else if (ray_W[END_X] != 0)
 			dda_minimap(data, ray_W, color);
 	}
 	return ;
