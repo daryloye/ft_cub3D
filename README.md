@@ -104,6 +104,9 @@
 ## v24 - 16/11/2024
 - single raycasting done for horizontal
 
+## v25 - 17/11/2024
+- single raycasting done on minimap --> need to handle return of ray pointer
+
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html

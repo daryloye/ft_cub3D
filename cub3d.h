@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/16 14:19:07 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/17 17:37:57 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ void		dda(t_img img, double pos[POS_COUNT], int color);
 
 /* minimap/minimap */
 int			render_minimap(t_data *data);
+void		dda_minimap(t_data *data, double pos[POS_COUNT], int color);
 
 /* minimap/minimap_background */
 int			minimap_background(t_data *data);
