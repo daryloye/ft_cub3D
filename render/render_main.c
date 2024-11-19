@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:32:33 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 20:42:01 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/19 22:37:14 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,17 @@ static void	render_error(t_data *data)
  */
 void	render(t_data *data)
 {
-	if (!data->display->img.img_ptr)
-		data->display->img = init_blank_image(data, 
-			data->mlx->display_size_x,
-			data->mlx->display_size_y);
-	if (render_background(data) == 1)
-		render_error(data);
+	init_display_images(data);
+	ft_memcpy(data->display->active.addr, data->display->background.addr, 
+		data->mlx->display_size_y * data->display->background.line_length);
 	if (render_minimap(data) == 1)
 		render_error(data);
 	if (render_fov(data) == 1)
 		render_error(data);
 	mlx_put_image_to_window(data->mlx->mlx_ptr,
-		data->mlx->win_ptr, data->display->img.img_ptr, 0, 0);
+		data->mlx->win_ptr, data->display->active.img_ptr, 0, 0);
 	if (data->keys[M] == 1)
 		mlx_put_image_to_window(data->mlx->mlx_ptr,
-		data->mlx->win_ptr, data->minimap->img.img_ptr, 0, 0);
+		data->mlx->win_ptr, data->minimap->active.img_ptr, 0, 0);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:54:58 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 18:51:18 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/19 22:37:29 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,22 @@ static int	get_wall_length(t_data *data)
  */
 int	render_minimap(t_data *data)
 {
-	if (!data->minimap->img.img_ptr)
+	if (!data->minimap->background.img_ptr)
 	{
 		data->minimap->wall_length = get_wall_length(data);
-		data->minimap->img = init_blank_image(data,
-				data->map_size_x * data->minimap->wall_length, 
+		data->minimap->background = init_blank_image(data,
+				data->map_size_x * data->minimap->wall_length,
 				data->map_size_y * data->minimap->wall_length);
+		minimap_background(data);
 	}
-	minimap_background(data);
+	if (!data->minimap->active.img_ptr)
+		data->minimap->active = init_blank_image(data,
+				data->map_size_x * data->minimap->wall_length,
+				data->map_size_y * data->minimap->wall_length);
+	ft_memcpy(data->minimap->active.addr,
+		data->minimap->background.addr, data->map_size_y
+		* data->minimap->wall_length
+		* data->minimap->background.line_length);
 	minimap_player(data);
 	return (0);
 }
@@ -83,7 +91,7 @@ void	dda_minimap(t_data *data, double pos[POS_COUNT], int color)
 	i = -1;
     while (++i < steps)
 	{ 
-        ft_mlx_pixel_put(data->minimap->img, round(pos[START_X]), round(pos[START_Y]), color);
+        ft_mlx_pixel_put(data->minimap->active, round(pos[START_X]), round(pos[START_Y]), color);
         pos[START_X] += Xinc;
 		pos[START_Y] += Yinc;
 	}

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 20:16:57 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/19 22:37:15 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ typedef struct s_player
 
 typedef struct s_display
 {
-	t_img	img;
+	t_img	background;
+	t_img	active;
 }	t_display;
 
 typedef struct s_minimap
@@ -107,7 +108,8 @@ typedef struct s_minimap
 	int		wall_length;
 	int		player_length;
 	int		display_scale;
-	t_img	img;
+	t_img	background;
+	t_img	active;
 }	t_minimap;
 
 typedef struct s_data
@@ -160,7 +162,7 @@ void		init_hooks(t_data *data);
 void		render(t_data *data);
 
 /* render/background */
-int			render_background(t_data *data);
+int			init_display_images(t_data *data);
 
 /* render/raycasting */
 int			create_single_ray(t_data *data, double ray_angle, int color);

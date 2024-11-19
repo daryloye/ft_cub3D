@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:19:38 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 11:06:14 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/19 22:37:14 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static void	create_player(t_data *data, int x_start, int y_start)
 	{
 		y = -1;
 		while (++y < data->minimap->player_length)
-			ft_mlx_pixel_put(data->minimap->img, x + x_start, y + y_start, color);
+			ft_mlx_pixel_put(data->minimap->active,
+				x + x_start, y + y_start, color);
 	}
 	return ;
 }
