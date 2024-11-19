@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:41:25 by daong             #+#    #+#             */
-/*   Updated: 2024/11/16 13:54:50 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/19 19:12:15 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	do_movements(t_data *data)
 			(sin(data->player->rot_deg) * data->player->move_speed));
 	if (data->keys[LEFT_ARROW])
 		data->player->rot_deg = fmod((data->player->rot_deg
-			- data->player->rot_speed + M_PI * 2), M_PI * 2);
+			- data->player->rot_speed + PI * 2), PI * 2);
 	if (data->keys[RIGHT_ARROW])
 		data->player->rot_deg = fmod((data->player->rot_deg
-			+ data->player->rot_speed), M_PI * 2);
+			+ data->player->rot_speed), PI * 2);
 	return (render(data), 1);
 }

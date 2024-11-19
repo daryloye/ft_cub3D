@@ -107,17 +107,15 @@
 ## v25 - 17/11/2024
 - single raycasting done on minimap --> need to handle return of ray pointer
 
+## v26 - 19/11/2024
+- single raycasting done
+- WIP: closest dist the player can get to the wall? dimensions at this dist?
+
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RGB-wlatStc&t=1s
 https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)
 
-
-## To-Do
-- process text from map file
-	- error check for valid map
-
-- render walls
 	
 valgrind --leak-check=full --show-leak-kinds=all ./cub3D maps/error.cub

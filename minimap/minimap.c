@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:54:58 by daong             #+#    #+#             */
-/*   Updated: 2024/11/17 17:37:34 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/19 18:51:18 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	dda_minimap(t_data *data, double pos[POS_COUNT], int color)
 	int		i;
 
 	i = -1;
-	while (++i < POS_COUNT)
+	while (++i < 4)
 		pos[i] *= data->minimap->wall_length;
 	if (abs((int)(pos[END_X] - pos[START_X])) > abs((int)(pos[END_Y] - pos[START_Y])))
 		steps = abs((int)(pos[END_X] - pos[START_X]));

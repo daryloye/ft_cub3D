@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:29:48 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/15 01:02:43 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/19 19:12:15 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,11 +220,11 @@ static void	set_player_rotation(char c, t_data *data)
 	if (c == 'N')
 		data->player->rot_deg = 0;
 	else if (c == 'E')
-		data->player->rot_deg = M_PI * 0.5;
+		data->player->rot_deg = PI * 0.5;
 	else if (c == 'S')
-		data->player->rot_deg = M_PI;
+		data->player->rot_deg = PI;
 	else if (c == 'W')
-		data->player->rot_deg = M_PI * 1.5;
+		data->player->rot_deg = PI * 1.5;
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/17 17:37:57 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/19 19:13:14 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define WALL		'1'
 # define FLOOR		'0'
 # define DIRECTION	"NESW"
-# define M_PI 		3.14159265358979323846
+# define PI 		3.14159265358979323846
 
 typedef enum
 {
@@ -41,12 +41,23 @@ typedef enum
 
 typedef enum
 {
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST,
+	DIR_COUNT
+}	dir_index;
+
+typedef enum
+{
 	START_X,
 	START_Y,
 	END_X,
 	END_Y,
+	RAY_DIR,
+	RAY_DIST,
 	POS_COUNT
-}	dda_index;
+}	ray_index;
 
 typedef struct s_img
 {
@@ -158,6 +169,7 @@ t_img		init_blank_image(t_data *data, int x, int y);
 void		ft_mlx_pixel_put(t_img img, int x, int y, int color);
 int			create_trgb(int t, int r, int g, int b);
 void		dda(t_img img, double pos[POS_COUNT], int color);
+double		get_dist(double x1, double y1, double x2, double y2);
 
 /* minimap/minimap */
 int			render_minimap(t_data *data);
