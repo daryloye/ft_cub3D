@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 14:40:29 by daong             #+#    #+#             */
-/*   Updated: 2024/11/09 15:55:22 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/19 19:53:51 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_display	*init_display(void)
  */
 void	clean_display(t_display *display, t_mlx *mlx)
 {
-	if (mlx->mlx_ptr && display->background_img)
-		mlx_destroy_image(mlx->mlx_ptr, display->background_img);
+	if (mlx->mlx_ptr && display->img.img_ptr)
+		mlx_destroy_image(mlx->mlx_ptr, display->img.img_ptr);
 	if (display)
 		free(display);
 	return ;

@@ -109,6 +109,8 @@
 
 ## v26 - 19/11/2024
 - single raycasting done
+- moved init of display img to render_main.c
+- WIP: memcpy img?
 - WIP: closest dist the player can get to the wall? dimensions at this dist?
 
 

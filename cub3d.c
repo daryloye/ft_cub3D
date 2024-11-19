@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:32:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/15 01:09:40 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/19 19:37:12 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	test_map(t_data *data)
 	if (!map)
 		exit(1);
 	map[0] = ft_strdup("11111");
-	map[1] = ft_strdup("10001");
+	map[1] = ft_strdup("10101");
 	map[2] = ft_strdup("10001");
 	map[3] = ft_strdup("10001");
 	map[4] = ft_strdup("11111");

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   ray_direction.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 00:57:11 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 19:21:51 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/19 19:44:58 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ static int	verW(t_data *data, double *ray, double ray_angle)
  * @param ray_angle 
  * @param color 
  */
-static int	create_single_ray(t_data *data, double ray_angle, int color)
+int	create_single_ray(t_data *data, double ray_angle, int color)
 {
 	double	ray[POS_COUNT];
 
@@ -153,33 +153,13 @@ static int	create_single_ray(t_data *data, double ray_angle, int color)
 		return (ft_printf("Error in raycasting\n"), 1);
 	dda_minimap(data, ray, color);
 
-	if (ray[RAY_DIR] == NORTH)
-		ft_printf("NORTH\n");
-	if (ray[RAY_DIR] == SOUTH)
-		ft_printf("SOUTH\n");
-	if (ray[RAY_DIR] == EAST)
-		ft_printf("EAST\n");
-	if (ray[RAY_DIR] == WEST)
-		ft_printf("WEST\n");
-	return ;
-}
-
-
-
-/**
- * @brief init fov data for player position and angles to walls
- * 
- * @param data 
- */
-int	render_fov(t_data *data)
-{
-	double	ray_angle;
-	int		color;
-
-	color = create_trgb(0, 0, 255, 0);
-
-	ray_angle = data->player->rot_deg;
-
-	create_single_ray(data, ray_angle, color);
+	// if (ray[RAY_DIR] == NORTH)
+	// 	ft_printf("NORTH\n");
+	// if (ray[RAY_DIR] == SOUTH)
+	// 	ft_printf("SOUTH\n");
+	// if (ray[RAY_DIR] == EAST)
+	// 	ft_printf("EAST\n");
+	// if (ray[RAY_DIR] == WEST)
+	// 	ft_printf("WEST\n");
 	return (0);
 }
