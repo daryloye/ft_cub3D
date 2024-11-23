@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:00:29 by daong             #+#    #+#             */
-/*   Updated: 2024/11/23 14:06:50 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/23 14:52:58 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	render_wall(t_data *data, double *ray, int height)
 	int	y;
 	int	center;
 
-	printf("height = %d\n", height);
 	center = data->mlx->display_size_y / 2;
 	y = center - height;
 	while (++y < center + height)
