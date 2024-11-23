@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:05:57 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 03:49:28 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/11/21 19:04:42 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_data	*init_data(void)
 	data->player = init_player();
 	if (!data->player)
 		return (NULL);
-	data->display = init_display();
+	data->display = init_display(data);
 	if (!data->display)
 		return (NULL);
 	data->minimap = init_minimap();

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 22:37:15 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/22 01:53:53 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define FLOOR		'0'
 # define DIRECTION	"NESW"
 # define PI 		3.14159265358979323846
-# define MIN_DIST	0.1
 
 typedef enum
 {
@@ -57,6 +56,7 @@ typedef enum
 	END_Y,
 	RAY_DIR,
 	RAY_DIST,
+	X_PIX,
 	POS_COUNT
 }	ray_index;
 
@@ -99,6 +99,9 @@ typedef struct s_player
 
 typedef struct s_display
 {
+	double	min_dist_to_wall;
+	double	max_wall_height_pix;
+	double	coord_to_pix_scale;
 	t_img	background;
 	t_img	active;
 }	t_display;
@@ -148,7 +151,7 @@ t_player	*init_player(void);
 void		clean_player(t_player *player);
 
 /* data/init_display */
-t_display	*init_display(void);
+t_display	*init_display(t_data *data);
 void		clean_display(t_display *display, t_mlx *mlx);
 
 /* data/init_minimap */
@@ -164,8 +167,11 @@ void		render(t_data *data);
 /* render/background */
 int			init_display_images(t_data *data);
 
-/* render/raycasting */
-int			create_single_ray(t_data *data, double ray_angle, int color);
+/* render/ray_direction */
+int			create_single_ray(t_data *data, double ray_angle, int x_pix);
+
+/* render/ray_display.c */
+void		calculate_wall_height(t_data *data, double *ray);
 
 /* render/render_utils */
 t_img		init_blank_image(t_data *data, int x, int y);

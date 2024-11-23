@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:32:33 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 22:37:14 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/22 01:56:05 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,20 @@
 static int	render_fov(t_data *data)
 {
 	double	ray_angle;
-	int		color;
+	int		x;
 
-	color = create_trgb(0, 0, 255, 0);
-
-	ray_angle = data->player->rot_deg;
-
-	for (ray_angle = data->player->rot_deg - data->player->fov_deg; ray_angle < data->player->rot_deg + data->player->fov_deg; ray_angle += 0.1)
-		create_single_ray(data, ray_angle, color);
+	printf("fov_deg = %.2f\n", data->player->fov_deg);
+	printf("min_dist = %.2f\n", data->display->min_dist_to_wall);
+	x = data->mlx->display_size_x / 2;
+	while (++x < data->mlx->display_size_x)
+	{
+		// convert pix to distance??
+		ray_angle = data->player->rot_deg + (x * data->display->coord_to_pix_scale / data->display->min_dist_to_wall);
+		//printf("ray_angle = %.2f\n", ray_angle);
+		create_single_ray(data, ray_angle, x);
+	}
 	return (0);
 }
-
 
 /**
  * @brief Cleans data and exits program if anything goes wrong in render
@@ -54,9 +57,7 @@ void	render(t_data *data)
 	init_display_images(data);
 	ft_memcpy(data->display->active.addr, data->display->background.addr, 
 		data->mlx->display_size_y * data->display->background.line_length);
-	if (render_minimap(data) == 1)
-		render_error(data);
-	if (render_fov(data) == 1)
+	if (render_minimap(data) == 1 || render_fov(data) == 1)
 		render_error(data);
 	mlx_put_image_to_window(data->mlx->mlx_ptr,
 		data->mlx->win_ptr, data->display->active.img_ptr, 0, 0);

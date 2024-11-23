@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:18:21 by daong             #+#    #+#             */
-/*   Updated: 2024/11/16 13:54:56 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/22 02:01:31 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_player	*init_player(void)
 		return (NULL);
 	player->move_speed = 0.0025;
 	player->rot_speed = 0.0025;
-	player->fov_deg = 0.785;
+	player->fov_deg = 30.0 / 180.0 * PI;
 	return (player);
 }
 

@@ -113,6 +113,9 @@
 - WIP: memcpy img?
 - WIP: closest dist the player can get to the wall? dimensions at this dist?
 
+## v27 - 23/11/2024
+- WIP: rendering walls
+
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 00:57:11 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 19:44:58 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/22 01:49:33 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,31 +135,23 @@ static int	verW(t_data *data, double *ray, double ray_angle)
  * @param ray_angle 
  * @param color 
  */
-int	create_single_ray(t_data *data, double ray_angle, int color)
+int	create_single_ray(t_data *data, double ray_angle, int x_pix)
 {
 	double	ray[POS_COUNT];
 
+	ray[X_PIX] = x_pix;
 	ray[START_X] = data->player->x_pos;
 	ray[START_Y] = data->player->y_pos;
 	ray[END_X] = 0;
 	ray[END_Y] = 0;
 	ray[RAY_DIST] = -1;
-
 	horN(data, ray, ray_angle);
 	horS(data, ray, ray_angle);
 	verE(data, ray, ray_angle);
 	verW(data, ray, ray_angle);
 	if (ray[RAY_DIST] < 0)
 		return (ft_printf("Error in raycasting\n"), 1);
-	dda_minimap(data, ray, color);
-
-	// if (ray[RAY_DIR] == NORTH)
-	// 	ft_printf("NORTH\n");
-	// if (ray[RAY_DIR] == SOUTH)
-	// 	ft_printf("SOUTH\n");
-	// if (ray[RAY_DIR] == EAST)
-	// 	ft_printf("EAST\n");
-	// if (ray[RAY_DIR] == WEST)
-	// 	ft_printf("WEST\n");
+	dda_minimap(data, ray, create_trgb(0, 0, 255, 0));
+//	calculate_wall_height(data, ray);
 	return (0);
 }

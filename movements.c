@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:41:25 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 19:12:15 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/22 01:40:20 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,15 @@ static void	check_wall(t_data *data, double x, double y)
 {
 	double	new_x;
 	double	new_y;
+	double	min_dist;
 
+	min_dist = data->display->min_dist_to_wall;
 	new_x = data->player->x_pos + x;
 	new_y = data->player->y_pos + y;
-	if (data->map[(int)(new_y)][(int)(new_x)] == '1')
+	if (data->map[(int)(new_y - min_dist)][(int)(new_x - min_dist)] == '1'
+		|| data->map[(int)(new_y - min_dist)][(int)(new_x + min_dist)] == '1'
+		|| data->map[(int)(new_y + min_dist)][(int)(new_x - min_dist)] == '1'
+		|| data->map[(int)(new_y + min_dist)][(int)(new_x + min_dist)] == '1')
 		return ;
 	data->player->x_pos = new_x;
 	data->player->y_pos = new_y;
