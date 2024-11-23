@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:18:21 by daong             #+#    #+#             */
-/*   Updated: 2024/11/22 02:01:31 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/23 14:49:25 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  */
 t_player	*init_player(void)
 {
-	t_player *player;
+	t_player	*player;
 
 	player = ft_calloc(sizeof(t_player), 1);
 	if (!player)

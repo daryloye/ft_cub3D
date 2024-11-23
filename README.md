@@ -116,6 +116,11 @@
 ## v27 - 23/11/2024
 - WIP: rendering walls
 
+## v28 - 23/11/2024
+- walls rendered
+- WIP: wall height calculation
+- TO DO: create wall textures
+
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:05:57 by daong             #+#    #+#             */
-/*   Updated: 2024/11/21 19:04:42 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/23 14:49:13 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_map(t_data *data)
 	int	i;
 
 	if (data->map == NULL)
-		return;
+		return ;
 	i = 0;
 	while (i < data->map_size_y)
 	{
@@ -44,7 +44,7 @@ void	free_temp_map(t_data *data)
 	int	i;
 
 	if (data->temp_map == NULL)
-		return;
+		return ;
 	i = 0;
 	while (i < data->map_size_y + 2)
 	{
@@ -53,7 +53,7 @@ void	free_temp_map(t_data *data)
 		i++;
 	}
 	free(data->temp_map);
-	data->temp_map = NULL; 
+	data->temp_map = NULL;
 }
 
 /**
@@ -66,16 +66,16 @@ void	free_visited_map(t_data *data)
 	int	i;
 
 	if (data->visited_map == NULL)
-		return;
+		return ;
 	i = 0;
 	while (i < data->map_size_y + 2)
 	{
-		if (data->visited_map[i] != NULL)	
+		if (data->visited_map[i] != NULL)
 			free(data->visited_map[i]);
 		i++;
 	}
 	free(data->visited_map);
-	data->visited_map = NULL; 
+	data->visited_map = NULL;
 }
 
 /**

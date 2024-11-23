@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:21:05 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 22:37:09 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/23 14:46:55 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ static void	create_wall(t_data *data, int x_start, int y_start)
 		{
 			if (x == 0 || x == data->minimap->wall_length - 1
 				|| y == 0 || y == data->minimap->wall_length - 1)
-				ft_mlx_pixel_put(data->minimap->background, x + x_start, y + y_start, border_color);
+				ft_mlx_pixel_put(data->minimap->background,
+					x + x_start, y + y_start, border_color);
 			else
-				ft_mlx_pixel_put(data->minimap->background, x + x_start, y + y_start, color);
+				ft_mlx_pixel_put(data->minimap->background,
+					x + x_start, y + y_start, color);
 		}
 	}
 	return ;
@@ -54,9 +56,11 @@ static void	create_floor(t_data *data, int x_start, int y_start)
 		{
 			if (x == 0 || x == data->minimap->wall_length - 1
 				|| y == 0 || y == data->minimap->wall_length - 1)
-				ft_mlx_pixel_put(data->minimap->background, x + x_start, y + y_start, border_color);
+				ft_mlx_pixel_put(data->minimap->background,
+					x + x_start, y + y_start, border_color);
 			else
-				ft_mlx_pixel_put(data->minimap->background, x + x_start, y + y_start, color);
+				ft_mlx_pixel_put(data->minimap->background,
+					x + x_start, y + y_start, color);
 		}
 	}
 	return ;
