@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:05:57 by daong             #+#    #+#             */
-/*   Updated: 2024/11/23 14:49:13 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/25 00:42:11 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ t_data	*init_data(void)
 	if (!data->minimap)
 		return (NULL);
 	ft_memset(data->keys, 0, sizeof(data->keys));
+	data->fps = 60;
+	data->start_time = current_time_ms();
 	return (data);
 }
 

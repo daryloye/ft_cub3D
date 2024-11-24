@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:53:09 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 20:45:01 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/25 00:33:05 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,36 +59,6 @@ void	ft_mlx_pixel_put(t_img img, int x, int y, int color)
 
 	dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
-	return ;
-}
-
-/**
- * @brief draws line from pos[start] to pos[end]
- * 
- * @param img 
- * @param pos 
- * @param color 
- */
-void	dda(t_img img, double pos[POS_COUNT], int color)
-{
-	double	Xinc;
-	double	Yinc;
-	int		steps;
-	int		i;
-
-	if (abs((int)(pos[END_X] - pos[START_X])) > abs((int)(pos[END_Y] - pos[START_Y])))
-		steps = abs((int)(pos[END_X] - pos[START_X]));
-	else
-		steps = abs((int)(pos[END_Y] - pos[START_Y]));
-    Xinc = (pos[END_X] - pos[START_X]) / (double)steps; 
-    Yinc = (pos[END_Y] - pos[START_Y]) / (double)steps; 
-	i = -1;
-    while (++i < steps)
-	{ 
-        ft_mlx_pixel_put(img, round(pos[START_X]), round(pos[START_Y]), color);
-        pos[START_X] += Xinc;
-		pos[START_Y] += Yinc;
-	}
 	return ;
 }
 

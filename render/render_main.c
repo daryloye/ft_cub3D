@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:32:33 by daong             #+#    #+#             */
-/*   Updated: 2024/11/23 14:39:55 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/25 00:49:04 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	render(t_data *data)
 		data->mlx->display_size_y * data->display->background.line_length);
 	if (render_minimap(data) != 0 || render_fov(data) != 0)
 		render_error(data);
+	wait_fps(data);
 	mlx_put_image_to_window(data->mlx->mlx_ptr,
 		data->mlx->win_ptr, data->display->active.img_ptr, 0, 0);
 	if (data->keys[M] == 1)

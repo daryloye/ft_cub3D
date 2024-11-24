@@ -123,6 +123,7 @@
 
 ## v29 - 24/11/2024
 - Added wall images
+- Added fps smoothing
 - WIP: read_xpm.c --> xpm
 
 

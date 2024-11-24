@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/23 14:43:08 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/25 00:49:40 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "errno.h"
 # include "string.h"
 # include "math.h"
+# include "sys/time.h"
 # include "stdbool.h"
 
 # define WALL		'1'
@@ -129,6 +130,8 @@ typedef struct s_data
 	int			map_size_y;		// no. of rows
 	int			directions_found[4];
 	int			keys[KEY_COUNT];
+	int			fps;
+	long long	start_time;
 }	t_data;
 
 /* data/init_data */
@@ -177,8 +180,11 @@ void		calculate_wall_height(t_data *data, double *ray);
 t_img		init_blank_image(t_data *data, int x, int y);
 void		ft_mlx_pixel_put(t_img img, int x, int y, int color);
 int			create_trgb(int t, int r, int g, int b);
-void		dda(t_img img, double pos[POS_COUNT], int color);
 double		get_dist(double x1, double y1, double x2, double y2);
+
+/* render/fps */
+long long	current_time_ms(void);
+void		wait_fps(t_data *data);
 
 /* minimap/minimap */
 int			render_minimap(t_data *data);
