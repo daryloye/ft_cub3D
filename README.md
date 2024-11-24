@@ -121,6 +121,10 @@
 - WIP: wall height calculation
 - TO DO: create wall textures
 
+## v29 - 24/11/2024
+- Added wall images
+- WIP: read_xpm.c --> xpm
+
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html

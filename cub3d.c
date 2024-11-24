@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:32:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 19:37:12 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/24 16:36:35 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int ac, char **av)
 	if (!data)
 		return (ft_printf("Error\n%s\n", strerror(errno)),
 			clean_data(data), EXIT_FAILURE);
-	// if (read_file(av[1], data) == 1)
+	//if (read_file(av[1], data) == 1)
 	//  	return (clean_data(data), EXIT_FAILURE);
 	
 	if (av[1] == NULL)

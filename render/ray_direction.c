@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 00:57:11 by daong             #+#    #+#             */
-/*   Updated: 2024/11/23 14:42:48 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/24 15:47:41 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,8 @@ static int	verW(t_data *data, double *ray, double ray_angle)
 }
 
 /**
- * @brief Create a single ray by checking for nearest vertical or horizontal border
+ * @brief Create a single ray by checking for nearest vertical or horizontal border.
+ * Then sends data to draw wall and minimap
  * 
  * @param data 
  * @param ray_angle 

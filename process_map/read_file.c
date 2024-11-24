@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:21:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/11 21:07:55 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/24 16:07:43 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	free_array(char **array)
 }
 
 /**
- * @brief open file, check for errors, store infor in data struct
+ * @brief open file, check for errors, store info in data struct
  * 
  * @param path 
  * @param data 
@@ -97,10 +97,10 @@ int	read_file(char *path, t_data *data)
 	char	**text;
 
 	if (check_file_name(path, ".cub") != 0)
-		return (write(2, "Error\nNot a .cub file\n", 22), 1);
+		return (ft_printf("Error\nNot a .cub file\n"), 1);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (perror("Error"), 1);
+		return (ft_printf("Error\nMap file not found\n"), 1);
 	text = convert_to_array(fd);
 	err = 0;
 	err |= check_identifiers(text);

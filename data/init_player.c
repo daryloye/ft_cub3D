@@ -26,7 +26,7 @@ t_player	*init_player(void)
 		return (NULL);
 	player->move_speed = 0.0025;
 	player->rot_speed = 0.0025;
-	player->fov_deg = 30.0 / 180.0 * PI;
+	player->fov_deg = 15.0 / 180.0 * PI;
 	return (player);
 }
 
