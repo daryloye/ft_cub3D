@@ -17,12 +17,12 @@ static void	set_texture(void *mlx_ptr, char *file_path, t_img *texture, int img_
 	texture->img_ptr = mlx_xpm_file_to_image(mlx_ptr, file_path, &img_pix, &img_pix);
 	if (!texture->img_ptr)
 	{
-		printf("Error: Failed to load texture from %s\n", file_path);
+		print_error("Failed to load texture from");
 		return;
 	}
 	texture->addr = mlx_get_data_addr(texture->img_ptr, &texture->bits_per_pixel, &texture->line_length, &texture->endian);
 	if (!texture->addr)
-		printf("Error: Failed to get data address for texture from %s\n", file_path);
+		print_error("Failed to get data address for texture");
 }
 
 /**
