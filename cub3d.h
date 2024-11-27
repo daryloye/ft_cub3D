@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 11:52:27 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 14:21:25 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ int			init_display_images(t_data *data);
 int			create_single_ray(t_data *data, double ray_angle, int x_pix);
 
 /* render/ray_display.c */
-void		calculate_wall_height(t_data *data, double *ray);
+void		render_wall(t_data *data, double *ray, double ray_angle);
 
 /* render/render_utils */
 t_img		init_blank_image(t_data *data, int x, int y);

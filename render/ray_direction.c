@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 00:57:11 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 09:31:30 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 13:09:14 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,6 @@ int	create_single_ray(t_data *data, double ray_angle, int x_pix)
 	if (ray[RAY_DIST] <= 0)
 		return (print_error("Invalid raycasting distance"), 1);
 	dda_minimap(data, ray);
-	calculate_wall_height(data, ray);
+	render_wall(data, ray, ray_angle);
 	return (0);
 }

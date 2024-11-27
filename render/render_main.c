@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:32:33 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 12:07:36 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 12:11:30 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	pause_image(t_data *data)
 		500, 300);
 		data->display->sprite_inc = fmod(data->display->sprite_inc + 0.1, SPRITE_COUNT);
 	mlx_string_put(data->mlx->mlx_ptr, data->mlx->win_ptr, 200, 200, 0, "PAUSED");
+	return ;
 }
 
 /**
@@ -65,7 +66,7 @@ static void	pause_image(t_data *data)
 void	render(t_data *data)
 {
 	init_display_images(data);
-	ft_memcpy(data->display->active.addr, data->display->background.addr, 
+	ft_memcpy(data->display->active.addr, data->display->background.addr,
 		data->mlx->display_size_y * data->display->background.line_length);
 	render_minimap(data);
 	render_fov(data);
