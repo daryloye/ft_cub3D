@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 14:21:25 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 15:18:41 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef enum
 	RAY_DIR,
 	RAY_DIST,
 	X_PIX,
+	HEIGHT,
 	POS_COUNT
 }	ray_index;
 

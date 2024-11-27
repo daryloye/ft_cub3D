@@ -127,7 +127,11 @@
 - WIP: read_xpm.c --> xpm
 
 ## v30 - 27/11/2024
-- Added pause toggle with sprite animation (WIP: create PAUSE image, handle transparency)
+- Added pause toggle with sprite animation 
+- Added texture to walls
+
+## WIP LIST
+- Create PAUSE image, handle transparency
 
 
 ## Resources
