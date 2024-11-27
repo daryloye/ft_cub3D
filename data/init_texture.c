@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 13:43:41 by daong             #+#    #+#             */
-/*   Updated: 2024/11/07 02:36:01 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/26 21:25:20 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_texture	*init_texture(void)
 	texture->south_texture = ft_strdup("");
 	texture->west_texture = ft_strdup("");
 	texture->east_texture = ft_strdup("");
+	texture->img_pix = 128;
 	return (texture);
 }
 
@@ -36,8 +37,16 @@ t_texture	*init_texture(void)
  * 
  * @param texture 
  */
-void	clean_texture(t_texture *texture)
+void	clean_texture(t_texture *texture, t_mlx *mlx)
 {
+	if (mlx->mlx_ptr && texture->north.img_ptr)
+		mlx_destroy_image(mlx->mlx_ptr, texture->north.img_ptr);
+	if (mlx->mlx_ptr && texture->south.img_ptr)
+		mlx_destroy_image(mlx->mlx_ptr, texture->south.img_ptr);
+	if (mlx->mlx_ptr && texture->east.img_ptr)
+		mlx_destroy_image(mlx->mlx_ptr, texture->east.img_ptr);
+	if (mlx->mlx_ptr && texture->west.img_ptr)
+		mlx_destroy_image(mlx->mlx_ptr, texture->west.img_ptr);
 	if (texture->north_texture)
 		free(texture->north_texture);
 	if (texture->south_texture)

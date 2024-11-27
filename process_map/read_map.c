@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:29:48 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/19 19:12:15 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/26 21:06:42 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,24 +377,24 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 int	get_map(t_data *data, char **text)
 {
 	int	i;
-	int	len;
+	// int	len;
 
 	i = -1;
 	while (text[++i])
 	{
 		if (read_map_line(text[i], data, text, i) != 0)
-			return (write(2, "Error\nInvalid map\n", 18), 1);
+			return (ft_printf("Error\nInvalid map\n"), 1);
 		if (data->map && data->map[i] != NULL)
 			break;
 	}
-	i = -1;
-	while (data->map && data->map[++i])
-	{
-		len = ft_strlen(data->map[i]);
-		if (data->map[i][len - 1] == '\n')
-			data->map[i][len - 1] = '\0';
-	}
-	data->map_size_x--;
+	// i = -1;
+	// while (data->map && data->map[++i])
+	// {
+	// 	len = ft_strlen(data->map[i]);
+	// 	if (data->map[i][len - 1] == '\n')
+	// 		data->map[i][len - 1] = '\0';
+	// }
+	// data->map_size_x--;
 	return (0);
 }
 

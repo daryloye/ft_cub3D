@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:05:57 by daong             #+#    #+#             */
-/*   Updated: 2024/11/25 00:42:11 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/26 21:17:43 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ t_data	*init_data(void)
  */
 void	clean_data(t_data *data)
 {
-	if (data->texture)
-		clean_texture(data->texture);
 	if (data->player)
 		clean_player(data->player);
+	if (data->texture)
+		clean_texture(data->texture, data->mlx);
 	if (data->display)
 		clean_display(data->display, data->mlx);
 	if (data->minimap)

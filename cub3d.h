@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/25 00:49:40 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/26 21:25:22 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,11 @@ typedef struct s_texture
 	char	*east_texture;
 	int		floor_color;
 	int		ceiling_color;
+	t_img	north;
+	t_img	south;
+	t_img	east;
+	t_img	west;
+	int		img_pix;
 }	t_texture;
 
 typedef struct s_player
@@ -147,7 +152,7 @@ void		clean_mlx(t_mlx *mlx);
 
 /* data/init_texture */
 t_texture	*init_texture(void);
-void		clean_texture(t_texture *texture);
+void		clean_texture(t_texture *texture, t_mlx *mlx);
 
 /* data/init_player */
 t_player	*init_player(void);

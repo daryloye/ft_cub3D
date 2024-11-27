@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:32:40 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/11 21:05:19 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/26 20:57:38 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	check_id(const char *line, int *found)
 			((line[len] == ' ' || line[len] == '\t' || line[len] == '\0')))
 		{
 			if (found[i])
-				return (write(2, "Error\nDuplicate identifier found\n", 33), -1);
+				return (ft_printf("Error\nDuplicate identifier found\n"), -1);
 			found[i] = 1;
 			return (1);
 		}
@@ -84,10 +84,10 @@ static bool	check_id_and_one(const char *line, int *found, bool all_id_found)
 		if (all_id_found)
 		{
 			if (line[0] != '1')
-				return (write(2, "Error\nInvalid identifier\n", 25), false);
+				return (ft_printf("Error\nInvalid identifier\n"), false);
 		}
 		else
-			return (write(2, "Error\nMisplaced '1' or unknown identifier\n", 42), false);
+			return (ft_printf("Error\nMisplaced '1' or unknown identifier\n"), false);
 	}
 	return (true);
 }
@@ -117,28 +117,27 @@ static bool	is_line_valid(char *line, int *found, bool all_id_found)
 
 int	check_identifiers(char **text)
 {
-	int		found[6] = {0};
+	int		found[6];
 	int		i;
 	int		j;
 	bool	all_id_found;
 
-	i = 0;
-	j = 0;
+	ft_memset(found, 0, sizeof(found));
+	i = -1;
+	j = -1;
 	all_id_found = false;
-	while (text[i])
+	while (text[++i])
 	{
 		if (!is_line_valid(text[i], found, all_id_found))
 			return (1);
 		all_id_found = all_identifiers_found(found);
-		i++;
 	}
 	if (!all_id_found)
 	{
-		while (j < 6)
+		while (++j < 6)
 		{
 			if (!found[j])
-				return (write(2, "Error\nMissing identifier\n", 25), 1);
-			j++;
+				return (ft_printf("Error\nMissing identifier\n"), 1);
 		}
 	}
 	return (0);
