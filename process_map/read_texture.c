@@ -12,6 +12,19 @@
 
 #include "../cub3d.h"
 
+static void	set_texture(void *mlx_ptr, char *file_path, t_img *texture, int img_pix)
+{
+	texture->img_ptr = mlx_xpm_file_to_image(mlx_ptr, file_path, &img_pix, &img_pix);
+	if (!texture->img_ptr)
+	{
+		printf("Error: Failed to load texture from %s\n", file_path);
+		return;
+	}
+	texture->addr = mlx_get_data_addr(texture->img_ptr, &texture->bits_per_pixel, &texture->line_length, &texture->endian);
+	if (!texture->addr)
+		printf("Error: Failed to get data address for texture from %s\n", file_path);
+}
+
 /**
  * @brief get the path of the texture file
  * 
@@ -98,13 +111,12 @@ static int read_texture_line(char *line, t_texture *texture)
 {
 	int	identifier;
 	char	*path;
-	char	**texture_fields[] = {
-		&texture->north_texture,
-		&texture->south_texture,
-		&texture->west_texture,
-		&texture->east_texture
-	};
+	static char	**texture_fields[4];
 
+	texture_fields[0] = &texture->north_texture,
+	texture_fields[1] = &texture->south_texture,
+	texture_fields[2] = &texture->west_texture,
+	texture_fields[3] = &texture->east_texture;
 	line = skip_whitespaces(line);
 	identifier = texture_identifier(line);
 	if (identifier == -1)
@@ -141,5 +153,9 @@ int	get_textures(t_data *data, char **text)
 			return (print_error("Invalid texture"), 1);
 		i++;
 	}
+	set_texture(data->mlx->mlx_ptr, data->texture->north_texture, &data->texture->north, data->texture->img_pix);
+	set_texture(data->mlx->mlx_ptr, data->texture->south_texture, &data->texture->south, data->texture->img_pix);
+	set_texture(data->mlx->mlx_ptr, data->texture->east_texture, &data->texture->east, data->texture->img_pix);
+	set_texture(data->mlx->mlx_ptr, data->texture->west_texture, &data->texture->west, data->texture->img_pix);
 	return (0);
 }

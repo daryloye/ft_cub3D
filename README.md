@@ -130,6 +130,9 @@
 - Added pause toggle with sprite animation 
 - Added texture to walls
 
+## v31 - 27/11/2024
+- Set texture to parse to map
+
 ## WIP LIST
 - Create PAUSE image, handle transparency
 
