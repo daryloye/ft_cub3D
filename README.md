@@ -135,12 +135,14 @@
 - resolved invalid read in verE
 - resolved leading whitespace to first '1' of map (identifier)
 
+## v32 - 27/11/2024
+- mouse hooks done
+
 ## WIP LIST
 - Fish eye effect
 - Create PAUSE image, handle transparency
 - New sprite??
 - Handle door hook
-- Handle mouse hook
 
 
 ## Resources

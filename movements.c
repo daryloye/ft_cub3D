@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:41:25 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 17:37:55 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 18:18:18 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,35 @@ static void	check_wall(t_data *data, double x, double y)
 		return ;
 	data->player->x_pos = new_x;
 	data->player->y_pos = new_y;
+	return ;
+}
+
+static void	mouse_movements(t_data *data)
+{
+	int	x;
+	int	y;
+	int	x_center;
+	int	y_center;
+
+	x_center = data->mlx->display_size_x / 2;
+	y_center = data->mlx->display_size_y / 2;
+	mlx_mouse_get_pos(data->mlx->mlx_ptr, data->mlx->win_ptr, &x, &y);
+	if (x < x_center && data->keys[P] == -1)
+	{
+		data->player->rot_deg = fmod((data->player->rot_deg
+					- data->player->rot_speed * 5 + PI * 2), PI * 2);
+		mlx_mouse_move(data->mlx->mlx_ptr, data->mlx->win_ptr, x_center, y_center);
+	}
+	if (x > x_center && data->keys[P] == -1)
+	{
+		data->player->rot_deg = fmod((data->player->rot_deg
+					+ data->player->rot_speed * 5), PI * 2);
+		mlx_mouse_move(data->mlx->mlx_ptr, data->mlx->win_ptr, x_center, y_center);
+	}
+	if (data->keys[P] == -1)
+		mlx_mouse_hide(data->mlx->mlx_ptr, data->mlx->win_ptr);
+	else
+		mlx_mouse_show(data->mlx->mlx_ptr, data->mlx->win_ptr);
 	return ;
 }
 
@@ -68,5 +97,6 @@ int	do_movements(t_data *data)
 	if (data->keys[RIGHT_ARROW] && data->keys[P] == -1)
 		data->player->rot_deg = fmod((data->player->rot_deg
 					+ data->player->rot_speed), PI * 2);
+	mouse_movements(data);
 	return (render(data), 1);
 }
