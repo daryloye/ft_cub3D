@@ -133,6 +133,7 @@
 ## v31 - 27/11/2024
 - Set texture to parse to map
 - resolved invalid read in verE
+- resolved leading whitespace to first '1' of map (identifier)
 
 ## WIP LIST
 - Create PAUSE image, handle transparency

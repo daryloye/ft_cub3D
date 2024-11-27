@@ -134,6 +134,8 @@ static bool	is_map_enclosed(t_data *data)
  */
 static int	map_identifier(char *line)
 {
+	while (*line == ' ' || *line == '\t')
+		line++;
 	if (ft_strncmp(line, "1", 1) == 0)
 		return (0);
 	return (-1);
