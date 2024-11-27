@@ -82,11 +82,15 @@ static int	verE(t_data *data, double *ray, double ray_angle)
 	new_y = ray[START_Y] - (new_x - ray[START_X]) / tan(ray_angle);
 	if (new_y < 0 || new_y > data->map_size_y)
 		return (1);
+	if (new_x < 0 || new_x >= ft_strlen(data->map[(int)new_y]))
+		return (1);
 	while (data->map[(int)new_y][(int)new_x] == '0')
 	{
 		new_x += 1;
 		new_y -= 1 / tan(ray_angle);
-		if (new_y < 0 || new_y > data->map_size_y)
+		if (new_y < 0 || new_y >= data->map_size_y)
+			return (1);
+		if (new_x < 0 || new_x >= ft_strlen(data->map[(int)new_y]))
 			return (1);
 	}
 	dist = get_dist(ray[START_X], ray[START_Y], new_x, new_y);

@@ -132,6 +132,7 @@
 
 ## v31 - 27/11/2024
 - Set texture to parse to map
+- resolved invalid read in verE
 
 ## WIP LIST
 - Create PAUSE image, handle transparency
