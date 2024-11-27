@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:32:33 by daong             #+#    #+#             */
-/*   Updated: 2024/11/25 00:49:04 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 09:22:53 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,6 @@ static int	render_fov(t_data *data)
 }
 
 /**
- * @brief Cleans data and exits program if anything goes wrong in render
- * 
- * @param data 
- */
-static void	render_error(t_data *data)
-{
-	ft_printf("Error\n%s\n", strerror(errno));
-	clean_data(data);
-	exit(EXIT_FAILURE);
-}
-
-/**
  * @brief Main render function. if error, calls render_error
  * 
  * @param data 
@@ -69,8 +57,8 @@ void	render(t_data *data)
 	init_display_images(data);
 	ft_memcpy(data->display->active.addr, data->display->background.addr, 
 		data->mlx->display_size_y * data->display->background.line_length);
-	if (render_minimap(data) != 0 || render_fov(data) != 0)
-		render_error(data);
+	render_minimap(data);
+	render_fov(data);
 	wait_fps(data);
 	mlx_put_image_to_window(data->mlx->mlx_ptr,
 		data->mlx->win_ptr, data->display->active.img_ptr, 0, 0);

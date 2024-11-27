@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 18:35:10 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/26 21:01:39 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 09:27:53 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int	get_textures(t_data *data, char **text)
 	while (text[i])
 	{
 		if (read_texture_line(text[i], data->texture) != 0)
-			return (ft_printf("Error\nInvalid texture\n"), 1);
+			return (print_error("Invalid texture"), 1);
 		i++;
 	}
 	return (0);

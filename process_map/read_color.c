@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:57:24 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/11 00:30:38 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 09:23:24 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ int	get_color(t_data *data, char **text)
 	while (text[i])
 	{
 		if (read_color_line(text[i], data->texture) != 0)
-			return (write(2, "Error\nInvalid color line\n", 25), 1);
+			return (print_error("Invalid color line"), 1);
 		i++;
 	}
 	return (0);

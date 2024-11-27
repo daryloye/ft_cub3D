@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:53:09 by daong             #+#    #+#             */
-/*   Updated: 2024/11/25 00:33:05 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 09:21:00 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_img	init_blank_image(t_data *data, int x, int y)
 	img.img_ptr = NULL;
 	img.img_ptr = mlx_new_image(data->mlx->mlx_ptr, x, y);
 	if (!img.img_ptr)
-		ft_printf("Failed to create image\n");
+		print_error("Failed to create image");
 	img.addr = mlx_get_data_addr(img.img_ptr, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
 	return (img);

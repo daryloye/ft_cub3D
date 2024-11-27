@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:32:40 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/26 20:57:38 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 09:29:42 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	check_id(const char *line, int *found)
 			((line[len] == ' ' || line[len] == '\t' || line[len] == '\0')))
 		{
 			if (found[i])
-				return (ft_printf("Error\nDuplicate identifier found\n"), -1);
+				return (print_error("Duplicate identifier found"), -1);
 			found[i] = 1;
 			return (1);
 		}
@@ -84,10 +84,10 @@ static bool	check_id_and_one(const char *line, int *found, bool all_id_found)
 		if (all_id_found)
 		{
 			if (line[0] != '1')
-				return (ft_printf("Error\nInvalid identifier\n"), false);
+				return (print_error("Invalid identifier"), false);
 		}
 		else
-			return (ft_printf("Error\nMisplaced '1' or unknown identifier\n"), false);
+			return (print_error("Misplaced '1' or unknown identifier"), false);
 	}
 	return (true);
 }
@@ -137,7 +137,7 @@ int	check_identifiers(char **text)
 		while (++j < 6)
 		{
 			if (!found[j])
-				return (ft_printf("Error\nMissing identifier\n"), 1);
+				return (print_error("Missing identifier"), 1);
 		}
 	}
 	return (0);

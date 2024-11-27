@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 14:40:29 by daong             #+#    #+#             */
-/*   Updated: 2024/11/23 14:47:41 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 09:16:22 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ t_display	*init_display(t_data *data)
 	display->min_dist_to_wall = ((data->mlx->display_size_x / 2)
 			/ tan(data->player->fov_deg)) / display->coord_to_pix_scale;
 	display->max_wall_height_pix = 300;
+
+	display->sprite_pix = 150;
+	int	i = -1;
+	while (++i < 9)
+	{
+		display->sprite[i].img_ptr = mlx_xpm_file_to_image(data->mlx->mlx_ptr,
+			"../sprite/sprite_1.xpm",
+			&(display->sprite_pix),
+			&(display->sprite_pix));
+		if (!(display->sprite[i].img_ptr))
+			print_error("Sprite init failed");
+	}
 	return (display);
 }
 

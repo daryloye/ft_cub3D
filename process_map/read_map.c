@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:29:48 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/26 21:06:42 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 09:24:49 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -383,7 +383,7 @@ int	get_map(t_data *data, char **text)
 	while (text[++i])
 	{
 		if (read_map_line(text[i], data, text, i) != 0)
-			return (ft_printf("Error\nInvalid map\n"), 1);
+			return (print_error("Invalid map"), 1);
 		if (data->map && data->map[i] != NULL)
 			break;
 	}

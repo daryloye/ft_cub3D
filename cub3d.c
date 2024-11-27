@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:32:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/26 21:26:16 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 09:22:56 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,23 @@ void	test_map(t_data *data)
 	data->texture->west.img_ptr = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "img/wall_west.xpm", &(data->texture->img_pix), &(data->texture->img_pix));
 }
 
+void	print_error(char *str)
+{
+	write(2, "Error\n", 6);
+	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
+	return ;
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*data;
 
 	if (ac != 2)
-		return (ft_printf("Error\nPls run program as './cub3D maps/map#.cub'\n"), EXIT_FAILURE);
+		return (print_error("Pls run program as './cub3D maps/map#.cub'"), EXIT_FAILURE);
 	data = init_data();
 	if (!data)
-		return (ft_printf("Error\n%s\n", strerror(errno)),
-			clean_data(data), EXIT_FAILURE);
+		return (print_error(strerror(errno)), clean_data(data), EXIT_FAILURE);
 	// if (read_file(av[1], data) == 1)
 	// 	return (clean_data(data), EXIT_FAILURE);
 	

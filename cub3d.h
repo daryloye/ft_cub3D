@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/26 21:25:22 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 09:16:44 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ typedef struct s_display
 	double	coord_to_pix_scale;
 	t_img	background;
 	t_img	active;
+	t_img	sprite[9];
+	int		sprite_pix;
 }	t_display;
 
 typedef struct s_minimap
@@ -138,6 +140,8 @@ typedef struct s_data
 	int			fps;
 	long long	start_time;
 }	t_data;
+
+void	print_error(char *str);
 
 /* data/init_data */
 t_data		*init_data(void);
