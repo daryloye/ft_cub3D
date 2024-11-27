@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:10:42 by daong             #+#    #+#             */
-/*   Updated: 2024/11/10 11:43:48 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 11:51:56 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	key_press(int key, t_data *data)
 		data->keys[RIGHT_ARROW] = 1;
 	if (key == 'm')
 		data->keys[M] *= -1;
+	if (key == 'p')
+		data->keys[P] *= -1;
 	return (1);
 }
 
@@ -70,6 +72,7 @@ static int	handle_close(t_data *data)
 void	init_hooks(t_data *data)
 {
 	data->keys[M] = -1;
+	data->keys[P] = -1;
 	mlx_hook(data->mlx->win_ptr, 2, 1L << 0, key_press, data);
 	mlx_hook(data->mlx->win_ptr, 3, 1L << 1, key_release, data);
 	mlx_hook(data->mlx->win_ptr, 15, 1L << 16, handle_resize, data);

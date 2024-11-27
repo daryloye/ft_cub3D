@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:41:25 by daong             #+#    #+#             */
-/*   Updated: 2024/11/22 01:40:20 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 11:52:59 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,22 @@ static void	check_wall(t_data *data, double x, double y)
  */
 int	do_movements(t_data *data)
 {
-	if (data->keys[W])
+	if (data->keys[W] && data->keys[P] == -1)
 		check_wall(data, (sin(data->player->rot_deg) * data->player->move_speed),
 			-(cos(data->player->rot_deg) * data->player->move_speed));
-	if (data->keys[A])
+	if (data->keys[A] && data->keys[P] == -1)
 		check_wall(data, -(cos(data->player->rot_deg) * data->player->move_speed),
 			-(sin(data->player->rot_deg) * data->player->move_speed));
-	if (data->keys[S])
+	if (data->keys[S] && data->keys[P] == -1)
 		check_wall(data, -(sin(data->player->rot_deg) * data->player->move_speed),
 			(cos(data->player->rot_deg) * data->player->move_speed));
-	if (data->keys[D])
+	if (data->keys[D] && data->keys[P] == -1)
 		check_wall(data, (cos(data->player->rot_deg) * data->player->move_speed),
 			(sin(data->player->rot_deg) * data->player->move_speed));
-	if (data->keys[LEFT_ARROW])
+	if (data->keys[LEFT_ARROW] && data->keys[P] == -1)
 		data->player->rot_deg = fmod((data->player->rot_deg
 			- data->player->rot_speed + PI * 2), PI * 2);
-	if (data->keys[RIGHT_ARROW])
+	if (data->keys[RIGHT_ARROW] && data->keys[P] == -1)
 		data->player->rot_deg = fmod((data->player->rot_deg
 			+ data->player->rot_speed), PI * 2);
 	return (render(data), 1);

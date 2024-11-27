@@ -126,6 +126,9 @@
 - Added fps smoothing
 - WIP: read_xpm.c --> xpm
 
+## v30 - 27/11/2024
+- Added pause toggle with sprite animation (WIP: create PAUSE image, handle transparency)
+
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html

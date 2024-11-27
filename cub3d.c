@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:32:26 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 09:22:56 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 10:57:04 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	test_map(t_data *data)
 	data->texture->ceiling_color = create_trgb(0, 125, 125, 0);
 	data->texture->floor_color = create_trgb(0, 125, 0, 125);
 	data->texture->north.img_ptr = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "img/wall_north.xpm", &(data->texture->img_pix), &(data->texture->img_pix));
+		if (!(data->texture->north.img_ptr))
+			print_error("north texture init");
 	data->texture->south.img_ptr = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "img/wall_south.xpm", &(data->texture->img_pix), &(data->texture->img_pix));
 	data->texture->east.img_ptr = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "img/wall_east.xpm", &(data->texture->img_pix), &(data->texture->img_pix));
 	data->texture->west.img_ptr = mlx_xpm_file_to_image(data->mlx->mlx_ptr, "img/wall_west.xpm", &(data->texture->img_pix), &(data->texture->img_pix));

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 09:16:44 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 11:52:27 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@
 # include "sys/time.h"
 # include "stdbool.h"
 
-# define WALL		'1'
-# define FLOOR		'0'
-# define DIRECTION	"NESW"
-# define PI 		3.14159265358979323846
+# define WALL			'1'
+# define FLOOR			'0'
+# define DIRECTION		"NESW"
+# define PI 			3.14159265358979323846
+# define SPRITE_COUNT	9
 
 typedef enum
 {
@@ -37,6 +38,7 @@ typedef enum
 	LEFT_ARROW,
 	RIGHT_ARROW,
 	M,
+	P,
 	KEY_COUNT
 }	key_index;
 
@@ -110,8 +112,9 @@ typedef struct s_display
 	double	coord_to_pix_scale;
 	t_img	background;
 	t_img	active;
-	t_img	sprite[9];
 	int		sprite_pix;
+	double	sprite_inc;
+	t_img	sprite[SPRITE_COUNT];
 }	t_display;
 
 typedef struct s_minimap
@@ -141,7 +144,7 @@ typedef struct s_data
 	long long	start_time;
 }	t_data;
 
-void	print_error(char *str);
+void		print_error(char *str);
 
 /* data/init_data */
 t_data		*init_data(void);
