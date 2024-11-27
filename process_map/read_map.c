@@ -264,7 +264,7 @@ static int	check_map_line(char *line, int i, bool *player_found, t_data *data)
 	while (line[j] != '\0')
 	{
 		c = line[j];
-		if (c != WALL && c != FLOOR && !ft_strchr(DIRECTION, c) && c != ' ' && c != '\n')
+		if (c != WALL && c != FLOOR && c != DOOR && !ft_strchr(DIRECTION, c) && c != ' ' && c != '\n')
 			return (-1);
 		if (ft_strchr(DIRECTION, c))
 		{
@@ -299,6 +299,35 @@ static int	handle_empty_line(char *line, int line_index, int map_size_y)
     return (0);
 }
 
+static int	is_door_enclosed(t_data *data, int i, int j)
+{
+	if ((i > 0 && data->map[i-1][j] != '1') || (i < data->map_size_y - 1 && data->map[i+1][j] != '1'))
+	{
+		if ((j > 0 && data->map[i][j-1] != '1') || ((size_t)j < ft_strlen(data->map[i]) - 1 && data->map[i][j+1] != '1'))
+			return (0);
+		else
+			return (1);
+	}
+	return (1);
+}
+
+static int	check_door(t_data *data, int i)
+{
+	int	j;
+
+	j = 0;
+	while ((size_t)j < ft_strlen(data->map[i]))
+	{
+		if (data->map[i][j] == 'D')
+		{
+			if (!is_door_enclosed(data, i, j))
+				return (-1);
+		}
+		j++;
+	}
+	return (0);
+}
+
 /**
  * @brief check if map is valid, to handle empty line, and to handle invalid char,
  *repeated players and to assign player position and direction
@@ -318,6 +347,9 @@ static int	check_map(t_data *data)
 		if (handle_empty_line(data->map[i], i, data->map_size_y) != 0)
 			return (-1);
 		if (check_map_line(data->map[i], i, &player_found, data) != 0)
+			return (-1);
+		//check if door D is ecnlosed by 1, either top and bottom, or left or right
+		if (check_door(data, i) != 0)
 			return (-1);
 		i++;
 	}

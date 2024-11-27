@@ -138,6 +138,9 @@
 ## v32 - 27/11/2024
 - mouse hooks done
 
+## v33 - 27/11/2024
+- validate door done
+
 ## WIP LIST
 - Fish eye effect
 - Create PAUSE image, handle transparency

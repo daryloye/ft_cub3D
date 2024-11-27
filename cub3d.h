@@ -25,6 +25,7 @@
 
 # define WALL			'1'
 # define FLOOR			'0'
+# define DOOR			'D'
 # define DIRECTION		"NESW"
 # define PI 			3.14159265358979323846
 # define SPRITE_COUNT	9
