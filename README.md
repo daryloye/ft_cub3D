@@ -136,7 +136,11 @@
 - resolved leading whitespace to first '1' of map (identifier)
 
 ## WIP LIST
+- Fish eye effect
 - Create PAUSE image, handle transparency
+- New sprite??
+- Handle door hook
+- Handle mouse hook
 
 
 ## Resources

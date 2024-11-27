@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 00:32:36 by daong             #+#    #+#             */
-/*   Updated: 2024/11/25 00:53:06 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 17:32:56 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	wait_fps(t_data *data)
 	while (1)
 	{
 		if ((current_time_ms() - data->start_time) % frame_ms == 0)
-			break;
+			break ;
 	}
 	return ;
 }

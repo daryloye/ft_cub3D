@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 14:40:29 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 12:55:48 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 17:34:18 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	init_sprite(t_data *data, t_display *display)
 	char		*i_str;
 	char		*path1;
 	char		*path2;
-	
+
 	display->sprite_pix = 150;
 	display->sprite_inc = 0.0;
 	i = -1;
@@ -28,7 +28,7 @@ static void	init_sprite(t_data *data, t_display *display)
 		path1 = ft_strjoin("sprite/sprite_", i_str);
 		path2 = ft_strjoin(path1, ".xpm");
 		display->sprite[i].img_ptr = mlx_xpm_file_to_image(data->mlx->mlx_ptr,
-			path2, &(display->sprite_pix), &(display->sprite_pix));
+				path2, &(display->sprite_pix), &(display->sprite_pix));
 		if (!(display->sprite[i].img_ptr))
 			print_error("Sprite init failed");
 		free(i_str);
@@ -45,7 +45,6 @@ static void	init_sprite(t_data *data, t_display *display)
  */
 t_display	*init_display(t_data *data)
 {
-
 	t_display	*display;
 
 	display = ft_calloc(sizeof(t_display), 1);

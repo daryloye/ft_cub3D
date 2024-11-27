@@ -6,13 +6,14 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:00:29 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 15:22:37 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/27 17:32:35 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	copy_texture_to_display(t_data *data, t_img texture, double *ray, double img_x)
+static void	copy_texture_to_display(t_data *data, t_img texture,
+	double *ray, double img_x)
 {
 	char	*src;
 	char	*dst;
@@ -21,15 +22,16 @@ static void	copy_texture_to_display(t_data *data, t_img texture, double *ray, do
 	int		y_start;
 
 	y_inc = data->texture->img_pix / ray[HEIGHT] / 2;
-	y_start = data->mlx->display_size_y / 2 - ray[HEIGHT] - 1;
+	y_start = data->mlx->display_size_y / 2 - ray[HEIGHT];
 	y = -1;
 	while (++y < 2 * ray[HEIGHT])
 	{
 		src = texture.addr
-			+ (int)(y * y_inc) * texture.line_length
-			+ (int)fmod(img_x, data->texture->img_pix) * texture.bits_per_pixel / 8;
+			+ (int)(y * y_inc)*texture.line_length
+			+ (int)fmod(img_x, data->texture->img_pix)
+			* texture.bits_per_pixel / 8;
 		dst = data->display->active.addr
-			+ (int)(y + y_start) * data->display->active.line_length
+			+ (int)(y + y_start)*data->display->active.line_length
 			+ (int)ray[X_PIX] * data->display->active.bits_per_pixel / 8;
 		*(unsigned int *)dst = *(unsigned int *)src;
 	}
@@ -37,7 +39,8 @@ static void	copy_texture_to_display(t_data *data, t_img texture, double *ray, do
 }
 
 /**
- * @brief Takes data on the wall height and the wall texture, and renders the wall onto the mlx display
+ * @brief Takes data on the wall height and the wall texture,
+ * and renders the wall onto the mlx display
  * 
  * @param data 
  * @param ray 
@@ -45,10 +48,12 @@ static void	copy_texture_to_display(t_data *data, t_img texture, double *ray, do
  */
 void	render_wall(t_data *data, double *ray, double ray_angle)
 {
-	// ISSUE: FISH EYE EFFECT
-	double corrected_dist = ray[RAY_DIST] * cos(ray_angle - data->player->rot_deg);
+	/* ISSUE: FISH EYE EFFECT */
+	double corrected_dist;
+	
+	corrected_dist = ray[RAY_DIST] * cos(ray_angle - data->player->rot_deg);
 	ray[HEIGHT] = data->display->max_wall_height_pix
-    - (corrected_dist - data->display->min_dist_to_wall) * 100;
+		- (corrected_dist - data->display->min_dist_to_wall) * 100;
 
 	if (ray[RAY_DIR] == NORTH)
 		copy_texture_to_display(data, data->texture->north, ray, ray[END_X]);
