@@ -141,6 +141,11 @@
 ## v33 - 27/11/2024
 - validate door done
 
+## v34 - 28/11/2024
+- validate open and close door
+- DOOR OPEN -> 'O'
+- DOOR CLOSE -> 'o'
+
 ## WIP LIST
 - Fish eye effect
 - Create PAUSE image, handle transparency

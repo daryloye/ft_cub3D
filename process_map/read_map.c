@@ -264,7 +264,7 @@ static int	check_map_line(char *line, int i, bool *player_found, t_data *data)
 	while (line[j] != '\0')
 	{
 		c = line[j];
-		if (c != WALL && c != FLOOR && c != DOOR && !ft_strchr(DIRECTION, c) && c != ' ' && c != '\n')
+		if (c != WALL && c != FLOOR && c != DOORO && c != DOORC && !ft_strchr(DIRECTION, c) && c != ' ' && c != '\n')
 			return (-1);
 		if (ft_strchr(DIRECTION, c))
 		{
@@ -318,7 +318,7 @@ static int	check_door(t_data *data, int i)
 	j = 0;
 	while ((size_t)j < ft_strlen(data->map[i]))
 	{
-		if (data->map[i][j] == 'D')
+		if (data->map[i][j] == 'O' || data->map[i][j] == 'o')
 		{
 			if (!is_door_enclosed(data, i, j))
 				return (-1);
@@ -348,7 +348,6 @@ static int	check_map(t_data *data)
 			return (-1);
 		if (check_map_line(data->map[i], i, &player_found, data) != 0)
 			return (-1);
-		//check if door D is ecnlosed by 1, either top and bottom, or left or right
 		if (check_door(data, i) != 0)
 			return (-1);
 		i++;
