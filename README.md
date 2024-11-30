@@ -147,10 +147,9 @@
 - DOOR CLOSE -> 'o'
 
 ## v35 - 30/11/2024
-- reworking raycasting algo
+- rendering done except case if ray[HEIGHT] > display_size
 
 ## WIP LIST
-- Fish eye effect
 - Create PAUSE image, handle transparency
 - New sprite??
 - Handle door hook

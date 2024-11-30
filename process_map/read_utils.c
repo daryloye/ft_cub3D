@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:53:00 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/05 16:53:03 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/11/30 22:39:24 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,15 @@ bool	is_empty_line(char *line)
 	return (true);
 }
 
+/**
+ * @brief writes error message to stderror
+ * 
+ * @param str 
+ */
+void	print_error(char *str)
+{
+	write(2, "Error\n", 6);
+	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
+	return ;
+}

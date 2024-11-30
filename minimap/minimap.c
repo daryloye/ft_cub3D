@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:54:58 by daong             #+#    #+#             */
-/*   Updated: 2024/11/23 14:46:20 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 00:24:22 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,17 @@ int	render_minimap(t_data *data)
  * @param pos 
  * @param color 
  */
-void	dda_minimap(t_data *data, double pos[POS_COUNT])
+void	dda_minimap(t_data *data, double *ray)
 {
 	double	x_inc;
 	double	y_inc;
 	int		steps;
 	int		i;
-	int		color;
+	double	pos[POS_COUNT];
 
-	color = create_trgb(0, 0, 255, 0);
 	i = -1;
 	while (++i < 4)
-		pos[i] *= data->minimap->wall_length;
+		pos[i] = ray[i] * data->minimap->wall_length;
 	if (abs((int)(pos[END_X] - pos[START_X]))
 		> abs((int)(pos[END_Y] - pos[START_Y])))
 		steps = abs((int)(pos[END_X] - pos[START_X]));
@@ -101,7 +100,7 @@ void	dda_minimap(t_data *data, double pos[POS_COUNT])
 	while (++i < steps)
 	{
 		ft_mlx_pixel_put(data->minimap->active, round(pos[START_X]),
-			round(pos[START_Y]), color);
+			round(pos[START_Y]), create_trgb(0, 0, 255, 0));
 		pos[START_X] += x_inc;
 		pos[START_Y] += y_inc;
 	}

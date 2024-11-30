@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 15:18:41 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 00:23:27 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ void		wait_fps(t_data *data);
 
 /* minimap/minimap */
 int			render_minimap(t_data *data);
-void		dda_minimap(t_data *data, double pos[POS_COUNT]);
+void		dda_minimap(t_data *data, double *ray);
 
 /* minimap/minimap_background */
 int			minimap_background(t_data *data);
@@ -230,6 +230,7 @@ int			check_identifiers(char **text);
 char		*skip_whitespaces(char *line);
 void		remove_trailing_whitespace(char *line);
 bool		is_empty_line(char *line);
+void		print_error(char *str);
 
 /* movements */
 int			do_movements(t_data *data);

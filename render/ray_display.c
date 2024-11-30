@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:00:29 by daong             #+#    #+#             */
-/*   Updated: 2024/11/30 19:23:07 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 00:30:53 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,50 +21,42 @@ static void	copy_texture_to_display(t_data *data, t_img texture,
 	double	y;
 	int		y_start;
 
+	if (ray[HEIGHT] > data->mlx->display_size_y / 2)
+		ray[HEIGHT] = data->mlx->display_size_y / 2;
+
 	y_inc = data->texture->img_pix / ray[HEIGHT] / 2;
 	y_start = data->mlx->display_size_y / 2 - ray[HEIGHT];
-	y = -1;
-	while (++y < 2 * ray[HEIGHT])
+
+	int offset = ray[HEIGHT] - data->mlx->display_size_y / 2;
+	if (offset > 0)		// out of disp
 	{
-		src = texture.addr
-			+ (int)(y * y_inc)*texture.line_length
-			+ (int)fmod(img_x, data->texture->img_pix)
-			* texture.bits_per_pixel / 8;
-		dst = data->display->active.addr
-			+ (int)(y + y_start)*data->display->active.line_length
-			+ (int)ray[X_PIX] * data->display->active.bits_per_pixel / 8;
-		*(unsigned int *)dst = *(unsigned int *)src;
+		y = -1;
+		while (++y < data->mlx->display_size_y)
+		{
+			src = texture.addr + (int)((y + offset) * y_inc) * texture.line_length
+				+ (int)(fmod(img_x, 1.0) * data->texture->img_pix) * texture.bits_per_pixel / 8;
+			dst = data->display->active.addr + (int)(y * data->display->active.line_length)
+				+ (int)ray[X_PIX] * data->display->active.bits_per_pixel / 8;
+			*(unsigned int *)dst = *(unsigned int *)src;
+		}
+	}
+
+	else	// normal case
+	{
+		y = -1;
+		while (++y < 2 * ray[HEIGHT])
+		{
+			src = texture.addr
+				+ (int)(y * y_inc)*texture.line_length
+				+ (int)(fmod(img_x, 1.0) * data->texture->img_pix) * texture.bits_per_pixel / 8;
+			dst = data->display->active.addr
+				+ (int)(y + y_start)*data->display->active.line_length
+				+ (int)ray[X_PIX] * data->display->active.bits_per_pixel / 8;
+			*(unsigned int *)dst = *(unsigned int *)src;
+		}
 	}
 	return ;
 }
-
-// static void copy_texture_to_display(t_data *data, t_img texture, double *ray)
-// {
-// 	char	*src;
-// 	char	*dst;
-
-// 	double	y_disp;
-// 	double	y_inc;
-// 	int		y_disp_center;
-// 	int		y_img_center;
-
-// 	y_img_center = data->texture->img_pix / 2;
-// 	y_disp_center = data->mlx->display_size_y / 2;
-// 	y_inc = data->texture->img_pix / ray[HEIGHT];
-
-// 	y_disp = -1;
-// 	while (++y_disp < y_disp_center && y_disp < ray[HEIGHT])
-// 	{
-// 		src = texture.addr
-// 			+ (int)(y_disp * y_inc)*texture.line_length
-// 			+ (int)fmod(ray[END_X], data->texture->img_pix)
-// 			* texture.bits_per_pixel / 8;
-// 		dst = data->display->active.addr
-// 			+ (int)(y_disp)*data->display->active.line_length
-// 			+ (int)ray[X_PIX] * data->display->active.bits_per_pixel / 8;
-// 		*(unsigned int *)dst = *(unsigned int *)src;
-// 	}
-// }
 
 /**
  * @brief Takes data on the wall height and the wall texture,
