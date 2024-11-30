@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:53:09 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 09:21:00 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/30 12:23:55 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ double	get_dist(double x1, double y1, double x2, double y2)
 	double	x_sq;
 	double	y_sq;
 
-	x_sq = pow(x1 - x2, 2);
-	y_sq = pow(y1 - y2, 2);
+	x_sq = (x1 - x2) * (x1 - x2);
+	y_sq = (y1 - y2) * (y1 - y2);
 	return (sqrt(x_sq + y_sq));
 }

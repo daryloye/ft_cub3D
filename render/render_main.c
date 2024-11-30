@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:32:33 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 18:04:39 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/30 16:31:07 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,15 @@
 static int	render_fov(t_data *data)
 {
 	double	ray_angle;
-	double	adj_side;
+	double	angle_step;
 	int		x;
-	int		center_x;
 
-	adj_side = data->display->coord_to_pix_scale
-		* data->display->min_dist_to_wall;
-	center_x = data->mlx->display_size_x / 2;
+	angle_step = data->player->fov_deg / data->mlx->display_size_x;
 	x = -1;
-	while (++x <= center_x)
-	{
-		ray_angle = data->player->rot_deg - atan(x / adj_side);
-		ray_angle = fmod(ray_angle, PI * 2);
-		if (create_single_ray(data, ray_angle, center_x - x) != 0)
-			return (1);
-	}
-	x--;
 	while (++x < data->mlx->display_size_x)
 	{
-		ray_angle = data->player->rot_deg + atan((x - center_x) / adj_side);
+		ray_angle = data->player->rot_deg - (data->player->fov_deg / 2)
+			+ (x * angle_step);
 		ray_angle = fmod(ray_angle, PI * 2);
 		if (create_single_ray(data, ray_angle, x) != 0)
 			return (1);

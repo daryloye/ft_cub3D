@@ -146,6 +146,9 @@
 - DOOR OPEN -> 'O'
 - DOOR CLOSE -> 'o'
 
+## v35 - 30/11/2024
+- reworking raycasting algo
+
 ## WIP LIST
 - Fish eye effect
 - Create PAUSE image, handle transparency

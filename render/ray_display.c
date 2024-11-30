@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:00:29 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 17:32:35 by daong            ###   ########.fr       */
+/*   Updated: 2024/11/30 19:23:07 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,34 @@ static void	copy_texture_to_display(t_data *data, t_img texture,
 	return ;
 }
 
+// static void copy_texture_to_display(t_data *data, t_img texture, double *ray)
+// {
+// 	char	*src;
+// 	char	*dst;
+
+// 	double	y_disp;
+// 	double	y_inc;
+// 	int		y_disp_center;
+// 	int		y_img_center;
+
+// 	y_img_center = data->texture->img_pix / 2;
+// 	y_disp_center = data->mlx->display_size_y / 2;
+// 	y_inc = data->texture->img_pix / ray[HEIGHT];
+
+// 	y_disp = -1;
+// 	while (++y_disp < y_disp_center && y_disp < ray[HEIGHT])
+// 	{
+// 		src = texture.addr
+// 			+ (int)(y_disp * y_inc)*texture.line_length
+// 			+ (int)fmod(ray[END_X], data->texture->img_pix)
+// 			* texture.bits_per_pixel / 8;
+// 		dst = data->display->active.addr
+// 			+ (int)(y_disp)*data->display->active.line_length
+// 			+ (int)ray[X_PIX] * data->display->active.bits_per_pixel / 8;
+// 		*(unsigned int *)dst = *(unsigned int *)src;
+// 	}
+// }
+
 /**
  * @brief Takes data on the wall height and the wall texture,
  * and renders the wall onto the mlx display
@@ -48,13 +76,20 @@ static void	copy_texture_to_display(t_data *data, t_img texture,
  */
 void	render_wall(t_data *data, double *ray, double ray_angle)
 {
-	/* ISSUE: FISH EYE EFFECT */
-	double corrected_dist;
-	
-	corrected_dist = ray[RAY_DIST] * cos(ray_angle - data->player->rot_deg);
-	ray[HEIGHT] = data->display->max_wall_height_pix
-		- (corrected_dist - data->display->min_dist_to_wall) * 100;
+	double	max_height;
+	double	angle_offset;
+	double	adj_dist;
 
+	max_height = data->mlx->display_size_y / 2;
+	angle_offset = ray_angle - data->player->rot_deg;
+    if (angle_offset > PI)
+        angle_offset -= 2 * PI;
+    else if (angle_offset < -PI)
+        angle_offset += 2 * PI;
+    adj_dist = ray[RAY_DIST] * cos(angle_offset);
+	if (adj_dist < 0.1)
+		adj_dist = 0.1;
+    ray[HEIGHT] = max_height / adj_dist;
 	if (ray[RAY_DIR] == NORTH)
 		copy_texture_to_display(data, data->texture->north, ray, ray[END_X]);
 	if (ray[RAY_DIR] == SOUTH)
