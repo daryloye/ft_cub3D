@@ -6,122 +6,98 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 00:57:11 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 00:24:10 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 13:14:37 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	hor_n(t_data *data, double *ray, double ray_angle)
+static int	hor_n(t_data *data, double *ray)
 {
-	double	new_x;
-	double	new_y;
-	double	dist;
+	char	map_c;
 
-	if (ray_angle >= (PI * 0.5) - 0.001 && ray_angle <= (PI * 1.5) + 0.001)
+	if (ray[ANGLE] >= (PI * 0.5) - 0.001 && ray[ANGLE] <= (PI * 1.5) + 0.001)
 		return (1);
-	new_y = (int)ray[START_Y];
-	new_x = (ray[START_Y] - new_y) * tan(ray_angle) + ray[START_X];
-	if (new_y < 0 || new_y >= data->map_size_y
-		|| new_x < 0 || new_x >= ft_strlen(data->map[(int)new_y]))
+	ray[NEW_Y] = (int)ray[START_Y];
+	ray[NEW_X] = (ray[START_Y] - ray[NEW_Y]) * tan(ray[ANGLE]) + ray[START_X];
+	if (check_in_map(data, ray) == 1)
 		return (1);
-	while (data->map[(int)new_y - 1][(int)new_x] == '0')
+	map_c = data->map[(int)ray[NEW_Y] - 1][(int)ray[NEW_X]];
+	while (map_c == '0' || map_c == 'O')
 	{
-		new_x += tan(ray_angle);
-		new_y -= 1;
-		if (new_y < 0 || new_y >= data->map_size_y
-			|| new_x < 0 || new_x >= ft_strlen(data->map[(int)new_y]))
+		ray[NEW_X] += tan(ray[ANGLE]);
+		ray[NEW_Y] -= 1;
+		if (check_in_map(data, ray) == 1)
 			return (1);
+		map_c = data->map[(int)ray[NEW_Y] - 1][(int)ray[NEW_X]];
 	}
-	dist = get_dist(ray[START_X], ray[START_Y], new_x, new_y);
-	if (ray[RAY_DIST] > 0 && dist > ray[RAY_DIST])
-		return (1);
-	return (ray[END_X] = new_x, ray[END_Y] = new_y,
-		ray[RAY_DIR] = NORTH, ray[RAY_DIST] = dist, 0);
+	return (check_dist(ray, NORTH, map_c));
 }
 
-static int	hor_s(t_data *data, double *ray, double ray_angle)
+static int	hor_s(t_data *data, double *ray)
 {
-	double	new_x;
-	double	new_y;
-	double	dist;
+	char	map_c;
 
-	if (ray_angle >= (PI * 1.5) - 0.001 || ray_angle <= (PI * 0.5) + 0.001)
+	if (ray[ANGLE] >= (PI * 1.5) - 0.001 || ray[ANGLE] <= (PI * 0.5) + 0.001)
 		return (1);
-	new_y = (int)ray[START_Y] + 1;
-	new_x = (ray[START_Y] - new_y) * tan(ray_angle) + ray[START_X];
-	if (new_y < 0 || new_y >= data->map_size_y
-		|| new_x < 0 || new_x >= ft_strlen(data->map[(int)new_y]))
+	ray[NEW_Y] = (int)ray[START_Y] + 1;
+	ray[NEW_X] = (ray[START_Y] - ray[NEW_Y]) * tan(ray[ANGLE]) + ray[START_X];
+	if (check_in_map(data, ray) == 1)
 		return (1);
-	while (data->map[(int)new_y][(int)new_x] == '0')
+	map_c = data->map[(int)ray[NEW_Y]][(int)ray[NEW_X]];
+	while (map_c == '0' || map_c == 'O')
 	{
-		new_x -= tan(ray_angle);
-		new_y += 1;
-		if (new_y < 0 || new_y >= data->map_size_y
-			|| new_x < 0 || new_x >= ft_strlen(data->map[(int)new_y]))
+		ray[NEW_X] -= tan(ray[ANGLE]);
+		ray[NEW_Y] += 1;
+		if (check_in_map(data, ray) == 1)
 			return (1);
+		map_c = data->map[(int)ray[NEW_Y]][(int)ray[NEW_X]];
 	}
-	dist = get_dist(ray[START_X], ray[START_Y], new_x, new_y);
-	if (ray[RAY_DIST] > 0 && dist > ray[RAY_DIST])
-		return (1);
-	return (ray[END_X] = new_x, ray[END_Y] = new_y,
-		ray[RAY_DIR] = SOUTH, ray[RAY_DIST] = dist, 0);
+	return (check_dist(ray, SOUTH, map_c));
 }
 
-static int	ver_e(t_data *data, double *ray, double ray_angle)
+static int	ver_e(t_data *data, double *ray)
 {
-	double	new_x;
-	double	new_y;
-	double	dist;
+	char	map_c;
 
-	if (ray_angle >= PI - 0.001 || ray_angle <= 0.001)
+	if (ray[ANGLE] >= PI - 0.001 || ray[ANGLE] <= 0.001)
 		return (1);
-	new_x = (int)ray[START_X] + 1;
-	new_y = ray[START_Y] - (new_x - ray[START_X]) / tan(ray_angle);
-	if (new_y < 0 || new_y >= data->map_size_y
-		|| new_x < 0 || new_x >= ft_strlen(data->map[(int)new_y]))
+	ray[NEW_X] = (int)ray[START_X] + 1;
+	ray[NEW_Y] = ray[START_Y] - (ray[NEW_X] - ray[START_X]) / tan(ray[ANGLE]);
+	if (check_in_map(data, ray) == 1)
 		return (1);
-	while (data->map[(int)new_y][(int)new_x] == '0')
+	map_c = data->map[(int)ray[NEW_Y]][(int)ray[NEW_X]];
+	while (map_c == '0' || map_c == 'O')
 	{
-		new_x += 1;
-		new_y -= 1 / tan(ray_angle);
-		if (new_y < 0 || new_y >= data->map_size_y
-			|| new_x < 0 || new_x >= ft_strlen(data->map[(int)new_y]))
+		ray[NEW_X] += 1;
+		ray[NEW_Y] -= 1 / tan(ray[ANGLE]);
+		if (check_in_map(data, ray) == 1)
 			return (1);
+		map_c = data->map[(int)ray[NEW_Y]][(int)ray[NEW_X]];
 	}
-	dist = get_dist(ray[START_X], ray[START_Y], new_x, new_y);
-	if (ray[RAY_DIST] > 0 && dist > ray[RAY_DIST])
-		return (1);
-	return (ray[END_X] = new_x, ray[END_Y] = new_y,
-		ray[RAY_DIR] = EAST, ray[RAY_DIST] = dist, 0);
+	return (check_dist(ray, EAST, map_c));
 }
 
-static int	ver_w(t_data *data, double *ray, double ray_angle)
+static int	ver_w(t_data *data, double *ray)
 {
-	double	new_x;
-	double	new_y;
-	double	dist;
+	char	map_c;
 
-	if (ray_angle >= -0.001 && ray_angle <= PI + 0.001)
+	if (ray[ANGLE] >= -0.001 && ray[ANGLE] <= PI + 0.001)
 		return (1);
-	new_x = (int)ray[START_X];
-	new_y = ray[START_Y] - (new_x - ray[START_X]) / tan(ray_angle);
-	if (new_y < 0 || new_y >= data->map_size_y
-		|| new_x < 0 || new_x >= ft_strlen(data->map[(int)new_y]))
+	ray[NEW_X] = (int)ray[START_X];
+	ray[NEW_Y] = ray[START_Y] - (ray[NEW_X] - ray[START_X]) / tan(ray[ANGLE]);
+	if (check_in_map(data, ray) == 1)
 		return (1);
-	while (data->map[(int)new_y][(int)new_x - 1] == '0')
+	map_c = data->map[(int)ray[NEW_Y]][(int)ray[NEW_X] - 1];
+	while (map_c == '0' || map_c == 'O')
 	{
-		new_x -= 1;
-		new_y += 1 / tan(ray_angle);
-		if (new_y < 0 || new_y >= data->map_size_y
-			|| new_x < 0 || new_x >= ft_strlen(data->map[(int)new_y]))
+		ray[NEW_X] -= 1;
+		ray[NEW_Y] += 1 / tan(ray[ANGLE]);
+		if (check_in_map(data, ray) == 1)
 			return (1);
+		map_c = data->map[(int)ray[NEW_Y]][(int)ray[NEW_X] - 1];
 	}
-	dist = get_dist(ray[START_X], ray[START_Y], new_x, new_y);
-	if (ray[RAY_DIST] > 0 && dist > ray[RAY_DIST])
-		return (1);
-	return (ray[END_X] = new_x, ray[END_Y] = new_y,
-		ray[RAY_DIR] = WEST, ray[RAY_DIST] = dist, 0);
+	return (check_dist(ray, WEST, map_c));
 }
 
 /**
@@ -140,13 +116,14 @@ int	create_single_ray(t_data *data, double ray_angle, int x_pix)
 	ray[X_PIX] = x_pix;
 	ray[START_X] = data->player->x_pos;
 	ray[START_Y] = data->player->y_pos;
-	hor_n(data, ray, ray_angle);
-	hor_s(data, ray, ray_angle);
-	ver_e(data, ray, ray_angle);
-	ver_w(data, ray, ray_angle);
+	ray[ANGLE] = ray_angle;
+	hor_n(data, ray);
+	hor_s(data, ray);
+	ver_e(data, ray);
+	ver_w(data, ray);
 	if (ray[RAY_DIST] <= 0)
 		return (print_error("Invalid raycasting distance"), 1);
 	dda_minimap(data, ray);
-	render_wall(data, ray, ray_angle);
+	render_wall(data, ray);
 	return (0);
 }

@@ -6,47 +6,18 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:21:05 by daong             #+#    #+#             */
-/*   Updated: 2024/11/23 14:46:55 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 12:44:07 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	create_wall(t_data *data, int x_start, int y_start)
+static void	create_square(t_data *data, int x_start, int y_start, int color)
 {
 	int		x;
 	int		y;
-	int		color;
 	int		border_color;
 
-	color = create_trgb(0, 128, 128, 128);
-	border_color = create_trgb(0, 0, 0, 0);
-	x = -1;
-	while (++x < data->minimap->wall_length)
-	{
-		y = -1;
-		while (++y < data->minimap->wall_length)
-		{
-			if (x == 0 || x == data->minimap->wall_length - 1
-				|| y == 0 || y == data->minimap->wall_length - 1)
-				ft_mlx_pixel_put(data->minimap->background,
-					x + x_start, y + y_start, border_color);
-			else
-				ft_mlx_pixel_put(data->minimap->background,
-					x + x_start, y + y_start, color);
-		}
-	}
-	return ;
-}
-
-static void	create_floor(t_data *data, int x_start, int y_start)
-{
-	int		x;
-	int		y;
-	int		color;
-	int		border_color;
-
-	color = create_trgb(0, 255, 255, 255);
 	border_color = create_trgb(0, 0, 0, 0);
 	x = -1;
 	while (++x < data->minimap->wall_length)
@@ -86,9 +57,13 @@ int	minimap_background(t_data *data)
 		while (data->map[y][++x])
 		{
 			if (data->map[y][x] == '1')
-				create_wall(data, x * length, y * length);
+				create_square(data, x * length, y * length, create_trgb(0, 128, 128, 128));
 			else if (data->map[y][x] == '0')
-				create_floor(data, x * length, y * length);
+				create_square(data, x * length, y * length, create_trgb(0, 255, 255, 255));
+			else if (data->map[y][x] == 'o')
+				create_square(data, x * length, y * length, create_trgb(0, 128, 128, 255));
+			else if (data->map[y][x] == 'O')
+				create_square(data, x * length, y * length, create_trgb(0, 0, 0, 128));
 		}
 	}
 	return (0);

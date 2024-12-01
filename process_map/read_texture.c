@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 18:35:10 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/27 09:27:53 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 11:28:56 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,6 @@ int	get_textures(t_data *data, char **text)
 	set_texture(data->mlx->mlx_ptr, data->texture->south_texture, &data->texture->south, data->texture->img_pix);
 	set_texture(data->mlx->mlx_ptr, data->texture->east_texture, &data->texture->east, data->texture->img_pix);
 	set_texture(data->mlx->mlx_ptr, data->texture->west_texture, &data->texture->west, data->texture->img_pix);
+	set_texture(data->mlx->mlx_ptr, "./img/door.xpm", &data->texture->door, data->texture->img_pix);
 	return (0);
 }

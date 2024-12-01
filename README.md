@@ -149,6 +149,9 @@
 ## v35 - 30/11/2024
 - rendering done except case if ray[HEIGHT] > display_size
 
+## v36 - 1/12/2024
+- Door hook complete -> need to create door img, check for chars in map, replace chars when key is pressed
+
 ## WIP LIST
 - Create PAUSE image, handle transparency
 - New sprite??

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:00:29 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 00:30:53 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 13:17:03 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,19 @@ static void	copy_texture_to_display(t_data *data, t_img texture,
 }
 
 /**
- * @brief Takes data on the wall height and the wall texture,
- * and renders the wall onto the mlx display
+ * @brief find height of wall
  * 
  * @param data 
  * @param ray 
- * @param height 
  */
-void	render_wall(t_data *data, double *ray, double ray_angle)
+static void	get_height(t_data *data, double *ray)
 {
 	double	max_height;
 	double	angle_offset;
 	double	adj_dist;
 
 	max_height = data->mlx->display_size_y / 2;
-	angle_offset = ray_angle - data->player->rot_deg;
+	angle_offset = ray[ANGLE] - data->player->rot_deg;
     if (angle_offset > PI)
         angle_offset -= 2 * PI;
     else if (angle_offset < -PI)
@@ -82,13 +80,31 @@ void	render_wall(t_data *data, double *ray, double ray_angle)
 	if (adj_dist < 0.1)
 		adj_dist = 0.1;
     ray[HEIGHT] = max_height / adj_dist;
+	return ;
+}
+
+/**
+ * @brief Takes data on the wall height and the wall texture,
+ * and renders the wall onto the mlx display
+ * 
+ * @param data 
+ * @param ray 
+ * @param height 
+ */
+void	render_wall(t_data *data, double *ray)
+{
+	get_height(data, ray);
 	if (ray[RAY_DIR] == NORTH)
 		copy_texture_to_display(data, data->texture->north, ray, ray[END_X]);
-	if (ray[RAY_DIR] == SOUTH)
+	else if (ray[RAY_DIR] == SOUTH)
 		copy_texture_to_display(data, data->texture->south, ray, ray[END_X]);
-	if (ray[RAY_DIR] == EAST)
+	else if (ray[RAY_DIR] == EAST)
 		copy_texture_to_display(data, data->texture->east, ray, ray[END_Y]);
-	if (ray[RAY_DIR] == WEST)
+	else if (ray[RAY_DIR] == WEST)
 		copy_texture_to_display(data, data->texture->west, ray, ray[END_Y]);
+	else if (ray[RAY_DIR] == DOOR_NS)
+		copy_texture_to_display(data, data->texture->door, ray, ray[END_X]);
+	else if (ray[RAY_DIR] == DOOR_EW)
+		copy_texture_to_display(data, data->texture->door, ray, ray[END_Y]);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:10:42 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 18:18:14 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 13:05:38 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ static int	key_press(int key, t_data *data)
 		data->keys[M] *= -1;
 	if (key == 'p')
 		data->keys[P] *= -1;
+	if (key == 'o')
+	{
+		if (data->keys[O] == -1)
+		{
+			ft_printf("Opening doors\n");	// replace all chars in map
+		}
+		if (data->keys[O] == 1)
+		{
+			ft_printf("Closing doors\n");
+		}
+		data->keys[O] *= -1;
+	}
 	return (1);
 }
 
@@ -73,6 +85,7 @@ void	init_hooks(t_data *data)
 {
 	data->keys[M] = -1;
 	data->keys[P] = -1;
+	data->keys[O] = -1;
 	mlx_hook(data->mlx->win_ptr, 2, 1L << 0, key_press, data);
 	mlx_hook(data->mlx->win_ptr, 3, 1L << 1, key_release, data);
 	mlx_hook(data->mlx->win_ptr, 15, 1L << 16, handle_resize, data);

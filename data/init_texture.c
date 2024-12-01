@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 13:43:41 by daong             #+#    #+#             */
-/*   Updated: 2024/11/26 21:25:20 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 11:29:52 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	clean_texture(t_texture *texture, t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx_ptr, texture->east.img_ptr);
 	if (mlx->mlx_ptr && texture->west.img_ptr)
 		mlx_destroy_image(mlx->mlx_ptr, texture->west.img_ptr);
+	if (mlx->mlx_ptr && texture->door.img_ptr)
+		mlx_destroy_image(mlx->mlx_ptr, texture->door.img_ptr);
 	if (texture->north_texture)
 		free(texture->north_texture);
 	if (texture->south_texture)

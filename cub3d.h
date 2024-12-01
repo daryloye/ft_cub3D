@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 00:23:27 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 13:14:58 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef enum
 	RIGHT_ARROW,
 	M,
 	P,
+	O,
 	KEY_COUNT
 }	key_index;
 
@@ -50,6 +51,8 @@ typedef enum
 	SOUTH,
 	EAST,
 	WEST,
+	DOOR_NS,
+	DOOR_EW,
 	DIR_COUNT
 }	dir_index;
 
@@ -59,6 +62,9 @@ typedef enum
 	START_Y,
 	END_X,
 	END_Y,
+	NEW_X,
+	NEW_Y,
+	ANGLE,
 	RAY_DIR,
 	RAY_DIST,
 	X_PIX,
@@ -95,6 +101,7 @@ typedef struct s_texture
 	t_img	south;
 	t_img	east;
 	t_img	west;
+	t_img	door;
 	int		img_pix;
 }	t_texture;
 
@@ -147,8 +154,6 @@ typedef struct s_data
 	long long	start_time;
 }	t_data;
 
-void		print_error(char *str);
-
 /* data/init_data */
 t_data		*init_data(void);
 void		clean_data(t_data *data);
@@ -188,8 +193,12 @@ int			init_display_images(t_data *data);
 /* render/ray_direction */
 int			create_single_ray(t_data *data, double ray_angle, int x_pix);
 
+/* render/ray_dir_utils */
+int			check_in_map(t_data *data, double *ray);
+int			check_dist(double *ray, int dir, char map_c);
+
 /* render/ray_display.c */
-void		render_wall(t_data *data, double *ray, double ray_angle);
+void		render_wall(t_data *data, double *ray);
 
 /* render/render_utils */
 t_img		init_blank_image(t_data *data, int x, int y);
