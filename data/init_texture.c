@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 13:43:41 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 11:29:52 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 14:05:24 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_texture	*init_texture(void)
 	texture->south_texture = ft_strdup("");
 	texture->west_texture = ft_strdup("");
 	texture->east_texture = ft_strdup("");
-	texture->img_pix = 128;
 	return (texture);
 }
 

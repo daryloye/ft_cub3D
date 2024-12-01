@@ -6,21 +6,22 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 18:35:10 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/01 11:28:56 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 14:03:31 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	set_texture(void *mlx_ptr, char *file_path, t_img *texture, int img_pix)
+static void	set_texture(void *mlx_ptr, char *file_path, t_img *texture)
 {
-	texture->img_ptr = mlx_xpm_file_to_image(mlx_ptr, file_path, &img_pix, &img_pix);
+	texture->img_ptr = mlx_xpm_file_to_image(mlx_ptr, file_path, &texture->width, &texture->height);
 	if (!texture->img_ptr)
 	{
 		print_error("Failed to load texture from");
 		return;
 	}
-	texture->addr = mlx_get_data_addr(texture->img_ptr, &texture->bits_per_pixel, &texture->line_length, &texture->endian);
+	texture->addr = mlx_get_data_addr(texture->img_ptr, &texture->bits_per_pixel,
+			&texture->line_length, &texture->endian);
 	if (!texture->addr)
 		print_error("Failed to get data address for texture");
 }
@@ -153,10 +154,10 @@ int	get_textures(t_data *data, char **text)
 			return (print_error("Invalid texture"), 1);
 		i++;
 	}
-	set_texture(data->mlx->mlx_ptr, data->texture->north_texture, &data->texture->north, data->texture->img_pix);
-	set_texture(data->mlx->mlx_ptr, data->texture->south_texture, &data->texture->south, data->texture->img_pix);
-	set_texture(data->mlx->mlx_ptr, data->texture->east_texture, &data->texture->east, data->texture->img_pix);
-	set_texture(data->mlx->mlx_ptr, data->texture->west_texture, &data->texture->west, data->texture->img_pix);
-	set_texture(data->mlx->mlx_ptr, "./img/door.xpm", &data->texture->door, data->texture->img_pix);
+	set_texture(data->mlx->mlx_ptr, data->texture->north_texture, &data->texture->north);
+	set_texture(data->mlx->mlx_ptr, data->texture->south_texture, &data->texture->south);
+	set_texture(data->mlx->mlx_ptr, data->texture->east_texture, &data->texture->east);
+	set_texture(data->mlx->mlx_ptr, data->texture->west_texture, &data->texture->west);
+	set_texture(data->mlx->mlx_ptr, "./img/door.xpm", &data->texture->door);
 	return (0);
 }

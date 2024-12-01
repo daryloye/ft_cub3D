@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 13:14:58 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/01 14:08:27 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }	t_img;
 
 typedef struct s_mlx
@@ -102,7 +104,6 @@ typedef struct s_texture
 	t_img	east;
 	t_img	west;
 	t_img	door;
-	int		img_pix;
 }	t_texture;
 
 typedef struct s_player
@@ -118,11 +119,8 @@ typedef struct s_player
 typedef struct s_display
 {
 	double	min_dist_to_wall;
-	double	max_wall_height_pix;
-	double	coord_to_pix_scale;
 	t_img	background;
 	t_img	active;
-	int		sprite_pix;
 	double	sprite_inc;
 	t_img	sprite[SPRITE_COUNT];
 }	t_display;
