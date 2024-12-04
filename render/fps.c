@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 00:32:36 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 17:32:56 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 09:04:15 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void	wait_fps(t_data *data)
 {
 	long long	frame_ms;
 
-	frame_ms = 1000 / data->fps;
+	if (data->fps != 0)
+		frame_ms = 1000 / data->fps;
+	else
+		frame_ms = 0;
 	while (1)
 	{
 		if ((current_time_ms() - data->start_time) % frame_ms == 0)

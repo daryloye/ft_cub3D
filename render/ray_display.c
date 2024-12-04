@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:00:29 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 14:06:07 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 10:38:38 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,41 +19,20 @@ static void	copy_texture_to_display(t_data *data, t_img texture,
 	char	*dst;
 	double	y_inc;
 	double	y;
-	int		y_start;
+	int		offset;
 
-	if (ray[HEIGHT] > data->mlx->display_size_y / 2)
-		ray[HEIGHT] = data->mlx->display_size_y / 2;
-
-	y_inc = texture.height / ray[HEIGHT] / 2;
-	y_start = data->mlx->display_size_y / 2 - ray[HEIGHT];
-
-	int offset = ray[HEIGHT] - data->mlx->display_size_y / 2;
-	if (offset > 0)		// out of disp
+	y_inc = texture.height / (ray[HEIGHT] * 2);
+	offset = ray[HEIGHT] - data->mlx->display_size_y / 2;
+	y = -1;
+	while (++y < ft_min(2 * ray[HEIGHT], data->mlx->display_size_y))
 	{
-		y = -1;
-		while (++y < data->mlx->display_size_y)
-		{
-			src = texture.addr + (int)((y + offset) * y_inc) * texture.line_length
-				+ (int)(fmod(img_x, 1.0) * texture.width) * texture.bits_per_pixel / 8;
-			dst = data->display->active.addr + (int)(y * data->display->active.line_length)
-				+ (int)ray[X_PIX] * data->display->active.bits_per_pixel / 8;
-			*(unsigned int *)dst = *(unsigned int *)src;
-		}
-	}
-
-	else	// normal case
-	{
-		y = -1;
-		while (++y < 2 * ray[HEIGHT])
-		{
-			src = texture.addr
-				+ (int)(y * y_inc)*texture.line_length
-				+ (int)(fmod(img_x, 1.0) * texture.width) * texture.bits_per_pixel / 8;
-			dst = data->display->active.addr
-				+ (int)(y + y_start)*data->display->active.line_length
-				+ (int)ray[X_PIX] * data->display->active.bits_per_pixel / 8;
-			*(unsigned int *)dst = *(unsigned int *)src;
-		}
+		src = texture.addr 
+			+ (int)((y + ft_max(offset, 0)) * y_inc) * texture.line_length
+			+ (int)(fmod(img_x, 1.0) * texture.width) * texture.bits_per_pixel / 8;
+		dst = data->display->active.addr
+			+ (int)(y - ft_min(offset, 0))* data->display->active.line_length
+			+ (int)ray[X_PIX] * data->display->active.bits_per_pixel / 8;
+		*(unsigned int *)dst = *(unsigned int *)src;
 	}
 	return ;
 }

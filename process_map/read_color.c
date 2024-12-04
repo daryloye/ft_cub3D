@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:57:24 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/27 09:23:24 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 10:51:20 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ static int	skip_initial_whitespace(char *line, int start)
  *
  * @param line
  * @param start
- * @param trgb
+ * @param color
  * @return int 0 if successful, -1 on error
  */
-static int	parse_rgb_values(char *line, int *start, int trgb[4])
+static int	parse_rgb_values(char *line, int *start, int color[4])
 {
 	int	comma_count;
 	int	j;
@@ -103,8 +103,8 @@ static int	parse_rgb_values(char *line, int *start, int trgb[4])
 	j = 1;
 	while (j <= 3)
 	{
-		trgb[j] = parse_value(line, start);
-		if (trgb[j] == -1)
+		color[j] = parse_value(line, start);
+		if (color[j] == -1)
 			return (-1);
 		j++;
 		if (j <= 3)
@@ -121,10 +121,10 @@ static int	parse_rgb_values(char *line, int *start, int trgb[4])
  * @brief Parse tRGB values, store them in an array with transparency set to 0.
  *
  * @param line
- * @param trgb
+ * @param color
  * @return int 0 if successful, -1 on error
  */
-static int	parse_trgb_values(char *line, int trgb[4])
+static int	parse_trgb_values(char *line, int color[4])
 {
 	int	start;
 
@@ -132,8 +132,8 @@ static int	parse_trgb_values(char *line, int trgb[4])
 	start = skip_initial_whitespace(line, 2);	
 	if (check_for_spaces(&line[start]) != 0)
 		return (-1);
-	trgb[0] = 0;
-	if (parse_rgb_values(line, &start, trgb) != 0)
+	color[0] = 0;
+	if (parse_rgb_values(line, &start, color) != 0)
 		return (-1);
 	if (line[start] != '\0')
 		return (-1);
@@ -165,18 +165,18 @@ static int	color_identifier(char *line)
 static int read_color_line(char *line, t_texture *texture)
 {
 	int	identifier;
-	int	trgb[4] = {0, 0, 0, 0};
+	int	color[4] = {0, 0, 0, 0};
 
 	line = skip_whitespaces(line);
 	identifier = color_identifier(line);
 	if (identifier == -1)
 		return (0);
-	if (parse_trgb_values(line, trgb) != 0)
+	if (parse_trgb_values(line, color) != 0)
 		return (-1);
 	if (identifier == 0)
-		texture->floor_color = create_trgb(trgb[0], trgb[1], trgb[2], trgb[3]);
+		texture->floor_color = trgb(color[0], color[1], color[2], color[3]);
 	else if (identifier == 1)
-		texture->ceiling_color = create_trgb(trgb[0], trgb[1], trgb[2], trgb[3]);
+		texture->ceiling_color = trgb(color[0], color[1], color[2], color[3]);
     return (0);
 }
 

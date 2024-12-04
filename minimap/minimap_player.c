@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:19:38 by daong             #+#    #+#             */
-/*   Updated: 2024/11/19 22:37:14 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 10:51:20 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	create_player(t_data *data, int x_start, int y_start)
 	int		y;
 	int		color;
 
-	color = create_trgb(0, 0, 0, 0);
+	color = trgb(0, 0, 0, 0);
 	x = -1;
 	while (++x < data->minimap->player_length)
 	{

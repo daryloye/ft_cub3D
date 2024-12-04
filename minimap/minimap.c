@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:54:58 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 00:24:22 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 10:51:20 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	get_wall_length(t_data *data)
 	int	x_len;
 	int	y_len;
 
+	if (data->minimap->display_scale == 0)
+		print_error("display scale cannot be 0");
 	max_pix_x = data->mlx->display_size_x / data->minimap->display_scale;
 	max_pix_y = data->mlx->display_size_y / data->minimap->display_scale;
 	x_len = max_pix_x / data->map_size_x;
@@ -49,7 +51,7 @@ int	render_minimap(t_data *data)
 	{
 		data->minimap->wall_length = get_wall_length(data);
 		data->minimap->background = init_blank_image(data,
-				data->map_size_x * data->minimap->wall_length,
+				(data->map_size_x - 1) * data->minimap->wall_length,
 				data->map_size_y * data->minimap->wall_length);
 		if (!data->minimap->background.img_ptr)
 			return (1);
@@ -58,7 +60,7 @@ int	render_minimap(t_data *data)
 	if (!data->minimap->active.img_ptr)
 	{
 		data->minimap->active = init_blank_image(data,
-				data->map_size_x * data->minimap->wall_length,
+				(data->map_size_x - 1) * data->minimap->wall_length,
 				data->map_size_y * data->minimap->wall_length);
 		if (!data->minimap->active.img_ptr)
 			return (1);
@@ -83,24 +85,25 @@ void	dda_minimap(t_data *data, double *ray)
 	double	x_inc;
 	double	y_inc;
 	int		steps;
-	int		i;
 	double	pos[POS_COUNT];
 
-	i = -1;
-	while (++i < 4)
-		pos[i] = ray[i] * data->minimap->wall_length;
-	if (abs((int)(pos[END_X] - pos[START_X]))
-		> abs((int)(pos[END_Y] - pos[START_Y])))
-		steps = abs((int)(pos[END_X] - pos[START_X]));
-	else
-		steps = abs((int)(pos[END_Y] - pos[START_Y]));
-	x_inc = (pos[END_X] - pos[START_X]) / (double)steps;
-	y_inc = (pos[END_Y] - pos[START_Y]) / (double)steps;
-	i = -1;
-	while (++i < steps)
+	pos[START_X] = ray[START_X] * data->minimap->wall_length;
+	pos[START_Y] = ray[START_Y] * data->minimap->wall_length;
+	pos[END_X] = ray[END_X] * data->minimap->wall_length;
+	pos[END_Y] = ray[END_Y] * data->minimap->wall_length;
+	steps = ft_max(abs((int)(pos[END_X] - pos[START_X])),
+			abs((int)(pos[END_Y] - pos[START_Y])));
+	x_inc = (pos[END_X] - pos[START_X]);
+	y_inc = (pos[END_Y] - pos[START_Y]);
+	if (steps != 0)
+	{
+		x_inc /= (double)steps;
+		y_inc /= (double)steps;
+	}
+	while (steps-- > 0)
 	{
 		ft_mlx_pixel_put(data->minimap->active, round(pos[START_X]),
-			round(pos[START_Y]), create_trgb(0, 0, 255, 0));
+			round(pos[START_Y]), trgb(0, 0, 255, 0));
 		pos[START_X] += x_inc;
 		pos[START_Y] += y_inc;
 	}

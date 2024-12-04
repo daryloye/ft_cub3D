@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 14:08:27 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 10:51:20 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ typedef struct s_player
 
 typedef struct s_display
 {
-	double	min_dist_to_wall;
 	t_img	background;
 	t_img	active;
 	double	sprite_inc;
@@ -201,12 +200,19 @@ void		render_wall(t_data *data, double *ray);
 /* render/render_utils */
 t_img		init_blank_image(t_data *data, int x, int y);
 void		ft_mlx_pixel_put(t_img img, int x, int y, int color);
-int			create_trgb(int t, int r, int g, int b);
+int			trgb(int t, int r, int g, int b);
 double		get_dist(double x1, double y1, double x2, double y2);
 
 /* render/fps */
 long long	current_time_ms(void);
 void		wait_fps(t_data *data);
+
+/* render/movements */
+int			do_movements(t_data *data);
+
+/* render/math_utils.c */
+int			ft_max(int x, int y);
+int			ft_min(int x, int y);
 
 /* minimap/minimap */
 int			render_minimap(t_data *data);
@@ -238,8 +244,5 @@ char		*skip_whitespaces(char *line);
 void		remove_trailing_whitespace(char *line);
 bool		is_empty_line(char *line);
 void		print_error(char *str);
-
-/* movements */
-int			do_movements(t_data *data);
 
 #endif

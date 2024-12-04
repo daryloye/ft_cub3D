@@ -152,6 +152,10 @@
 ## v36 - 1/12/2024
 - Door hook complete -> need to create door img, check for chars in map, replace chars when key is pressed
 
+## v37 - 4/12/2024
+- all rendering done, left with bonus img
+- norm in progress
+
 ## WIP LIST
 - Create PAUSE image, handle transparency
 - New sprite??

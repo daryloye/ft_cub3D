@@ -6,11 +6,11 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:41:25 by daong             #+#    #+#             */
-/*   Updated: 2024/11/27 18:18:18 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 09:58:36 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 /**
  * @brief check if the new position is in a wall, else update the new position
@@ -25,7 +25,7 @@ static void	check_wall(t_data *data, double x, double y)
 	double	new_y;
 	double	min_dist;
 
-	min_dist = data->display->min_dist_to_wall;
+	min_dist = 0.1;
 	new_x = data->player->x_pos + x;
 	new_y = data->player->y_pos + y;
 	if (data->map[(int)(new_y - min_dist)][(int)(new_x - min_dist)] == '1'

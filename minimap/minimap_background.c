@@ -6,19 +6,19 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:21:05 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 12:44:07 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 10:51:20 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	create_square(t_data *data, int x_start, int y_start, int color)
+static void	disp(t_data *data, int x_start, int y_start, int color)
 {
 	int		x;
 	int		y;
 	int		border_color;
 
-	border_color = create_trgb(0, 0, 0, 0);
+	border_color = trgb(0, 0, 0, 0);
 	x = -1;
 	while (++x < data->minimap->wall_length)
 	{
@@ -57,13 +57,13 @@ int	minimap_background(t_data *data)
 		while (data->map[y][++x])
 		{
 			if (data->map[y][x] == '1')
-				create_square(data, x * length, y * length, create_trgb(0, 128, 128, 128));
+				disp(data, x * length, y * length, trgb(0, 128, 128, 128));
 			else if (data->map[y][x] == '0')
-				create_square(data, x * length, y * length, create_trgb(0, 255, 255, 255));
+				disp(data, x * length, y * length, trgb(0, 255, 255, 255));
 			else if (data->map[y][x] == 'o')
-				create_square(data, x * length, y * length, create_trgb(0, 128, 128, 255));
+				disp(data, x * length, y * length, trgb(0, 128, 128, 255));
 			else if (data->map[y][x] == 'O')
-				create_square(data, x * length, y * length, create_trgb(0, 0, 0, 128));
+				disp(data, x * length, y * length, trgb(0, 0, 0, 128));
 		}
 	}
 	return (0);

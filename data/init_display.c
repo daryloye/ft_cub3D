@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 14:40:29 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 14:06:53 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 09:01:26 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ t_display	*init_display(t_data *data)
 	display = ft_calloc(sizeof(t_display), 1);
 	if (!display)
 		return (NULL);
-	display->min_dist_to_wall = ((data->mlx->display_size_x / 2)
-			/ tan(data->player->fov_deg / 2)) / 20000;
 	init_sprite(data, display);
 	return (display);
 }
