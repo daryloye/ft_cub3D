@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:32:33 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 11:02:00 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 16:29:11 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,6 @@ static int	render_fov(t_data *data)
 	return (0);
 }
 
-static void	pause_image(t_data *data)
-{
-	mlx_put_image_to_window(data->mlx->mlx_ptr,
-		data->mlx->win_ptr,
-		data->display->sprite[(int)data->display->sprite_inc].img_ptr,
-		0,
-		data->mlx->display_size_y
-		- data->display->sprite[(int)data->display->sprite_inc].height);
-	data->display->sprite_inc = fmod(data->display->sprite_inc + 0.1,
-			SPRITE_COUNT);
-	return ;
-}
-
 /**
  * @brief Main render function. if error, calls render_error
  * 
@@ -62,11 +49,10 @@ void	render(t_data *data)
 		data->mlx->display_size_y * data->display->background.line_length);
 	render_minimap(data);
 	render_fov(data);
+	render_sprite(data);
 	wait_fps(data);
 	mlx_put_image_to_window(data->mlx->mlx_ptr,
 		data->mlx->win_ptr, data->display->active.img_ptr, 0, 0);
-	if (data->keys[P] == 1)
-		pause_image(data);
 	if (data->keys[M] == 1)
 		mlx_put_image_to_window(data->mlx->mlx_ptr,
 			data->mlx->win_ptr, data->minimap->active.img_ptr, 0, 0);

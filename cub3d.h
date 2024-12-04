@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 12:08:21 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 18:37:12 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,17 @@
 # define DOORC			'o'
 # define DIRECTION		"NESW"
 # define PI 			3.14159265358979323846
-# define SPRITE_COUNT	9
+
+typedef enum
+{
+	REST,
+	MOVE_FORWARD,
+	MOVE_BACK,
+	ROTATE_LEFT,
+	ROTATE_RIGHT,
+	PAUSE,
+	SPRITE_COUNT
+}	sprite_index;
 
 typedef enum
 {
@@ -120,8 +130,9 @@ typedef struct s_display
 {
 	t_img	background;
 	t_img	active;
-	double	sprite_inc;
 	t_img	sprite[SPRITE_COUNT];
+	double	sprite_inc;
+	int		sprite_frames;
 }	t_display;
 
 typedef struct s_minimap
@@ -212,6 +223,10 @@ double		get_dist(double x1, double y1, double x2, double y2);
 /* render/fps */
 long long	current_time_ms(void);
 void		wait_fps(t_data *data);
+
+/* render/sprite */
+void		render_sprite(t_data *data);
+int			init_sprite(t_data *data, t_display *display);
 
 /* render/math_utils.c */
 int			ft_max(int x, int y);

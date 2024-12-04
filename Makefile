@@ -23,7 +23,7 @@ SRC =	./cub3d.c	\
 		./input/hooks.c			./input/doors.c			./input/movements.c	\
 		./render/render_main.c		./render/render_utils.c		./render/background.c	\
 		./render/ray_direction.c	./render/ray_dir_utils.c	./render/ray_display.c	\
-		./render/fps.c				./render/math_utils.c	\
+		./render/fps.c				./render/math_utils.c		./render/sprite.c	\
 		./minimap/minimap.c			./minimap/minimap_background.c		./minimap/minimap_player.c	\
 		./process_map/read_file.c		./process_map/read_texture.c	\
 		./process_map/read_identifier.c	./process_map/read_utils.c	\

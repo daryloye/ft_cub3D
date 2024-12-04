@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:00:29 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 11:01:21 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 13:31:01 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	copy_texture_to_display(t_data *data, t_img texture,
 	char	*src;
 	char	*dst;
 	double	y_inc;
-	double	y;
+	int		y;
 	int		offset;
 
 	y_inc = texture.height / (ray[HEIGHT] * 2);

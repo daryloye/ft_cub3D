@@ -153,10 +153,16 @@
 - Door hook complete -> need to create door img, check for chars in map, replace chars when key is pressed
 
 ## v37 - 4/12/2024
-- all rendering done, left with bonus img
+- all rendering done
+- press 'o' to toggle open/close door
 - fixed error handling for invalid map size and invalid texture file
 
+## v38 - 4/12/2024
+- nyan cat sprites
+
+
 ## ISSUES LIST
+- create door texture
 - F 220,100,2000000000000000000000000000000000000000000000000000000000000000 is valid when there should be an error
 - Door characters in map results in error
 
