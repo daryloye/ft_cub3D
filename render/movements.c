@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:41:25 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 09:58:36 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 10:57:32 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,23 @@ static void	mouse_movements(t_data *data)
 {
 	int	x;
 	int	y;
-	int	x_center;
-	int	y_center;
+	int	x1;
+	int	y1;
 
-	x_center = data->mlx->display_size_x / 2;
-	y_center = data->mlx->display_size_y / 2;
+	x1 = data->mlx->display_size_x / 2;
+	y1 = data->mlx->display_size_y / 2;
 	mlx_mouse_get_pos(data->mlx->mlx_ptr, data->mlx->win_ptr, &x, &y);
-	if (x < x_center && data->keys[P] == -1)
+	if (x < x1 && data->keys[P] == -1)
 	{
 		data->player->rot_deg = fmod((data->player->rot_deg
 					- data->player->rot_speed * 5 + PI * 2), PI * 2);
-		mlx_mouse_move(data->mlx->mlx_ptr, data->mlx->win_ptr, x_center, y_center);
+		mlx_mouse_move(data->mlx->mlx_ptr, data->mlx->win_ptr, x1, y1);
 	}
-	if (x > x_center && data->keys[P] == -1)
+	if (x > x1 && data->keys[P] == -1)
 	{
 		data->player->rot_deg = fmod((data->player->rot_deg
 					+ data->player->rot_speed * 5), PI * 2);
-		mlx_mouse_move(data->mlx->mlx_ptr, data->mlx->win_ptr, x_center, y_center);
+		mlx_mouse_move(data->mlx->mlx_ptr, data->mlx->win_ptr, x1, y1);
 	}
 	if (data->keys[P] == -1)
 		mlx_mouse_hide(data->mlx->mlx_ptr, data->mlx->win_ptr);

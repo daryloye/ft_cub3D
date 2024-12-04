@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:00:29 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 10:38:38 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 11:01:21 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ static void	copy_texture_to_display(t_data *data, t_img texture,
 	y = -1;
 	while (++y < ft_min(2 * ray[HEIGHT], data->mlx->display_size_y))
 	{
-		src = texture.addr 
-			+ (int)((y + ft_max(offset, 0)) * y_inc) * texture.line_length
-			+ (int)(fmod(img_x, 1.0) * texture.width) * texture.bits_per_pixel / 8;
+		src = texture.addr
+			+ (int)((y + ft_max(offset, 0)) * y_inc)*texture.line_length
+			+ (int)(fmod(img_x, 1.0) * texture.width)*texture.bits_per_pixel
+			/ 8;
 		dst = data->display->active.addr
-			+ (int)(y - ft_min(offset, 0))* data->display->active.line_length
+			+ (int)(y - ft_min(offset, 0))*data->display->active.line_length
 			+ (int)ray[X_PIX] * data->display->active.bits_per_pixel / 8;
 		*(unsigned int *)dst = *(unsigned int *)src;
 	}
@@ -51,14 +52,14 @@ static void	get_height(t_data *data, double *ray)
 
 	max_height = data->mlx->display_size_y / 2;
 	angle_offset = ray[ANGLE] - data->player->rot_deg;
-    if (angle_offset > PI)
-        angle_offset -= 2 * PI;
-    else if (angle_offset < -PI)
-        angle_offset += 2 * PI;
-    adj_dist = ray[RAY_DIST] * cos(angle_offset);
+	if (angle_offset > PI)
+		angle_offset -= 2 * PI;
+	else if (angle_offset < -PI)
+		angle_offset += 2 * PI;
+	adj_dist = ray[RAY_DIST] * cos(angle_offset);
 	if (adj_dist < 0.1)
 		adj_dist = 0.1;
-    ray[HEIGHT] = max_height / adj_dist;
+	ray[HEIGHT] = max_height / adj_dist;
 	return ;
 }
 

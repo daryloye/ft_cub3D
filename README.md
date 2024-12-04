@@ -154,7 +154,7 @@
 
 ## v37 - 4/12/2024
 - all rendering done, left with bonus img
-- norm in progress
+- fixed error handling for invalid map size and invalid texture file
 
 ## WIP LIST
 - Create PAUSE image, handle transparency

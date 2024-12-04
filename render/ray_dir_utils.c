@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 12:02:40 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 12:49:56 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 10:58:36 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 int	check_in_map(t_data *data, double *ray)
 {
 	if (ray[NEW_Y] < 0 || ray[NEW_Y] >= data->map_size_y
-		|| ray[NEW_X] < 0 || ray[NEW_X] >= ft_strlen(data->map[(int)ray[NEW_Y]]))
+		|| ray[NEW_X] < 0
+		|| ray[NEW_X] >= ft_strlen(data->map[(int)ray[NEW_Y]]))
 		return (1);
 	else
 		return (0);
@@ -35,7 +36,7 @@ int	check_in_map(t_data *data, double *ray)
  * @param ray 
  * @return int 
  */
-int	check_dist(double *ray, int	dir, char map_c)
+int	check_dist(double *ray, int dir, char map_c)
 {
 	double	dist;
 

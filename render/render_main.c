@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:32:33 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 09:28:38 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 11:02:00 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static void	pause_image(t_data *data)
 		data->mlx->win_ptr,
 		data->display->sprite[(int)data->display->sprite_inc].img_ptr,
 		0,
-		data->mlx->display_size_y - data->display->sprite[(int)data->display->sprite_inc].height);
+		data->mlx->display_size_y
+		- data->display->sprite[(int)data->display->sprite_inc].height);
 	data->display->sprite_inc = fmod(data->display->sprite_inc + 0.1,
 			SPRITE_COUNT);
 	return ;
