@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 12:02:40 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 10:58:36 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 11:43:53 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ int	check_dist(double *ray, int dir, char map_c)
 	ray[END_X] = ray[NEW_X];
 	ray[END_Y] = ray[NEW_Y];
 	ray[RAY_DIST] = dist;
-	if (map_c == '1')
+	if (map_c == WALL)
 		ray[RAY_DIR] = dir;
-	else if (map_c == 'o' && (dir == NORTH || dir == SOUTH))
+	else if (map_c == DOORC && (dir == NORTH || dir == SOUTH))
 		ray[RAY_DIR] = DOOR_NS;
-	else if (map_c == 'o' && (dir == EAST || dir == WEST))
+	else if (map_c == DOORC && (dir == EAST || dir == WEST))
 		ray[RAY_DIR] = DOOR_EW;
 	return (0);
 }

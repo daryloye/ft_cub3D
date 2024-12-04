@@ -3,7 +3,8 @@ SO ./img/wall_south.xpm
 WE ./img/wall_west.xpm
 EA ./img/wall_east.xpm
 
-F 220,100,200
+F 220,100,2000000000000000000000000000000000000000000000000000000000000000
+
 C 225,30,0
 
 NO ./img/wall_north.xpm

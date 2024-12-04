@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 00:57:11 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 13:14:37 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 11:43:14 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	hor_n(t_data *data, double *ray)
 	if (check_in_map(data, ray) == 1)
 		return (1);
 	map_c = data->map[(int)ray[NEW_Y] - 1][(int)ray[NEW_X]];
-	while (map_c == '0' || map_c == 'O')
+	while (map_c == FLOOR || map_c == DOORO)
 	{
 		ray[NEW_X] += tan(ray[ANGLE]);
 		ray[NEW_Y] -= 1;
@@ -45,7 +45,7 @@ static int	hor_s(t_data *data, double *ray)
 	if (check_in_map(data, ray) == 1)
 		return (1);
 	map_c = data->map[(int)ray[NEW_Y]][(int)ray[NEW_X]];
-	while (map_c == '0' || map_c == 'O')
+	while (map_c == FLOOR || map_c == DOORO)
 	{
 		ray[NEW_X] -= tan(ray[ANGLE]);
 		ray[NEW_Y] += 1;
@@ -67,7 +67,7 @@ static int	ver_e(t_data *data, double *ray)
 	if (check_in_map(data, ray) == 1)
 		return (1);
 	map_c = data->map[(int)ray[NEW_Y]][(int)ray[NEW_X]];
-	while (map_c == '0' || map_c == 'O')
+	while (map_c == FLOOR || map_c == DOORO)
 	{
 		ray[NEW_X] += 1;
 		ray[NEW_Y] -= 1 / tan(ray[ANGLE]);
@@ -89,7 +89,7 @@ static int	ver_w(t_data *data, double *ray)
 	if (check_in_map(data, ray) == 1)
 		return (1);
 	map_c = data->map[(int)ray[NEW_Y]][(int)ray[NEW_X] - 1];
-	while (map_c == '0' || map_c == 'O')
+	while (map_c == FLOOR || map_c == DOORO)
 	{
 		ray[NEW_X] -= 1;
 		ray[NEW_Y] += 1 / tan(ray[ANGLE]);

@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 10:51:20 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 12:08:21 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ typedef struct s_data
 	char		**map;
 	char		**temp_map; 
 	int			**visited_map;
-	int			map_size_x;		// no. of columns
-	int			map_size_y;		// no. of rows
+	int			map_size_x;
+	int			map_size_y;
 	int			directions_found[4];
 	int			keys[KEY_COUNT];
 	int			fps;
@@ -178,8 +178,14 @@ void		clean_display(t_display *display, t_mlx *mlx);
 t_minimap	*init_minimap(void);
 void		clean_minimap(t_minimap *minimap, t_mlx *mlx);
 
-/* data/init_hooks */
+/* input/hooks */
 void		init_hooks(t_data *data);
+
+/* input/doors */
+void		handle_doors(t_data *data);
+
+/* input/movements */
+int			do_movements(t_data *data);
 
 /* render/render */
 void		render(t_data *data);
@@ -206,9 +212,6 @@ double		get_dist(double x1, double y1, double x2, double y2);
 /* render/fps */
 long long	current_time_ms(void);
 void		wait_fps(t_data *data);
-
-/* render/movements */
-int			do_movements(t_data *data);
 
 /* render/math_utils.c */
 int			ft_max(int x, int y);

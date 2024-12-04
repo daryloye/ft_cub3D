@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:57:24 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/04 10:51:20 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 12:27:37 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	check_for_spaces(char *line)
  */
 static int parse_value(char *line, int *start)
 {
-	int	value;
-	int	digit_count;
+	long	value;
+	long	digit_count;
 
 	value = 0;
 	digit_count = 0;
@@ -54,7 +54,7 @@ static int parse_value(char *line, int *start)
 	}
 	if (digit_count == 0 || value < 0 || value > 255)
 		return (-1);
-	return (value);
+	return ((int)value);
 }
 
 /**

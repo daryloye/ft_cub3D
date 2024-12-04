@@ -6,55 +6,11 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:29:48 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/27 09:24:49 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 11:39:43 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-/*
-static void print_map(t_data *data)
-{
-	 int	y;
-
-	y = 0;
-	if (!data->map)
-	{
-		printf("Map is not initialized.\n");
-		return;
-	}
-	printf("PRINITNG MAP\n");
-	// Iterate over each row in the map
-	while (y < data->map_size_y)
-	{
-		printf("%s\n", data->map[y]);
-		y++;
-	}
-}
-*/
-
-/*
-static void	print_temp_map(char **temp_map, int map_size_x, int map_size_y)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	printf("Temporary Map with Border:\n");
-	while (y < map_size_y + 2)
-	{
-		x = 0;
-		while (x < map_size_x + 2)
-		{
-			printf("%c", temp_map[y][x]);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-	printf("\n");
-}
-*/
 
 /**
  * @brief create visited map
@@ -410,7 +366,6 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 int	get_map(t_data *data, char **text)
 {
 	int	i;
-	// int	len;
 
 	i = -1;
 	while (text[++i])
@@ -420,14 +375,6 @@ int	get_map(t_data *data, char **text)
 		if (data->map && data->map[i] != NULL)
 			break;
 	}
-	// i = -1;
-	// while (data->map && data->map[++i])
-	// {
-	// 	len = ft_strlen(data->map[i]);
-	// 	if (data->map[i][len - 1] == '\n')
-	// 		data->map[i][len - 1] = '\0';
-	// }
-	// data->map_size_x--;
 	return (0);
 }
 

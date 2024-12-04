@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:41:25 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 10:57:32 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 12:05:33 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,24 @@
  */
 static void	check_wall(t_data *data, double x, double y)
 {
-	double	new_x;
-	double	new_y;
+	double	x1;
+	double	y1;
 	double	min_dist;
 
 	min_dist = 0.1;
-	new_x = data->player->x_pos + x;
-	new_y = data->player->y_pos + y;
-	if (data->map[(int)(new_y - min_dist)][(int)(new_x - min_dist)] == '1'
-		|| data->map[(int)(new_y - min_dist)][(int)(new_x + min_dist)] == '1'
-		|| data->map[(int)(new_y + min_dist)][(int)(new_x - min_dist)] == '1'
-		|| data->map[(int)(new_y + min_dist)][(int)(new_x + min_dist)] == '1')
+	x1 = data->player->x_pos + x;
+	y1 = data->player->y_pos + y;
+	if (data->map[(int)(y1 - min_dist)][(int)(x1 - min_dist)] == WALL
+		|| data->map[(int)(y1 - min_dist)][(int)(x1 + min_dist)] == WALL
+		|| data->map[(int)(y1 + min_dist)][(int)(x1 - min_dist)] == WALL
+		|| data->map[(int)(y1 + min_dist)][(int)(x1 + min_dist)] == WALL
+		|| data->map[(int)(y1 - min_dist)][(int)(x1 - min_dist)] == DOORC
+		|| data->map[(int)(y1 - min_dist)][(int)(x1 + min_dist)] == DOORC
+		|| data->map[(int)(y1 + min_dist)][(int)(x1 - min_dist)] == DOORC
+		|| data->map[(int)(y1 + min_dist)][(int)(x1 + min_dist)] == DOORC)
 		return ;
-	data->player->x_pos = new_x;
-	data->player->y_pos = new_y;
+	data->player->x_pos = x1;
+	data->player->y_pos = y1;
 	return ;
 }
 

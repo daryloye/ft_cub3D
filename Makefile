@@ -11,17 +11,19 @@
 # **************************************************************************** #
 
 NAME = cub3D
+NAME_BONUS = cub3D_bonus
 
 CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC =	./cub3d.c	\
-		./data/init_data.c		./data/init_mlx.c		./data/init_texture.c	./data/init_player.c	\
-		./data/init_display.c	./data/init_minimap.c	./data/init_hooks.c	\
+		./data/init_data.c		./data/init_mlx.c		./data/init_texture.c	\
+		./data/init_player.c	./data/init_display.c	./data/init_minimap.c	\
+		./input/hooks.c			./input/doors.c			./input/movements.c	\
 		./render/render_main.c		./render/render_utils.c		./render/background.c	\
 		./render/ray_direction.c	./render/ray_dir_utils.c	./render/ray_display.c	\
-		./render/fps.c				./render/movements.c		./render/math_utils.c	\
+		./render/fps.c				./render/math_utils.c	\
 		./minimap/minimap.c			./minimap/minimap_background.c		./minimap/minimap_player.c	\
 		./process_map/read_file.c		./process_map/read_texture.c	\
 		./process_map/read_identifier.c	./process_map/read_utils.c	\
@@ -41,8 +43,13 @@ MATH_FLAGS = -lm
 
 all: $(LIBFT) $(MLX) $(NAME)
 
+bonus: $(LIBFT) $(MLX) $(NAME_BONUS)
+
 $(NAME): $(OBJECTS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX_FLAGS) $(MATH_FLAGS) -o $(NAME)
+
+$(NAME_BONUS): $(OBJECTS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX_FLAGS) $(MATH_FLAGS) -o $(NAME_BONUS)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR) all
@@ -66,6 +73,7 @@ clean:
 
 fclean : clean
 	rm -f $(NAME)
+	rm -f $(NAME_BONUS)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_hooks.c                                       :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:10:42 by daong             #+#    #+#             */
-/*   Updated: 2024/12/01 13:05:38 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/04 12:05:27 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,7 @@ static int	key_press(int key, t_data *data)
 	if (key == 'p')
 		data->keys[P] *= -1;
 	if (key == 'o')
-	{
-		if (data->keys[O] == -1)
-		{
-			ft_printf("Opening doors\n");	// replace all chars in map
-		}
-		if (data->keys[O] == 1)
-		{
-			ft_printf("Closing doors\n");
-		}
-		data->keys[O] *= -1;
-	}
+		handle_doors(data);
 	return (1);
 }
 

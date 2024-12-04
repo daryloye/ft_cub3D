@@ -156,10 +156,9 @@
 - all rendering done, left with bonus img
 - fixed error handling for invalid map size and invalid texture file
 
-## WIP LIST
-- Create PAUSE image, handle transparency
-- New sprite??
-- Handle door hook
+## ISSUES LIST
+- F 220,100,2000000000000000000000000000000000000000000000000000000000000000 is valid when there should be an error
+- Door characters in map results in error
 
 
 ## Resources
