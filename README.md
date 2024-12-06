@@ -160,12 +160,13 @@
 ## v38 - 4/12/2024
 - nyan cat sprites
 
+## v39 - 6/12/2024
+- resolved whitespace parsing
+
 
 ## ISSUES LIST
 - create door texture
 - F 220,100,2000000000000000000000000000000000000000000000000000000000000000 is valid when there should be an error
-- Door characters in map results in error
-
 
 ## Resources
 https://lodev.org/cgtutor/raycasting.html

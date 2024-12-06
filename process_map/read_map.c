@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:29:48 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/04 11:39:43 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/06 14:38:17 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,6 +312,118 @@ static int	check_map(t_data *data)
 		return (-1);
 	return (0);
 }
+/*
+static void	replace_whitespace_with_zero(char **map, int map_size_y)
+{
+	int	j;
+	int	k;
+
+	j = 0;
+	while (j < map_size_y)
+	{
+		k = 0;
+		while (map[j][k])
+		{
+			if (map[j][k] == ' ' || map[j][k] == '\t')
+				map[j][k] = '0';
+			k++;
+		}
+		j++;
+	}
+}
+*/
+static void replace_whitespace_with_zero_mod(char **map, int map_size_y)
+{
+	int j, k;
+	int found_first_one;
+
+	j = 0;
+	while (j < map_size_y)
+	{
+		k = 0;
+		found_first_one = 0;
+
+		while (map[j][k])
+		{
+			if (map[j][k] == '1')
+				found_first_one = 1;
+
+			// Replace spaces and tabs with '0' only after the first '1' is found
+			if ((map[j][k] == ' ' || map[j][k] == '\t') && found_first_one)
+				map[j][k] = '0';
+
+			k++;
+		}
+		j++;
+	}
+}
+
+static int check_leading_spaces(t_data *data)
+{
+    int i = 0;
+    int first_one, last_one, prev_first_one = -1, prev_last_one = -1;
+
+    while (i < data->map_size_y)
+    {
+        first_one = -1;
+        last_one = -1;
+
+        // Find the first and last positions of consecutive '1's in the current line
+        int j = 0;
+        while (data->map[i][j])
+        {
+            if (data->map[i][j] == '1')
+            {
+                if (first_one == -1)
+                    first_one = j;
+                last_one = j;
+            }
+            j++;
+        }
+
+        // Error if no '1' found on the current line
+        if (first_one == -1 || last_one == -1)
+            return (-1);
+
+        // Handle special case for the first row (check 2nd row alignment)
+        if (i == 1)
+        {
+            if (prev_first_one != -1)
+            {
+                // Check if the first '1' in the second row is within the range of first and last '1' of the first row
+                if (first_one < prev_first_one || first_one > prev_last_one)
+                    return (-1);
+            }
+        }
+        // Handle special case for the second-last row (check last row alignment)
+        else if (i == data->map_size_y - 2)
+        {
+            if (first_one < prev_first_one || first_one > prev_last_one)
+                return (-1);
+        }
+        // General case: Ensure the difference between the last '1' of the consecutive '1's
+        // in the current row and the previous row's last '1' is not more than 1
+        else if (i != 1) // Skip the general case check for the second row
+        {
+            if (prev_last_one != -1)
+            {
+                int diff = last_one - prev_last_one;
+
+                // Check if the difference between the last '1' positions is more than 1
+                if (diff > 1 || diff < -1)
+                    return (-1);
+            }
+        }
+
+        // Update the previous line's first and last '1' positions
+        prev_first_one = first_one;
+        prev_last_one = last_one;
+        i++;
+    }
+
+    return (0);
+}
+
 
 /**
  * @brief read each map line and assign to map array if valid
@@ -347,9 +459,20 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 			data->map[data->map_size_y] = NULL;
 			if (check_map(data) != 0)
 				return (-1);
+			if (check_leading_spaces(data) != 0)
+				return (-1);
 			create_temp_map_with_border(data);
+			replace_whitespace_with_zero_mod(data->temp_map, data->map_size_y);
 			if (!is_map_enclosed(data))
 				return (-1);
+			replace_whitespace_with_zero_mod(data->map, data->map_size_y);
+			printf("Final map:\n");
+			j = 0;
+			while (data->map[j])
+			{
+				printf("%s\n", data->map[j]);
+				j++;
+			}
 		}
 	}
 	return (0);
