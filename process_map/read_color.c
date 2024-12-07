@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_color.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:57:24 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/04 12:27:37 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/08 03:35:30 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_for_spaces(char *line)
  * @param start
  * @return int value if successful, -1 on error
  */
-static int parse_value(char *line, int *start)
+static int	parse_value(char *line, int *start)
 {
 	long	value;
 	long	digit_count;
@@ -87,7 +87,8 @@ static int	skip_initial_whitespace(char *line, int start)
 }
 
 /**
- * @brief Parse RGB values, check for rgb value and comma separation in the while loop
+ * @brief Parse RGB values, check for rgb value and comma separation
+ * in the while loop
  *
  * @param line
  * @param start
