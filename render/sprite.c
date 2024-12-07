@@ -6,12 +6,19 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 14:31:38 by daong             #+#    #+#             */
-/*   Updated: 2024/12/07 10:13:25 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/07 14:19:37 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+/**
+ * @brief Returns sprite index to display based on size of sprite sheet
+ * 
+ * @param data 
+ * @param texture 
+ * @return int 
+ */
 static int	get_sprite_index(t_data *data, t_img texture)
 {
 	int	frames;
@@ -19,7 +26,7 @@ static int	get_sprite_index(t_data *data, t_img texture)
 
 	frames = texture.height / texture.width;
 	sprite_index = fmod(data->display->sprite_inc, frames);
-	data->display->sprite_inc++;
+	data->display->sprite_inc += 0.25;
 	return (sprite_index);
 }
 

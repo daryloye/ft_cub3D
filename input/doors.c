@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 12:03:39 by daong             #+#    #+#             */
-/*   Updated: 2024/12/07 09:42:00 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/07 14:21:15 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	replace_map_char(t_data *data, char find, char replace)
 }
 
 /**
- * @brief toggle to open/close doors
+ * @brief replaces door char in map with open/close when key is toggled
  * 
  * @param data 
  */

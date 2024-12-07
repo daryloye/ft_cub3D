@@ -165,10 +165,10 @@
 
 ## v40 - 7/12/2024
 - changed sprites
+- door texture done
 
 
 ## ISSUES LIST
-- create door texture
 - F 220,100,2000000000000000000000000000000000000000000000000000000000000000 is valid when there should be an error
 
 ## Resources
