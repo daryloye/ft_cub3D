@@ -6,7 +6,7 @@
 /*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:29:48 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/06 14:38:17 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 03:26:07 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ static void	create_temp_map_with_border(t_data *data)
 	data->temp_map = (char **)ft_calloc(data->map_size_y + 2, sizeof(char *));
 	while (i < data->map_size_y + 2)
 	{
-		data->temp_map[i] = (char *)ft_calloc(data->map_size_x + 2, sizeof(char));
+		data->temp_map[i] = (char *)ft_calloc(data->map_size_x + 3, sizeof(char));
 		j = 0;
 		while (j < data->map_size_x + 2)
 		{
@@ -163,9 +163,11 @@ static void	create_temp_map_with_border(t_data *data)
 			}
 			j++;
 		}
+		data->temp_map[i][j] = '\0';
 		i++;
 	}
 }
+
 
 /**
  * @brief set player direction in radians
@@ -332,6 +334,8 @@ static void	replace_whitespace_with_zero(char **map, int map_size_y)
 	}
 }
 */
+
+/*
 static void replace_whitespace_with_zero_mod(char **map, int map_size_y)
 {
 	int j, k;
@@ -357,6 +361,48 @@ static void replace_whitespace_with_zero_mod(char **map, int map_size_y)
 		j++;
 	}
 }
+*/
+static void replace_whitespace_with_zero_mod(char **map, int map_size_y)
+{
+    int j, k;
+    int found_first_one;
+
+    // Add boundary check to prevent out-of-bounds access
+    if (!map || map_size_y <= 0) return;
+
+    j = 0;
+    while (j < map_size_y)
+    {
+        // Additional safety check
+        if (!map[j]) {
+            j++;
+            continue;
+        }
+
+        k = 0;
+        found_first_one = 0;
+
+        // Use a safer iteration that checks string length
+        while (map[j][k] != '\0')
+        {
+            if (map[j][k] == '1')
+                found_first_one = 1;
+
+            // Replace spaces and tabs with '0' only after the first '1' is found
+            if ((map[j][k] == ' ' || map[j][k] == '\t') && found_first_one)
+                map[j][k] = '0';
+
+            k++;
+        }
+        j++;
+    }
+}
+
+
+
+
+
+
 
 static int check_leading_spaces(t_data *data)
 {
@@ -466,13 +512,6 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 			if (!is_map_enclosed(data))
 				return (-1);
 			replace_whitespace_with_zero_mod(data->map, data->map_size_y);
-			printf("Final map:\n");
-			j = 0;
-			while (data->map[j])
-			{
-				printf("%s\n", data->map[j]);
-				j++;
-			}
 		}
 	}
 	return (0);
@@ -495,7 +534,8 @@ int	get_map(t_data *data, char **text)
 	{
 		if (read_map_line(text[i], data, text, i) != 0)
 			return (print_error("Invalid map"), 1);
-		if (data->map && data->map[i] != NULL)
+//		if (data->map && data->map[i] != NULL)
+		if (data->map)
 			break;
 	}
 	return (0);

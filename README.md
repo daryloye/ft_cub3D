@@ -167,6 +167,9 @@
 - changed sprites
 - door texture done
 
+## v41 - 8/12/2024
+- resolved invalid reads
+
 
 ## ISSUES LIST
 - F 220,100,2000000000000000000000000000000000000000000000000000000000000000 is valid when there should be an error
