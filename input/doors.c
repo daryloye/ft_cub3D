@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 12:03:39 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 12:05:19 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/07 09:42:00 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static void	replace_map_char(t_data *data, char find, char replace)
  */
 void	handle_doors(t_data *data)
 {
-	if (data->keys[O] == -1)
+	if (data->keys[KEY_DOOR] == -1)
 		replace_map_char(data, DOORC, DOORO);
-	if (data->keys[O] == 1)
+	if (data->keys[KEY_DOOR] == 1)
 		replace_map_char(data, DOORO, DOORC);
-	data->keys[O] *= -1;
+	data->keys[KEY_DOOR] *= -1;
 }

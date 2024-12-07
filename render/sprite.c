@@ -6,11 +6,22 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 14:31:38 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 18:37:55 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/07 10:13:25 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+static int	get_sprite_index(t_data *data, t_img texture)
+{
+	int	frames;
+	int	sprite_index;
+
+	frames = texture.height / texture.width;
+	sprite_index = fmod(data->display->sprite_inc, frames);
+	data->display->sprite_inc++;
+	return (sprite_index);
+}
 
 static void	copy_image_to_display(t_data *data, t_img texture)
 {
@@ -18,7 +29,9 @@ static void	copy_image_to_display(t_data *data, t_img texture)
 	char	*dst;
 	int		y;
 	int		x;
+	int		sprite_index;
 
+	sprite_index = get_sprite_index(data, texture);
 	y = -1;
 	while (++y < texture.width)
 	{
@@ -26,13 +39,11 @@ static void	copy_image_to_display(t_data *data, t_img texture)
 		while (++x < texture.width)
 		{
 			src = texture.addr
-				+ (y + ((int)data->display->sprite_inc * texture.width))
-				*texture.line_length
-				+ x * texture.bits_per_pixel / 8;
-			if (strcmp(src, "") == 0)	// forbidden function
-				continue ;
-			dst = data->display->active.addr
-				+ y * data->display->active.line_length
+				+ (y + (sprite_index * texture.width))
+				*texture.line_length + x
+				* texture.bits_per_pixel / 8;
+			dst = data->display->active.addr + y
+				*data->display->active.line_length
 				+ (x + data->mlx->display_size_x - texture.width)
 				*data->display->active.bits_per_pixel / 8;
 			*(unsigned int *)dst = *(unsigned int *)src;
@@ -41,35 +52,6 @@ static void	copy_image_to_display(t_data *data, t_img texture)
 	return ;
 }
 
-// static void	pause_image(t_data *data, t_img texture)
-// {
-// 	char	*src;
-// 	char	*dst;
-// 	int		y;
-// 	int		x;
-
-// 	y = -1;
-// 	while (++y < texture.width)
-// 	{
-// 		x = -1;
-// 		while (++x < texture.width)
-// 		{
-// 			src = texture.addr
-// 				+ (y + ((int)data->display->sprite_inc * texture.width))
-// 				*texture.line_length
-// 				+ x * texture.bits_per_pixel / 8;
-// 			if (strcmp(src, "") == 0)	// forbidden function
-// 				continue ;
-// 			dst = data->display->active.addr
-// 				+ (y + 10) * data->display->active.line_length
-// 				+ (x + 50)
-// 				*data->display->active.bits_per_pixel / 8;
-// 			*(unsigned int *)dst = *(unsigned int *)src;
-// 		}
-// 	}
-// 	return ;
-// }
-
 /**
  * @brief renders sprite gif according to each action
  * 
@@ -77,25 +59,25 @@ static void	copy_image_to_display(t_data *data, t_img texture)
  */
 void	render_sprite(t_data *data)
 {
-	if (data->keys[P] == 1)
+	if (data->keys[KEY_SPRITE] == 1)
 	{
-		data->display->sprite_inc = fmod(data->display->sprite_inc + 1,
-			data->display->sprite_frames);
-		copy_image_to_display(data, data->display->sprite[PAUSE]);
-		return ;
+		if (data->keys[KEY_PAUSE] == 1)
+			copy_image_to_display(data, data->display->sprite[SP_PAUSE]);
+		else if (data->keys[W] == 1 || data->keys[A] == 1
+			|| data->keys[S] == 1 || data->keys[D] == 1)
+			copy_image_to_display(data, data->display->sprite[SP_MOVE]);
+		else if (data->keys[LEFT_ARROW] == 1)
+			copy_image_to_display(data, data->display->sprite[SP_ROT_LEFT]);
+		else if (data->keys[RIGHT_ARROW] == 1)
+			copy_image_to_display(data, data->display->sprite[SP_ROT_RIGHT]);
+		else
+			copy_image_to_display(data, data->display->sprite[SP_REST]);
 	}
-	if (data->keys[LEFT_ARROW] == 1)
-		copy_image_to_display(data, data->display->sprite[ROTATE_LEFT]);
-	else if (data->keys[RIGHT_ARROW] == 1)
-		copy_image_to_display(data, data->display->sprite[ROTATE_RIGHT]);
-	else
-		copy_image_to_display(data, data->display->sprite[REST]);
-	data->display->sprite_inc = fmod(data->display->sprite_inc + 1,
-			data->display->sprite_frames);
 	return ;
 }
 
-static int	create_sprite_img(t_data *data, t_display *display, int sprite_index, char *path)
+static int	create_sprite_img(t_data *data, t_display *display,
+		int sprite_index, char *path)
 {
 	t_img	sprite;
 
@@ -124,11 +106,11 @@ int	init_sprite(t_data *data, t_display *display)
 	int	err;
 
 	display->sprite_inc = 0.0;
-	display->sprite_frames = 20;
 	err = 0;
-	err |= create_sprite_img(data, display, REST, "sprite/rest.xpm");
-	err |= create_sprite_img(data, display, ROTATE_LEFT, "sprite/rotate_left.xpm");
-	err |= create_sprite_img(data, display, ROTATE_RIGHT, "sprite/rotate_right.xpm");
-	err |= create_sprite_img(data, display, PAUSE, "sprite/pause.xpm");
+	err |= create_sprite_img(data, display, SP_REST, "sprite/42_rest.xpm");
+	err |= create_sprite_img(data, display, SP_MOVE, "sprite/42_move.xpm");
+	err |= create_sprite_img(data, display, SP_ROT_LEFT, "sprite/42_left.xpm");
+	err |= create_sprite_img(data, display, SP_ROT_RIGHT, "sprite/42_right.xpm");
+	err |= create_sprite_img(data, display, SP_PAUSE, "sprite/42_pause.xpm");
 	return (err);
 }

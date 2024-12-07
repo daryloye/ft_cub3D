@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 18:37:12 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/07 10:16:13 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,17 @@
 # define DIRECTION		"NESW"
 # define PI 			3.14159265358979323846
 
-typedef enum
+typedef enum s_sprite_index
 {
-	REST,
-	MOVE_FORWARD,
-	MOVE_BACK,
-	ROTATE_LEFT,
-	ROTATE_RIGHT,
-	PAUSE,
+	SP_REST,
+	SP_MOVE,
+	SP_ROT_LEFT,
+	SP_ROT_RIGHT,
+	SP_PAUSE,
 	SPRITE_COUNT
-}	sprite_index;
+}	t_sprite_index;
 
-typedef enum
+typedef enum s_key_index
 {
 	W,
 	A,
@@ -49,13 +48,14 @@ typedef enum
 	D,
 	LEFT_ARROW,
 	RIGHT_ARROW,
-	M,
-	P,
-	O,
+	KEY_MAP,
+	KEY_PAUSE,
+	KEY_DOOR,
+	KEY_SPRITE,
 	KEY_COUNT
-}	key_index;
+}	t_key_index;
 
-typedef enum
+typedef enum s_dir_index
 {
 	NORTH,
 	SOUTH,
@@ -64,9 +64,9 @@ typedef enum
 	DOOR_NS,
 	DOOR_EW,
 	DIR_COUNT
-}	dir_index;
+}	t_dir_index;
 
-typedef enum
+typedef enum s_ray_index
 {
 	START_X,
 	START_Y,
@@ -80,7 +80,7 @@ typedef enum
 	X_PIX,
 	HEIGHT,
 	POS_COUNT
-}	ray_index;
+}	t_ray_index;
 
 typedef struct s_img
 {
@@ -120,7 +120,7 @@ typedef struct s_player
 {
 	double	x_pos;
 	double	y_pos;
-	double	move_speed;
+	double	mv_speed;
 	double	rot_deg;
 	double	rot_speed;
 	double	fov_deg;
@@ -132,7 +132,6 @@ typedef struct s_display
 	t_img	active;
 	t_img	sprite[SPRITE_COUNT];
 	double	sprite_inc;
-	int		sprite_frames;
 }	t_display;
 
 typedef struct s_minimap
@@ -152,7 +151,7 @@ typedef struct s_data
 	t_display	*display;
 	t_minimap	*minimap;
 	char		**map;
-	char		**temp_map; 
+	char		**temp_map;
 	int			**visited_map;
 	int			map_size_x;
 	int			map_size_y;

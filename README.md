@@ -163,6 +163,9 @@
 ## v39 - 6/12/2024
 - resolved whitespace parsing
 
+## v40 - 7/12/2024
+- changed sprites
+
 
 ## ISSUES LIST
 - create door texture

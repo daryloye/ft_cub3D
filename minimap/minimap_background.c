@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:21:05 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 11:44:34 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/07 10:18:26 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ int	minimap_background(t_data *data)
 				disp(data, x * length, y * length, trgb(0, 128, 128, 128));
 			else if (data->map[y][x] == FLOOR)
 				disp(data, x * length, y * length, trgb(0, 255, 255, 255));
-			else if (data->map[y][x] == DOORC)
+			else if (data->map[y][x] == DOORC || data->map[y][x] == DOORO)
 				disp(data, x * length, y * length, trgb(0, 128, 128, 255));
-			else if (data->map[y][x] == DOORO)
-				disp(data, x * length, y * length, trgb(0, 0, 0, 128));
 		}
 	}
 	return (0);
