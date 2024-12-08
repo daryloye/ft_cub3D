@@ -6,7 +6,7 @@
 /*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 09:53:04 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/08 12:02:10 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 13:04:40 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ static void	fill_temp_map_row(t_data *data, int i)
 		}
 		j++;
 	}
-//	data->temp_map[i][j] = '\0';
 }
 
 void	create_temp_map_with_border(t_data *data)

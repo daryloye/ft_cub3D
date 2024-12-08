@@ -6,7 +6,7 @@
 /*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 10:01:09 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/08 12:18:41 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 13:04:36 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,7 @@ int	check_map(t_data *data)
 		return (-1);
 	return (0);
 }
-/*
-void	replace_whitespace_with_zero_mod(char **map, int map_size_y)
-{
-	int	j;
-	int	k;
-	int	found_first_one;
 
-	j = 0;
-	while (j < map_size_y)
-	{
-		k = 0;
-		found_first_one = 0;
-		while (map[j][k])
-		{
-			if (map[j][k] == '1')
-				found_first_one = 1;
-			if ((map[j][k] == ' ' || map[j][k] == '\t') && found_first_one)
-				map[j][k] = '0';
-			k++;
-		}
-		j++;
-	}
-}
-*/
 void	replace_whitespace_with_zero_mod(char **map, int map_size_y)
 {
 	int	j;

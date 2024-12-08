@@ -3,91 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   read_map2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 09:24:01 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/08 09:47:17 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 13:09:01 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	find_first_and_last_one(char *row, int *first_one, int *last_one)
+void	update_map_size(t_data *data)
 {
-	int	j;
+	int	new_size_x;
+	int	y;
 
-	*first_one = -1;
-	*last_one = -1;
-	j = 0;
-	while (row[j])
+	new_size_x = 0;
+	y = -1;
+	while (data->map[++y])
+		new_size_x = ft_max(ft_strlen(data->map[y]), new_size_x);
+	data->map_size_x = new_size_x;
+	return ;
+}
+
+void	sanitise_map(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (data->map[++y])
 	{
-		if (row[j] == '1')
+		x = -1;
+		while (data->map[y][++x])
 		{
-			if (*first_one == -1)
-				*first_one = j;
-			*last_one = j;
+			if (data->map[y][x] == '\n')
+				data->map[y][x] = '\0';
 		}
-		j++;
 	}
-	if (*first_one != -1 && *last_one != -1)
-		return (0);
-	else
-		return (-1);
-}
-
-static int	check_second(int first_one, int prev_first_one, int prev_last_one)
-{
-	if (prev_first_one != -1)
-	{
-		if (first_one < prev_first_one - 1 || first_one > prev_last_one)
-			return (-1);
-	}
-	return (0);
-}
-
-static int	check_middle_row(int last_one, int prev_last_one)
-{
-	int	diff;
-
-	if (prev_last_one != -1)
-	{
-		diff = last_one - prev_last_one;
-		if (diff > 1 || diff < -1)
-			return (-1);
-	}
-	return (0);
-}
-
-static int	check_last_row(int first_one, int last_one, int prev_first_one)
-{
-	if (prev_first_one < first_one - 1 || prev_first_one > last_one)
-		return (-1);
-	return (0);
-}
-
-int	process_row(t_data *data, int i, int *prev_first_one, int *prev_last_one)
-{
-	int	first_one;
-	int	last_one;
-
-	if (find_first_and_last_one(data->map[i], &first_one, &last_one) == -1)
-		return (-1);
-	if (i == 1)
-	{
-		if (check_second(first_one, *prev_first_one, *prev_last_one) == -1)
-			return (-1);
-	}
-	else if (i == data->map_size_y - 1)
-	{
-		if (check_last_row(first_one, last_one, *prev_first_one) == -1)
-			return (-1);
-	}
-	else
-	{
-		if (check_middle_row(last_one, *prev_last_one) == -1)
-			return (-1);
-	}
-	*prev_first_one = first_one;
-	*prev_last_one = last_one;
-	return (0);
+	return ;
 }
