@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 09:49:58 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/08 09:51:16 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 12:41:51 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static bool	flood_fill(t_data *data, char **temp_map, int x, int y)
 	cell = temp_map[y][x];
 	if (data->visited_map[y][x] == 1 || cell == WALL)
 		return (true);
-	if (cell == FLOOR || ft_strchr(DIRECTION, cell))
+	if (cell == FLOOR || cell == DOORC
+		|| cell == DOORO || ft_strchr(DIRECTION, cell))
 		return (false);
 	data->visited_map[y][x] = 1;
 	temp_map[y][x] = 'X';

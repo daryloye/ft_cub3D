@@ -170,6 +170,10 @@
 ## v41 - 8/12/2024
 - resolved invalid reads
 
+## v42 - 8/12/2024
+- resolved door issue. flood  fill will detact door as invalid
+- changed all whitespace to 0
+
 
 ## ISSUES LIST
 - F 220,100,2000000000000000000000000000000000000000000000000000000000000000 is valid when there should be an error
