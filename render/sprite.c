@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 14:31:38 by daong             #+#    #+#             */
-/*   Updated: 2024/12/07 14:19:37 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/08 10:51:02 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ int	init_sprite(t_data *data, t_display *display)
 	err |= create_sprite_img(data, display, SP_REST, "sprite/42_rest.xpm");
 	err |= create_sprite_img(data, display, SP_MOVE, "sprite/42_move.xpm");
 	err |= create_sprite_img(data, display, SP_ROT_LEFT, "sprite/42_left.xpm");
-	err |= create_sprite_img(data, display, SP_ROT_RIGHT, "sprite/42_right.xpm");
+	err |= create_sprite_img(data, display, SP_ROT_RIGHT,
+			"sprite/42_right.xpm");
 	err |= create_sprite_img(data, display, SP_PAUSE, "sprite/42_pause.xpm");
 	return (err);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/12/08 10:02:03 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 10:51:24 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,8 @@ int			get_map(t_data *data, char **text);
 int			check_leading_spaces(t_data *data);
 
 /* process_map/read_map2 */
-int			process_row(t_data *data, int i, int *prev_first_one, int *prev_last_one);
+int			process_row(t_data *data, int i, int *prev_first_one,
+				int *prev_last_one);
 
 /* process_map/read_map3 */
 bool		is_map_enclosed(t_data *data);
