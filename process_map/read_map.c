@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:29:48 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/08 10:02:15 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 12:06:53 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ Handle special case for the first row (check 2nd row alignment)
 ->Check if the first '1' in the second row is within the 
 range of first and last '1' of the first row
 */
+/*
 int	check_leading_spaces(t_data *data)
 {
 	int	i;
@@ -36,7 +37,7 @@ int	check_leading_spaces(t_data *data)
 	}
 	return (0);
 }
-
+*/
 /**
  * @brief read each map line and assign to map array if valid
  *
@@ -68,10 +69,10 @@ static int	validate_and_process_map(t_data *data)
 {
 	if (check_map(data) != 0)
 		return (-1);
-	if (check_leading_spaces(data) != 0)
-		return (-1);
+//	if (check_leading_spaces(data) != 0)
+//		return (-1);
 	create_temp_map_with_border(data);
-	replace_whitespace_with_zero_mod(data->temp_map, data->map_size_y);
+//	replace_whitespace_with_zero_mod(data->temp_map, data->map_size_y);
 	if (!is_map_enclosed(data))
 		return (-1);
 	replace_whitespace_with_zero_mod(data->map, data->map_size_y);
@@ -100,6 +101,21 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 	return (0);
 }
 
+void print_map(t_data *data)
+{
+    if (!data->map || data->map_size_y <= 0)
+    {
+        printf("Map is empty or not initialized.\n");
+        return;
+    }
+
+    printf("Map contents:\n");
+    for (int i = 0; i < data->map_size_y; i++)
+    {
+        printf("%s\n", data->map[i]);
+    }
+}
+
 /**
  * @brief Iterate through the provided text array to find map
  * remove /n character for each row in map
@@ -120,5 +136,6 @@ int	get_map(t_data *data, char **text)
 		if (data->map)
 			break ;
 	}
+	print_map(data);
 	return (0);
 }
