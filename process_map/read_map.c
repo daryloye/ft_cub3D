@@ -6,7 +6,7 @@
 /*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:29:48 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/08 09:25:00 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 09:39:50 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,33 @@ static int	get_map_size(t_data *data, char **text, int i)
  *
  * @param data
  */
+static void	fill_temp_map_row(t_data *data, int i)
+{
+	int	j;
+	int	row_len;
+
+	j = 0;
+	while (j < data->map_size_x + 2)
+	{
+		if (i == 0 || i == data->map_size_y + 1 || j == 0
+			|| j == data->map_size_x + 1)
+			data->temp_map[i][j] = 'F';
+		else
+		{
+			row_len = ft_strlen(data->map[i - 1]);
+			if (j - 1 < row_len && data->map[i - 1][j - 1] != '\n')
+				data->temp_map[i][j] = data->map[i - 1][j - 1];
+			else
+				data->temp_map[i][j] = 'F';
+		}
+		j++;
+	}
+	data->temp_map[i][j] = '\0';
+}
+
 static void	create_temp_map_with_border(t_data *data)
 {
 	int	i;
-	int	j;
-	int	row_len;
 
 	i = 0;
 	data->temp_map = (char **)ft_calloc(data->map_size_y + 2, sizeof(char *));
@@ -152,23 +174,7 @@ static void	create_temp_map_with_border(t_data *data)
 	{
 		data->temp_map[i] = (char *)ft_calloc(data->map_size_x + 3,
 				sizeof(char));
-		j = 0;
-		while (j < data->map_size_x + 2)
-		{
-			if (i == 0 || i == data->map_size_y + 1 || j == 0
-				|| j == data->map_size_x + 1)
-				data->temp_map[i][j] = 'F';
-			else
-			{
-				row_len = ft_strlen(data->map[i - 1]);
-				if (j - 1 < row_len && data->map[i - 1][j - 1] != '\n')
-					data->temp_map[i][j] = data->map[i - 1][j - 1];
-				else
-					data->temp_map[i][j] = 'F';
-			}
-			j++;
-		}
-		data->temp_map[i][j] = '\0';
+		fill_temp_map_row(data, i);
 		i++;
 	}
 }
@@ -297,7 +303,8 @@ static int	check_door(t_data *data, int i)
 }
 
 /**
- * @brief check if map is valid, to handle empty line, and to handle invalid char,
+ * @brief check if map is valid, to handle empty line,
+ * and to handle invalid char,
  *repeated players and to assign player position and direction
  *
  * @param data
@@ -352,84 +359,27 @@ static void	replace_whitespace_with_zero_mod(char **map, int map_size_y)
 Find the first and last positions of consecutive '1's in the current line
 Error if no '1' found on the current line
 Handle special case for the first row (check 2nd row alignment)
-->Check if the first '1' in the second row is within the range of first and last '1' of the first row
+->Check if the first '1' in the second row is within the 
+range of first and last '1' of the first row
 */
-/*
-static int check_leading_spaces(t_data *data)
+int	check_leading_spaces(t_data *data)
 {
-    int i;
-	int diff;
-    int first_one;
-	int	last_one;
+	int	i;
 	int	prev_first_one;
 	int	prev_last_one;
 
 	i = 0;
-	diff = 0;
 	prev_first_one = -1;
 	prev_last_one = -1;
-    while (i < data->map_size_y)
-    {
-        first_one = -1;
-        last_one = -1;
-        int j = 0;
-        while (data->map[i][j])
-        {
-            if (data->map[i][j] == '1')
-            {
-                if (first_one == -1)
-                    first_one = j;
-                last_one = j;
-            }
-            j++;
-        }
-        if (first_one == -1 || last_one == -1)
-            return (-1);
-        if (i == 1)
-        {
-            if (prev_first_one != -1)
-            {
-                if (first_one < prev_first_one - 1 || first_one > prev_last_one)
-						return (-1);
-            }
-        }
-        else if (i == data->map_size_y - 1)
-        {
-            if (prev_first_one < first_one - 1 || prev_first_one > last_one)
-                return (-1);
-        }
-        else if (i != 1 && i != data->map_size_y - 1)
-        {
-            if (prev_last_one != -1)
-            {
-                diff = last_one - prev_last_one;
-                if (diff > 1 || diff < -1)
-                    return (-1);
-            }
-        }
-        prev_first_one = first_one;
-        prev_last_one = last_one;
-        i++;
-    }
-
-    return (0);
+	while (i < data->map_size_y)
+	{
+		if (process_row(data, i, &prev_first_one, &prev_last_one) == -1)
+			return (-1);
+		i++;
+	}
+	return (0);
 }
-*/
-int check_leading_spaces(t_data *data)
-{
-    int i = 0;
-    int prev_first_one = -1;
-    int prev_last_one = -1;
 
-    while (i < data->map_size_y)
-    {
-        if (process_row(data, i, &prev_first_one, &prev_last_one) == -1)
-            return (-1);
-        i++;
-    }
-
-    return (0);
-}
 /**
  * @brief read each map line and assign to map array if valid
  *
@@ -439,38 +389,55 @@ int check_leading_spaces(t_data *data)
  * @param i
  * @return int 0 if success, -1 if fail 
  */
+static int	handle_map_initialization(t_data *data, char **text, int i)
+{
+	int	j;
+
+	get_map_size(data, text, i);
+	data->map = ft_calloc(data->map_size_y + 1, sizeof(char *));
+	if (!data->map)
+		return (-1);
+	j = i;
+	while (j - i < data->map_size_y)
+	{
+		data->map[j - i] = ft_strdup(text[j]);
+		j++;
+	}
+	data->map[data->map_size_y] = NULL;
+	return (0);
+}
+
+static int	validate_and_process_map(t_data *data)
+{
+	if (check_map(data) != 0)
+		return (-1);
+	if (check_leading_spaces(data) != 0)
+		return (-1);
+	create_temp_map_with_border(data);
+	replace_whitespace_with_zero_mod(data->temp_map, data->map_size_y);
+	if (!is_map_enclosed(data))
+		return (-1);
+	replace_whitespace_with_zero_mod(data->map, data->map_size_y);
+	return (0);
+}
+
 static int	read_map_line(char *line, t_data *data, char **text, int i)
 {
 	int	identifier;
-	int	j;
 
 	identifier = map_identifier(line);
 	if (identifier == -1)
 		return (0);
 	if (identifier == 0)
-	{	
+	{
 		if (data->map)
 			free_map(data);
 		if (!data->map)
 		{
-			get_map_size(data, text, i);
-			data->map = ft_calloc(data->map_size_y + 1, sizeof(char *));
-			j = i;
-			while (j - i < data->map_size_y)
-			{
-				data->map[j - i] = ft_strdup(text[j]);
-				j++;
-			}
-			data->map[data->map_size_y] = NULL;
-			if (check_map(data) != 0)
+			if (handle_map_initialization(data, text, i) != 0)
 				return (-1);
-			if (check_leading_spaces(data) != 0)
+			if (validate_and_process_map(data) != 0)
 				return (-1);
-			create_temp_map_with_border(data);
-			replace_whitespace_with_zero_mod(data->temp_map, data->map_size_y);
-			if (!is_map_enclosed(data))
-				return (-1);
-			replace_whitespace_with_zero_mod(data->map, data->map_size_y);
 		}
 	}
 	return (0);
@@ -494,8 +461,7 @@ int	get_map(t_data *data, char **text)
 		if (read_map_line(text[i], data, text, i) != 0)
 			return (print_error("Invalid map"), 1);
 		if (data->map)
-			break;
+			break ;
 	}
 	return (0);
 }
-
