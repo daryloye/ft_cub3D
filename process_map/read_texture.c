@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 18:35:10 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/08 08:25:25 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 13:11:18 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*find_path(char *line)
 	start = i;
 	while (line[i] != '\0' && line[i] != ' ')
 		i++;
-	path = calloc(i - start + 1, sizeof(char));
+	path = ft_calloc(i - start + 1, sizeof(char));
 	while (j < (i - start))
 	{
 		path[j] = line[start + j];
