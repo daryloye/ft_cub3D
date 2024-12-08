@@ -6,7 +6,7 @@
 /*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/12/08 09:27:13 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 09:50:29 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,9 @@ int			check_leading_spaces(t_data *data);
 
 /* process_map/read_map2 */
 int			process_row(t_data *data, int i, int *prev_first_one, int *prev_last_one);
+
+/* process_map/read_map3 */
+bool		is_map_enclosed(t_data *data);
 
 /* process_map/read_identifier */
 int			check_identifiers(char **text);

@@ -28,7 +28,7 @@ SRC =	./cub3d.c	\
 		./process_map/read_file.c		./process_map/read_texture.c	./process_map/read_texture2.c \
 		./process_map/read_identifier.c	./process_map/read_utils.c	\
 		./process_map/read_color.c		./process_map/read_color2.c		./process_map/read_map.c	\
-		./process_map/read_map2.c	\
+		./process_map/read_map2.c		./process_map/read_map3.c \
 
 OBJ_DIR = obj
 OBJECTS = $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(SRC)))
