@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:29:48 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/08 12:06:53 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 12:49:58 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,20 +101,37 @@ static int	read_map_line(char *line, t_data *data, char **text, int i)
 	return (0);
 }
 
-void print_map(t_data *data)
+void	update_map_size(t_data *data)
 {
-    if (!data->map || data->map_size_y <= 0)
-    {
-        printf("Map is empty or not initialized.\n");
-        return;
-    }
+	int	new_size_x;
+	int	y;
 
-    printf("Map contents:\n");
-    for (int i = 0; i < data->map_size_y; i++)
-    {
-        printf("%s\n", data->map[i]);
-    }
+	new_size_x = 0;
+	y = -1;
+	while (data->map[++y])
+		new_size_x = ft_max(ft_strlen(data->map[y]), new_size_x);
+	data->map_size_x = new_size_x;
+	return ;
 }
+
+void	sanitise_map(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (data->map[++y])
+	{
+		x = -1;
+		while (data->map[y][++x])
+		{
+			if (data->map[y][x] == '\n')
+				data->map[y][x] = '\0';
+		}
+	}
+	return ;
+}
+
 
 /**
  * @brief Iterate through the provided text array to find map
@@ -136,6 +153,7 @@ int	get_map(t_data *data, char **text)
 		if (data->map)
 			break ;
 	}
-	print_map(data);
+	sanitise_map(data);
+	update_map_size(data);
 	return (0);
 }

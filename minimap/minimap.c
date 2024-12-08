@@ -6,7 +6,7 @@
 /*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:54:58 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 10:51:20 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/08 12:49:21 by daong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	render_minimap(t_data *data)
 	{
 		data->minimap->wall_length = get_wall_length(data);
 		data->minimap->background = init_blank_image(data,
-				(data->map_size_x - 1) * data->minimap->wall_length,
+				data->map_size_x * data->minimap->wall_length,
 				data->map_size_y * data->minimap->wall_length);
 		if (!data->minimap->background.img_ptr)
 			return (1);
@@ -60,7 +60,7 @@ int	render_minimap(t_data *data)
 	if (!data->minimap->active.img_ptr)
 	{
 		data->minimap->active = init_blank_image(data,
-				(data->map_size_x - 1) * data->minimap->wall_length,
+				data->map_size_x * data->minimap->wall_length,
 				data->map_size_y * data->minimap->wall_length);
 		if (!data->minimap->active.img_ptr)
 			return (1);
