@@ -25,9 +25,10 @@ SRC =	./cub3d.c	\
 		./render/ray_direction.c	./render/ray_dir_utils.c	./render/ray_display.c	\
 		./render/fps.c				./render/math_utils.c		./render/sprite.c	\
 		./minimap/minimap.c			./minimap/minimap_background.c		./minimap/minimap_player.c	\
-		./process_map/read_file.c		./process_map/read_texture.c	\
+		./process_map/read_file.c		./process_map/read_texture.c	./process_map/read_texture2.c \
 		./process_map/read_identifier.c	./process_map/read_utils.c	\
-		./process_map/read_color.c		./process_map/read_map.c	\
+		./process_map/read_color.c		./process_map/read_color2.c		./process_map/read_map.c	\
+		./process_map/read_map2.c	\
 
 OBJ_DIR = obj
 OBJECTS = $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(SRC)))

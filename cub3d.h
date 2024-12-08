@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/12/07 10:16:13 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/08 09:27:13 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,11 +247,24 @@ int			read_file(char *path, t_data *data);
 /* process_map/read_texture */
 int			get_textures(t_data *data, char **text);
 
+/* process_map/read_texture2 */
+int			set_texture(void *mlx_ptr, char *file_path, t_img *texture);
+
 /* process_map/read_color */
 int			get_color(t_data *data, char **text);
 
+/* process_map/read_color2 */
+int			check_for_spaces(char *line);
+int			parse_value(char *line, int *start);
+int			parse_comma(char *line, int *start, int comma_count);
+int			skip_initial_whitespace(char *line, int start);
+
 /* process_map/read_map */
 int			get_map(t_data *data, char **text);
+int			check_leading_spaces(t_data *data);
+
+/* process_map/read_map2 */
+int			process_row(t_data *data, int i, int *prev_first_one, int *prev_last_one);
 
 /* process_map/read_identifier */
 int			check_identifiers(char **text);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_identifier.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:32:40 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/27 09:29:42 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/08 08:29:53 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ static bool	all_identifiers_found(int *found)
  */
 static int	check_id(const char *line, int *found)
 {
-	int	i;
-	int	len;
+	int			i;
+	int			len;
 	const char	*id[6] = {"NO", "SO", "WE", "EA", "F", "C"};
 
 	i = 0;
 	while (i < 6)
 	{
 		len = ft_strlen(id[i]);
-		if (ft_strncmp(line, id[i], len) == 0 && 
-			((line[len] == ' ' || line[len] == '\t' || line[len] == '\0')))
+		if (ft_strncmp(line, id[i], len) == 0
+			&& ((line[len] == ' ' || line[len] == '\t' || line[len] == '\0')))
 		{
 			if (found[i])
 				return (print_error("Duplicate identifier found"), -1);
@@ -64,7 +64,8 @@ static int	check_id(const char *line, int *found)
 
 /**
  * @brief check for main 6 identifier  
- * "if (result == 0) and if (all_id_found)": this condition means '1' can only appear 
+ * "if (result == 0) and if (all_id_found)": this condition means '
+ * '1' can only appear 
  * after 6 identifiers is found.
  *
  * @param line
@@ -103,7 +104,7 @@ static bool	check_id_and_one(const char *line, int *found, bool all_id_found)
 static bool	is_line_valid(char *line, int *found, bool all_id_found)
 {
 	if (is_empty_line(line))
-        	return (true);
+		return (true);
 	line = skip_whitespaces(line);
 	return (check_id_and_one(line, found, all_id_found));
 }
@@ -142,4 +143,3 @@ int	check_identifiers(char **text)
 	}
 	return (0);
 }
-

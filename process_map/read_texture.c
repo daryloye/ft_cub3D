@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 18:35:10 by wkoh              #+#    #+#             */
-/*   Updated: 2024/12/04 11:14:53 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/08 08:25:25 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-static int	set_texture(void *mlx_ptr, char *file_path, t_img *texture)
-{
-	texture->img_ptr = mlx_xpm_file_to_image(mlx_ptr, file_path, &texture->width, &texture->height);
-	if (!texture->img_ptr)
-		return (print_error("Failed to load texture"), 1);
-	texture->addr = mlx_get_data_addr(texture->img_ptr, &texture->bits_per_pixel,
-			&texture->line_length, &texture->endian);
-	if (!texture->addr)
-		return (print_error("Failed to get data address for texture"), 1);
-	return (0);
-}
 
 /**
  * @brief get the path of the texture file
@@ -31,12 +19,12 @@ static int	set_texture(void *mlx_ptr, char *file_path, t_img *texture)
  * @param texture
  * @return char * 
  */
-static char *find_path(char *line)
+static char	*find_path(char *line)
 {
 	int		i;
 	int		j;
 	int		start;
-	char*	path;
+	char	*path;
 
 	i = 3;
 	j = 0;
@@ -50,8 +38,8 @@ static char *find_path(char *line)
 	{
 		path[j] = line[start + j];
 		j++;
-    }
-    return (path);
+	}
+	return (path);
 }
 
 /**
@@ -61,7 +49,7 @@ static char *find_path(char *line)
  * @param texture
  * @return int 
  */
-static int  texture_identifier(const char *line)
+static int	texture_identifier(const char *line)
 {
 	if ((ft_strncmp(line, "NO ", 3) == 0) || (ft_strncmp(line, "NO\t", 3) == 0))
 		return (0);
@@ -106,15 +94,15 @@ static int	check_file_name(char *path, char *suffix)
  * @param texture
  * @return int 
  */
-static int read_texture_line(char *line, t_texture *texture)
+static int	read_texture_line(char *line, t_texture *texture)
 {
-	int	identifier;
-	char	*path;
+	int			identifier;
+	char		*path;
 	static char	**texture_fields[4];
 
-	texture_fields[0] = &texture->north_texture,
-	texture_fields[1] = &texture->south_texture,
-	texture_fields[2] = &texture->west_texture,
+	texture_fields[0] = &texture->north_texture;
+	texture_fields[1] = &texture->south_texture;
+	texture_fields[2] = &texture->west_texture;
 	texture_fields[3] = &texture->east_texture;
 	line = skip_whitespaces(line);
 	identifier = texture_identifier(line);
@@ -152,11 +140,16 @@ int	get_textures(t_data *data, char **text)
 			return (print_error("Invalid texture"), 1);
 		i++;
 	}
-	if (set_texture(data->mlx->mlx_ptr, data->texture->north_texture, &data->texture->north) == 1
-		|| set_texture(data->mlx->mlx_ptr, data->texture->south_texture, &data->texture->south) == 1
-		|| set_texture(data->mlx->mlx_ptr, data->texture->east_texture, &data->texture->east) == 1
-		|| set_texture(data->mlx->mlx_ptr, data->texture->west_texture, &data->texture->west) == 1
-		|| set_texture(data->mlx->mlx_ptr, "./img/door.xpm", &data->texture->door) == 1)
+	if (set_texture(data->mlx->mlx_ptr, data->texture->north_texture,
+			&data->texture->north) == 1
+		|| set_texture(data->mlx->mlx_ptr, data->texture->south_texture,
+			&data->texture->south) == 1
+		|| set_texture(data->mlx->mlx_ptr, data->texture->east_texture,
+			&data->texture->east) == 1
+		|| set_texture(data->mlx->mlx_ptr, data->texture->west_texture,
+			&data->texture->west) == 1
+		|| set_texture(data->mlx->mlx_ptr, "./img/door.xpm",
+			&data->texture->door) == 1)
 		return (1);
 	return (0);
 }

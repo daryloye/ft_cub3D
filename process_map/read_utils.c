@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:53:00 by wkoh              #+#    #+#             */
-/*   Updated: 2024/11/30 22:39:24 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/08 08:15:45 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
  * @param line
  * @return char
  */
-char	*skip_whitespaces(char *line) 
+char	*skip_whitespaces(char *line)
 {
-	while (*line == ' ' || *line == '\t') 
+	while (*line == ' ' || *line == '\t')
 		line++;
 	return (line);
 }
@@ -36,7 +36,8 @@ void	remove_trailing_whitespace(char *line)
 	int	len;
 
 	len = ft_strlen(line) - 1;
-	while (len >= 0 && (line[len] == ' ' || line[len] == '\n' || line[len] == '\t'))
+	while (len >= 0 && (line[len] == ' '
+			|| line[len] == '\n' || line[len] == '\t'))
 		line[len--] = '\0';
 }
 
@@ -49,7 +50,7 @@ void	remove_trailing_whitespace(char *line)
 bool	is_empty_line(char *line)
 {
 	if (line == NULL || *line == '\0')
-			return (true);
+		return (true);
 	while (*line)
 	{
 		if (*line != ' ' && *line != '\t' && *line != '\n')
