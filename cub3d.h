@@ -6,7 +6,7 @@
 /*   By: wkoh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/12/08 09:50:29 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/08 10:02:03 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,22 @@ int			process_row(t_data *data, int i, int *prev_first_one, int *prev_last_one);
 
 /* process_map/read_map3 */
 bool		is_map_enclosed(t_data *data);
+
+/* process_map/read_map4 */
+void		create_temp_map_with_border(t_data *data);
+int			get_map_size(t_data *data, char **text, int i);
+int			map_identifier(char *line);
+
+/* process_map/read_map5 */
+int			handle_empty_line(char *line, int line_index, int map_size_y);
+int			check_map_line(char *line, int i, bool *player_found, t_data *data);
+
+/* process_map/read_map6 */
+int			check_door(t_data *data, int i);
+
+/* process_map/read_map7 */
+void		replace_whitespace_with_zero_mod(char **map, int map_size_y);
+int			check_map(t_data *data);
 
 /* process_map/read_identifier */
 int			check_identifiers(char **text);
