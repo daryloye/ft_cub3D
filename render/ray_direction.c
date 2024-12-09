@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_direction.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daong <daong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 00:57:11 by daong             #+#    #+#             */
-/*   Updated: 2024/12/04 11:43:14 by daong            ###   ########.fr       */
+/*   Updated: 2024/12/09 17:06:02 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static int	hor_n(t_data *data, double *ray)
 		return (1);
 	ray[NEW_Y] = (int)ray[START_Y];
 	ray[NEW_X] = (ray[START_Y] - ray[NEW_Y]) * tan(ray[ANGLE]) + ray[START_X];
-	if (check_in_map(data, ray) == 1)
+	if (check_in_map_mod(data, ray) == 1)
 		return (1);
 	map_c = data->map[(int)ray[NEW_Y] - 1][(int)ray[NEW_X]];
 	while (map_c == FLOOR || map_c == DOORO)
 	{
 		ray[NEW_X] += tan(ray[ANGLE]);
 		ray[NEW_Y] -= 1;
-		if (check_in_map(data, ray) == 1)
+		if (check_in_map_mod(data, ray) == 1)
 			return (1);
 		map_c = data->map[(int)ray[NEW_Y] - 1][(int)ray[NEW_X]];
 	}

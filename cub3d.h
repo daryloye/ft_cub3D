@@ -6,7 +6,7 @@
 /*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 09:30:52 by daong             #+#    #+#             */
-/*   Updated: 2024/12/08 13:01:18 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/09 17:04:53 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,7 @@ int			create_single_ray(t_data *data, double ray_angle, int x_pix);
 
 /* render/ray_dir_utils */
 int			check_in_map(t_data *data, double *ray);
+int			check_in_map_mod(t_data *data, double *ray);
 int			check_dist(double *ray, int dir, char map_c);
 
 /* render/ray_display.c */
