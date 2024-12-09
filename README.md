@@ -175,7 +175,10 @@
 - changed all whitespace to 0
 
 ## v43 - 9/12/2024
-- resolve segfault for hor_n
+- resolve segfault for hor_n by creating check_in_map_mod for adjusted y
+
+## v44 - 9/12/2024
+- resolved invalid minimap read and refactored out
 
 ## ISSUES LIST
 - F 220,100,2000000000000000000000000000000000000000000000000000000000000000 is valid when there should be an error
