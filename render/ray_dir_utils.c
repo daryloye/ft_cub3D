@@ -6,7 +6,7 @@
 /*   By: wkoh <wkoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 12:02:40 by daong             #+#    #+#             */
-/*   Updated: 2024/12/09 17:04:50 by wkoh             ###   ########.fr       */
+/*   Updated: 2024/12/09 17:15:16 by wkoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,14 @@ int	check_in_map_mod(t_data *data, double *ray)
 {
 	int	adjusted_y;
 
-    adjusted_y = (int)ray[NEW_Y] - 1;
-    if (adjusted_y < 0 || adjusted_y >= data->map_size_y)
-        return (1);
-    if (data->map[adjusted_y] == NULL)
-        return (1);
-    if (ray[NEW_X] < 0 || ray[NEW_X] >= ft_strlen(data->map[adjusted_y]))
-        return (1);
-    return (0);
+	adjusted_y = (int)ray[NEW_Y] - 1;
+	if (adjusted_y < 0 || adjusted_y >= data->map_size_y
+		|| ray[NEW_X] < 0
+		|| ray[NEW_X] >= ft_strlen(data->map[(int)adjusted_y]))
+		return (1);
+	else
+		return (0);
 }
-
 
 /**
  * @brief finds dist from player to wall.
