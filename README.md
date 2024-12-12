@@ -180,6 +180,9 @@
 ## v44 - 9/12/2024
 - resolved invalid minimap read and refactored out
 
+## v45 - 12/12/2024
+- resolved segfault from sanitize map.
+
 ## ISSUES LIST
 - F 220,100,2000000000000000000000000000000000000000000000000000000000000000 is valid when there should be an error
 

@@ -92,6 +92,8 @@ int	get_map(t_data *data, char **text)
 		if (data->map)
 			break ;
 	}
+	if (!data->map)
+		return (print_error("Map could not be initialized"), 1);
 	sanitise_map(data);
 	update_map_size(data);
 	return (0);
