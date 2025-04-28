@@ -27,6 +27,7 @@ git clone https://github.com/daryloye/ft_cub3D.git
 cd ft_cub3D
 make
 ./cub3D maps/map_door.cub
+```
 
 ## Controls
 
